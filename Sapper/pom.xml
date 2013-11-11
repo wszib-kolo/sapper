@@ -2,6 +2,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>WSZIB-KOLO</groupId>
   <artifactId>Sapper</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <name>Sapper</name>
 </project>
