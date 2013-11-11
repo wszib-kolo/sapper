@@ -64,6 +64,8 @@ public class SapperGui extends JFrame {
 			case WIN:
 				button.setText("W");
 				break;
+			default:
+				break;
 			}
 			button.setEnabled(false);
 		}
