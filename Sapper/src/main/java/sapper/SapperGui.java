@@ -65,6 +65,7 @@ public class SapperGui extends JFrame {
 				button.setText("W");
 				break;
 			}
+			button.setEnabled(false);
 		}
 	}
 
@@ -86,15 +87,14 @@ public class SapperGui extends JFrame {
 		for (int posX = 0; posX < sizeX; posX++) {
 			for (int posY = 0; posY < sizeY; posY++) {
 				buttons[posX][posY] = new JButton("");
-				buttons[posX][posY].addActionListener(new ButtonListener(posX,
-						posY));
+				buttons[posX][posY].addActionListener(new ButtonListener(posX, posY));
 				panel.add(buttons[posX][posY]);
 			}
 		}
 		// Window settings
 		setTitle("Sapper");
-		setSize((sizeX) * 45 + 6, (sizeY + 2) * 45 + 7);
-		setResizable(false);
+		setSize((sizeY) * 43 + 6, (sizeX) * 43 + 7);
+		setResizable(true);
 	}
 
 	public static void main(String[] args) {
