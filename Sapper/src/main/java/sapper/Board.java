@@ -1,9 +1,8 @@
 package sapper;
 
-public class Board {
-
+public class Board{
 	private Field[][] fields;
-	private int numberUncovertedMines;
+	private int numberUncoveredMines;
 	private int numberOfMines;
 	private int sizeX, sizeY;
 	private boolean boom;
@@ -12,25 +11,33 @@ public class Board {
 		this.numberOfMines = numberOfMines;
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
-		fields = new Field[sizeX][sizeY];
 		fillArray();
-		fields[3][3].setMine(true);
-		fields[1][1].setMine(true);
+		int [][]mines=RandomMines();
+		setMines(mines);
+		generateBoard();
+	}
+	
+	public Board(int sizeX, int sizeY, int numberOfMines, int [][] mines){
+		this.numberOfMines = numberOfMines;
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		fillArray();
+		setMines(mines);
 		generateBoard();
 	}
 
 	public int checkField(int posX, int posY) {
 		if (fields[posX][posY].isCover() == true) {
-			fields[posX][posY].setUnCover();
+			fields[posX][posY].setCover(false);
 			boom = fields[posX][posY].isMine();
-			numberUncovertedMines++;
+			numberUncoveredMines++;
 			return fields[posX][posY].getNearMinesNumber();
 		}
 		return -1;
 	}
 
 	public boolean isWin() {
-		if (numberUncovertedMines + numberOfMines == sizeX * sizeY) {
+		if (numberUncoveredMines + numberOfMines == sizeX * sizeY) {
 			return true;
 		}
 		return false;
@@ -40,13 +47,35 @@ public class Board {
 		return boom;
 	}
 
-	private Field[][] fillArray() {
+	private void fillArray() {
+		fields = new Field[sizeX][sizeY];
 		for (int i = 0; i < sizeX; i++) {
 			for (int j = 0; j < sizeY; j++) {
 				fields[i][j] = new Field();
 			}
 		}
-		return fields;
+	}
+	private int [][] RandomMines(){
+		int [][] mines = new int[sizeX][sizeY];
+        int MinesSetted = 0;
+        while (MinesSetted < numberOfMines){
+                int x = (int) (Math.random() * sizeX);
+                int y = (int) (Math.random() * sizeY);
+                if (mines[x][y] != 1){
+                        mines[x][y] = 1;
+                        MinesSetted ++;
+                }
+        }
+		return mines;
+	}
+	private void setMines(int[][] mines) {
+		for (int x = 0; x < mines.length; x++) {
+			for (int y = 0; y < mines[0].length; y++) {
+				if(mines[x][y]==1){
+					fields[x][y].setMine(true);	
+				}
+			}
+		}
 	}
 
 	private void generateBoard() {
@@ -58,49 +87,35 @@ public class Board {
 				int up = y + 1;
 				int left = x - 1;
 				int right = x + 1;
-				boolean isThereBoardDown = up < sizeY;
-				boolean isThereBoardUp = down > -1;
-				boolean isThereBoardLeft = left > -1;
-				boolean isThereBoardRight = right < sizeX;
-				
-				if (fields[x][y].isMine() == true && sizeX > 1) {
-					// W lewo
-					if (isThereBoardLeft && fields[left][centerVertical].isMine() == false) {
-						fields[left][centerVertical].nearMinesNumber += 1;
+				boolean isThereBoardUp= (up < sizeY);
+				boolean isThereBoardDown = (down > -1);
+				boolean isThereBoardLeft = (left > -1);
+				boolean isThereBoardRight = (right < sizeX);
+
+				if (fields[centerHorizontal][centerVertical].isMine() == true) {
+					if (isThereBoardLeft==true) {
+						fields[left][centerVertical].increaseNearMinesNumber();
 					}
-					// Nad
-					if (isThereBoardUp && fields[centerHorizontal][up].isMine() == false) {
-						fields[centerHorizontal][up].nearMinesNumber += 1;
+					if (isThereBoardUp==true) {
+						fields[centerHorizontal][up].increaseNearMinesNumber();
 					}
-					// Pod
-					if (isThereBoardDown
-							&& fields[centerHorizontal][down].isMine() == false) {
-						fields[centerHorizontal][down].nearMinesNumber += 1;
+					if (isThereBoardDown==true) {
+						fields[centerHorizontal][down].increaseNearMinesNumber();
 					}
-					// W prawo
-					if (isThereBoardRight
-							&& fields[right][centerVertical].isMine() == false) {
-						fields[right][centerVertical].nearMinesNumber += 1;
+					if (isThereBoardRight==true) {
+						fields[right][centerVertical].increaseNearMinesNumber();
 					}
-					// W górę i w lewo od miny
-					if (isThereBoardLeft && isThereBoardUp
-							&& fields[left][up].isMine() == false) {
-						fields[left][up].nearMinesNumber += 1;
+					if (isThereBoardLeft==true && isThereBoardUp==true) {
+						fields[left][up].increaseNearMinesNumber();
 					}
-					// W górę i w prawo od miny
-					if (isThereBoardRight && isThereBoardUp
-							&& fields[right][up].isMine() == false) {
-						fields[right][up].nearMinesNumber += 1;
+					if (isThereBoardRight==true && isThereBoardUp==true) {
+						fields[right][up].increaseNearMinesNumber();
 					}
-					// W dół i w lewo od miny
-					if (isThereBoardLeft && isThereBoardDown
-							&& fields[left][down].isMine() == false) {
-						fields[left][down].nearMinesNumber += 1;
+					if (isThereBoardLeft==true && isThereBoardDown==true) {
+						fields[left][down].increaseNearMinesNumber();
 					}
-					// W dół i w prawo od miny
-					if (isThereBoardRight && isThereBoardDown
-							&& fields[right][down].isMine() == false) {
-						fields[right][down].nearMinesNumber += 1;
+					if (isThereBoardRight==true && isThereBoardDown==true) {
+						fields[right][down].increaseNearMinesNumber();
 					}
 				}
 			}
