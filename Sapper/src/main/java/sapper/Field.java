@@ -3,14 +3,14 @@ package sapper;
 public class Field {
 
         private boolean mine;
-        private int increaseNearMinesNumber = 0;
+        private int NearMinesNumber = 0;
         private boolean cover = true;
 
         public boolean isMine() {
                 return mine;
         }
         public void increaseNearMinesNumber(){
-        	increaseNearMinesNumber++;
+        	NearMinesNumber++;
         }
         public boolean isCover() {
                 return cover;
@@ -25,11 +25,11 @@ public class Field {
         }
 
         public int getNearMinesNumber() {
-                return increaseNearMinesNumber;
+                return NearMinesNumber;
         }
 
         public void setNearMinesNumber(int nearMinesNumber) {
-                this.increaseNearMinesNumber = nearMinesNumber;
+                this.NearMinesNumber = nearMinesNumber;
         }
 
 }

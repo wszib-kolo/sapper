@@ -16,14 +16,17 @@ public class Bridge {
 			return MineNumberWinLose.LOSE;
 		}
 		if(minesNumber>=0){
-			System.out.println(minesNumber);
 			return MineNumberWinLose.values()[minesNumber];
 		}
 		else return MineNumberWinLose.OTHER;
 		
 	}
 
-	public Bridge(int x, int y, int mines) {
-		gameBoard=new Board(x,y,mines);
+	public Bridge(int x, int y, int minesNumber) {
+		gameBoard=new Board(x,y,minesNumber);
+	}
+	
+	public Bridge(int x, int y, int minesNumber,int [][] mines){
+		gameBoard=new Board(x,y,minesNumber,mines);
 	}
 }
