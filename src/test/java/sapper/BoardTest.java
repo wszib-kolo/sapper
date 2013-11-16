@@ -5,6 +5,21 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class BoardTest {
+	@DataProvider(name = "FlagedFields")
+	public Object[][] FlagedFields() {
+		return new Object[][] { 
+				{1,1,0,0,0,0,true},
+				{2,2,0,0,1,1,false},
+		};
+	}
+	
+	@DataProvider(name = "FlagedCheckFields")
+	public Object[][] FlagedCheckFields() {
+		return new Object[][] { 
+				{1,1,0,0,0,0,-1},
+				{2,2,0,0,1,1,0},
+		};
+	}
 	@DataProvider(name = "FieldWithOrWithoutMinesTest")
 	public Object[][] FiveToFiveWithMines() {
 		return new Object[][] { 
@@ -61,5 +76,26 @@ public class BoardTest {
 		Assert.assertEquals(board.isLoose(), false);
 		board.checkField(0, 0);
 		Assert.assertEquals(board.isLoose(), true);
+	}
+	@Test(dataProvider = "FlagedFields")
+	public void FlagedCoverFieldTest(int sizeX, int sizeY, int posFlagX, int posFlagY, int posCheckX, int posCheckY, boolean isFieldFlaged){
+		Board board = new Board(sizeX, sizeY, 1);
+		board.flagField(posFlagX, posFlagY, true);
+		Assert.assertEquals(board.isFlaged(posCheckX, posCheckY), isFieldFlaged);
+	}
+	
+	@Test(dataProvider = "FlagedFields")
+	public void FlagedUncoverFieldTest(int sizeX, int sizeY, int posFlagX, int posFlagY, int posCheckX, int posCheckY, boolean isFieldFlaged){
+		Board board = new Board(sizeX, sizeY, 1);
+		board.checkField(posFlagX, posFlagY);
+		board.flagField(posFlagX, posFlagY, true);
+		Assert.assertEquals(board.isFlaged(posCheckX, posCheckY), false);
+	}
+	
+	@Test(dataProvider = "FlagedCheckFields")
+	public void FlagedCheckFieldTest(int sizeX, int sizeY, int posFlagX, int posFlagY, int posCheckX, int posCheckY, int ValueOfCheckReturn){
+		Board board = new Board(sizeX, sizeY, 0);
+		board.flagField(posFlagX, posFlagY, true);
+		Assert.assertEquals(board.checkField(posCheckX, posCheckY), ValueOfCheckReturn);
 	}
 }
