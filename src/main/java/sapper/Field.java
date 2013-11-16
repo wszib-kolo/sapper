@@ -1,7 +1,7 @@
 package sapper;
 
 public class Field {
-
+	private boolean flag = false;
         private boolean mine;
         private int NearMinesNumber = 0;
         private boolean cover = true;
