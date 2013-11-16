@@ -2,31 +2,45 @@ package sapper;
 
 public class Bridge {
 	public enum MineNumberWinLose {
-		ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, WIN, LOSE, OTHER;
+		ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, WIN, LOSE, FLAG, OTHER;
 	}
 
 	MineNumberWinLose status;
 	Board gameBoard;
-	public MineNumberWinLose checkMine(int x, int y) {
-		int minesNumber=gameBoard.checkField(x, y);
-		if(gameBoard.isWin()==true){
-			return MineNumberWinLose.WIN;
+
+	public boolean FlagField(int x, int y) {
+		if (gameBoard.isFlaged(x, y) == true) {
+			gameBoard.flagField(x, y, false);
+			return false;
+		} else {
+			gameBoard.flagField(x, y, true);
+			return true;
 		}
-		if(gameBoard.isLoose()){
+	}
+
+	public MineNumberWinLose checkMine(int x, int y) {
+		if (gameBoard.isFlaged(x, y) == true) {
+			return MineNumberWinLose.FLAG;
+		}
+		int minesNumber = gameBoard.checkField(x, y);
+		if (gameBoard.isLoose()) {
 			return MineNumberWinLose.LOSE;
 		}
-		if(minesNumber>=0){
-			return MineNumberWinLose.values()[minesNumber];
+		if (gameBoard.isWin() == true) {
+			return MineNumberWinLose.WIN;
 		}
-		else return MineNumberWinLose.OTHER;
-		
+		if (minesNumber >= 0) {
+			return MineNumberWinLose.values()[minesNumber];
+		} else
+			return MineNumberWinLose.OTHER;
+
 	}
 
 	public Bridge(int x, int y, int minesNumber) {
-		gameBoard=new Board(x,y,minesNumber);
+		gameBoard = new Board(x, y, minesNumber);
 	}
-	
-	public Bridge(int x, int y, int minesNumber,int [][] mines){
-		gameBoard=new Board(x,y,minesNumber,mines);
+
+	public Bridge(int x, int y, int minesNumber, int[][] mines) {
+		gameBoard = new Board(x, y, minesNumber, mines);
 	}
 }
