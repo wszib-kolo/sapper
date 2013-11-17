@@ -40,7 +40,10 @@ public class Board {
 		if (isFlaged(posX, posY) == true) {
 			return -1;
 		}
+<<<<<<< HEAD
 		boom = fields[posX][posY].isMine();
+=======
+>>>>>>> d208c922f3ad61a68ad6a00ee36fb29041e4b545
 		if (fields[posX][posY].isCover() == true) {
 			fields[posX][posY].setCover(false);
 			numberUncoveredMines++;

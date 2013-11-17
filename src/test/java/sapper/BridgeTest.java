@@ -152,6 +152,7 @@ public class BridgeTest {
 			}
 		};
 	}
+
 	@Test(dataProvider = "MinesSetsToTest")
 	public void checkMineTestAllWithoutLose(int sizeX, int sizeY, int numberOfMines, int[][] mines, MineNumberWinLose expectedReturnValue,int clicX,int clicY) {
 		Bridge bridge=new Bridge(sizeX,sizeY,numberOfMines,mines);

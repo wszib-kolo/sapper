@@ -49,7 +49,6 @@ public class SapperGui extends JFrame {
 		}
 
 		private void FieldFlaged(JButton button) {
-
 			boolean flagSetted = bridge.changeFieldFlagStatus(x, y);
 
 			if (flagSetted == true) {
