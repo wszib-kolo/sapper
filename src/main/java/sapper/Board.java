@@ -27,9 +27,9 @@ public class Board {
 	}
 
 	public int checkField(int posX, int posY) {
+		boom = fields[posX][posY].isMine();
 		if (fields[posX][posY].isCover() == true) {
 			fields[posX][posY].setCover(false);
-			boom = fields[posX][posY].isMine();
 			numberUncoveredMines++;
 			return fields[posX][posY].getNearMinesNumber();
 		}

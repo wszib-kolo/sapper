@@ -14,7 +14,8 @@ import sapper.Bridge.MineNumberWinLose;
 public class SapperGui extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	private JButton[][] buttons;
 	private MineNumberWinLose status;
 	private int sizeX, sizeY, mines;
 	private Bridge bridge;
@@ -25,6 +26,26 @@ public class SapperGui extends JFrame {
 		public ButtonListener(int posX, int posY) {
 			x = posX;
 			y = posY;
+		}
+		
+		public void loseEvent(){
+			for(int x=0; x<sizeX;x++){
+				for(int y=0;y<sizeY;y++){
+					if(bridge.checkMine(x, y) == MineNumberWinLose.FLAG){
+						bridge.changeFieldFlagStatus(x, y);
+						if(bridge.checkMine(x, y) == MineNumberWinLose.LOSE){
+							buttons[x][y].setText("F");
+						}
+						else {
+							buttons[x][y].setText("X");
+						}
+					}
+					if(bridge.checkMine(x, y) == MineNumberWinLose.LOSE){
+						buttons[x][y].setText("M");
+					}
+					buttons[x][y].setEnabled(false);
+				}
+			}
 		}
 
 		public void actionPerformed(ActionEvent e) {
@@ -59,7 +80,8 @@ public class SapperGui extends JFrame {
 				button.setText("8");
 				break;
 			case LOSE:
-				button.setText("L");
+				button.setText("M");
+				loseEvent();
 				break;
 			case WIN:
 				button.setText("W");
@@ -85,7 +107,7 @@ public class SapperGui extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(new GridLayout(sizeX, sizeY, 1, 1));
 		// Buttons creating
-		JButton[][] buttons = new JButton[sizeX][sizeY];
+		buttons = new JButton[sizeX][sizeY];
 		for (int posX = 0; posX < sizeX; posX++) {
 			for (int posY = 0; posY < sizeY; posY++) {
 				buttons[posX][posY] = new JButton("");
