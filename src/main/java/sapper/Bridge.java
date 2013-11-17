@@ -6,7 +6,7 @@ public class Bridge {
 	}
 
 	MineNumberWinLose status;
-	Board gameBoard;	
+	Board gameBoard;
 
 	public boolean changeFieldFlagStatus(int x, int y) {
 		if (gameBoard.isFlaged(x, y) == true) {
