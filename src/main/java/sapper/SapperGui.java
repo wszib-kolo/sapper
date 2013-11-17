@@ -6,7 +6,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -20,8 +19,6 @@ public class SapperGui extends JFrame {
 	private MineNumberWinLose status;
 	private int sizeX, sizeY, mines;
 	private Bridge bridge;
-	private JLabel minesCounter;
-	private int flags;
 
 	class ButtonListener implements MouseListener {
 		int x, y;
@@ -30,18 +27,20 @@ public class SapperGui extends JFrame {
 			x = posX;
 			y = posY;
 		}
-
-		public void loseEvent() {
-			for (int x = 0; x < sizeX; x++) {
-				for (int y = 0; y < sizeY; y++) {
-					if (bridge.checkMine(x, y) == MineNumberWinLose.FLAG) {
+		
+		public void loseEvent(){
+			for(int x=0; x<sizeX;x++){
+				for(int y=0;y<sizeY;y++){
+					if(bridge.checkMine(x, y) == MineNumberWinLose.FLAG){
 						bridge.changeFieldFlagStatus(x, y);
-						if (bridge.checkMine(x, y) == MineNumberWinLose.MINE) {
+						if(bridge.checkMine(x, y) == MineNumberWinLose.MINE){
 							buttons[x][y].setText("F");
-						} else {
+						}
+						else {
 							buttons[x][y].setText("X");
 						}
-					} else if (bridge.checkMine(x, y) == MineNumberWinLose.MINE) {
+					}
+					else if(bridge.checkMine(x, y) == MineNumberWinLose.MINE){
 						buttons[x][y].setText("M");
 					}
 					buttons[x][y].setEnabled(false);
@@ -49,21 +48,17 @@ public class SapperGui extends JFrame {
 			}
 		}
 
-		private void fieldFlaged(JButton button) {
+		private void FieldFlaged(JButton button) {
 			boolean flagSetted = bridge.changeFieldFlagStatus(x, y);
 
 			if (flagSetted == true) {
 				button.setText("F");
-				flags++;
-				calculateMines(mines, flags);
 			} else {
 				button.setText("");
-				flags--;
-				calculateMines(mines, flags);
 			}
 		}
 
-		private void fieldClick(JButton button) {
+		private void FieldClick(JButton button) {
 			status = bridge.checkMine(x, y);
 			switch (status) {
 			case ZERO:
@@ -109,43 +104,41 @@ public class SapperGui extends JFrame {
 			button.setEnabled(false);
 		}
 
+		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			JButton button = (JButton) arg0.getSource();
 			if (button.isEnabled() == true) {
 				if (arg0.getButton() == MouseEvent.BUTTON3) {
-					fieldFlaged(button);
+					FieldFlaged(button);
 				} else {
-					fieldClick(button);
+					FieldClick(button);
 				}
 			}
 		}
 
+		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
 		}
 
+		@Override
 		public void mouseExited(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
 		}
 
+		@Override
 		public void mousePressed(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
 		}
 
+		@Override
 		public void mouseReleased(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 
 		}
-	}
-
-	private void calculateMines(int mines, int flags) {
-		int numberOfMines = 0;
-		numberOfMines = mines - flags;
-
-		minesCounter.setText("Pozostało min: " + String.valueOf(numberOfMines));
 	}
 
 	public SapperGui() {
@@ -155,14 +148,12 @@ public class SapperGui extends JFrame {
 		bridge = new Bridge(sizeX, sizeY, mines);
 		initUI();
 	}
-	
 
 	private void initUI() {
 		// Panel creating
 		JPanel panel = new JPanel();
 		getContentPane().add(panel);
-		panel.setLayout(new GridLayout(sizeX + 1, sizeY, 1, 1));
-		
+		panel.setLayout(new GridLayout(sizeX, sizeY, 1, 1));
 		// Buttons creating
 		buttons = new JButton[sizeX][sizeY];
 		for (int posX = 0; posX < sizeX; posX++) {
@@ -173,11 +164,6 @@ public class SapperGui extends JFrame {
 				panel.add(buttons[posX][posY]);
 			}
 		}
-		
-		// Mines Counter creating
-		minesCounter = new JLabel(String.valueOf("Pozostało min: " + mines));
-		panel.add(minesCounter);
-
 		// Window settings
 		setTitle("Sapper");
 		setSize((sizeY) * 43 + 6, (sizeX) * 43 + 7);
@@ -186,6 +172,7 @@ public class SapperGui extends JFrame {
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				SapperGui saper = new SapperGui();
 				saper.setVisible(true);
