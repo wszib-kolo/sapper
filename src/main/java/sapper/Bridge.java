@@ -11,10 +11,10 @@ public class Bridge {
 	public boolean changeFieldFlagStatus(int x, int y) {
 		if (gameBoard.isFlaged(x, y) == true) {
 			gameBoard.flagField(x, y, false);
-			return false;
+			return gameBoard.isFlaged(x, y);
 		} else {
 			gameBoard.flagField(x, y, true);
-			return true;
+			return gameBoard.isFlaged(x, y);
 		}
 	}
 

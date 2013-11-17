@@ -140,6 +140,18 @@ public class BridgeTest {
 			}
 		};
 	}
+	@DataProvider(name = "FlagsSetsToFieldUncoverTest")
+	public Object[][] FlagsSetsToFieldUcoverTest() {
+		return new Object[][] { 
+			{ 2, 2, 2,
+				new int[][] {
+					{1,1},
+					{0,0}
+				},
+				true,1,1
+			}
+		};
+	}
 	@Test(dataProvider = "MinesSetsToTest")
 	public void checkMineTestAllWithoutLose(int sizeX, int sizeY, int numberOfMines, int[][] mines, MineNumberWinLose expectedReturnValue,int clicX,int clicY) {
 		Bridge bridge=new Bridge(sizeX,sizeY,numberOfMines,mines);
@@ -159,5 +171,13 @@ public class BridgeTest {
 		bridge.changeFieldFlagStatus(clicX, clicY);
 		MineNumberWinLose existValue=bridge.checkMine(checkX, checkY);
 		Assert.assertEquals(existValue,  expectedReturnValue);
+	}
+	@Test(dataProvider = "FlagsSetsToFieldUncoverTest")
+	public void chackMineFlagUncoverFieldTest(int sizeX, int sizeY, int numberOfMines, int[][] mines, boolean expectedReturnValue,int clicX,int clicY){
+		Bridge bridge=new Bridge(sizeX, sizeY,numberOfMines,mines);
+		bridge.checkMine(clicX, clicY);
+		bridge.changeFieldFlagStatus(clicX, clicX);
+		MineNumberWinLose existValue=bridge.checkMine(clicX, clicX);
+		Assert.assertEquals(existValue, MineNumberWinLose.OTHER);
 	}
 }

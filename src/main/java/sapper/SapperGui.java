@@ -26,9 +26,11 @@ public class SapperGui extends JFrame {
 			x = posX;
 			y = posY;
 		}
-		
-		private void FieldFlaged(JButton button){
+
+		private void FieldFlaged(JButton button) {
+
 			boolean flagSetted = bridge.changeFieldFlagStatus(x, y);
+
 			if (flagSetted == true) {
 				button.setText("F");
 			} else {
@@ -36,7 +38,7 @@ public class SapperGui extends JFrame {
 			}
 		}
 
-		private void FieldClick(JButton button){
+		private void FieldClick(JButton button) {
 			status = bridge.checkMine(x, y);
 			switch (status) {
 			case ZERO:
@@ -80,15 +82,16 @@ public class SapperGui extends JFrame {
 			}
 			button.setEnabled(false);
 		}
-		
+
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			JButton button = (JButton) arg0.getSource();
-			if (arg0.getButton() == MouseEvent.BUTTON3) {
-				FieldFlaged(button);
-			}
-			else {
-				FieldClick(button);	
+			if (button.isEnabled() == true) {
+				if (arg0.getButton() == MouseEvent.BUTTON3) {
+					FieldFlaged(button);
+				} else {
+					FieldClick(button);
+				}
 			}
 		}
 
@@ -135,7 +138,8 @@ public class SapperGui extends JFrame {
 		for (int posX = 0; posX < sizeX; posX++) {
 			for (int posY = 0; posY < sizeY; posY++) {
 				buttons[posX][posY] = new JButton("");
-				buttons[posX][posY].addMouseListener(new ButtonListener(posX, posY));
+				buttons[posX][posY].addMouseListener(new ButtonListener(posX,
+						posY));
 				panel.add(buttons[posX][posY]);
 			}
 		}

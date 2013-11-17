@@ -5,7 +5,7 @@ public class Board {
 	private int numberUncoveredMines;
 	private int numberOfMines;
 	private int sizeX, sizeY;
-	private boolean boom;
+	private boolean boom = false;
 
 	public Board(int sizeX, int sizeY, int numberOfMines) {
 		this.numberOfMines = numberOfMines;
