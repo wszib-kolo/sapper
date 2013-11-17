@@ -8,7 +8,7 @@ public class Bridge {
 	MineNumberWinLose status;
 	Board gameBoard;
 
-	public boolean FlagField(int x, int y) {
+	public boolean changeFieldFlagStatus(int x, int y) {
 		if (gameBoard.isFlaged(x, y) == true) {
 			gameBoard.flagField(x, y, false);
 			return false;

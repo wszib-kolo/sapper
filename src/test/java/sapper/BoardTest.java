@@ -77,6 +77,7 @@ public class BoardTest {
 		board.checkField(0, 0);
 		Assert.assertEquals(board.isLoose(), true);
 	}
+	
 	@Test(dataProvider = "FlagedFields")
 	public void FlagedCoverFieldTest(int sizeX, int sizeY, int posFlagX, int posFlagY, int posCheckX, int posCheckY, boolean isFieldFlaged){
 		Board board = new Board(sizeX, sizeY, 1);

@@ -14,7 +14,7 @@ import sapper.Bridge.MineNumberWinLose;
 public class SapperGui extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
+	private JButton[][] buttons;
 	private MineNumberWinLose status;
 	private int sizeX, sizeY, mines;
 	private Bridge bridge;
@@ -26,19 +26,17 @@ public class SapperGui extends JFrame {
 			x = posX;
 			y = posY;
 		}
-
-		@Override
-		public void mouseClicked(MouseEvent arg0) {
-			JButton button = (JButton) arg0.getSource();
-			if (arg0.getButton() == MouseEvent.BUTTON3) {
-				boolean isFlagSetOrUnSet = bridge.FlagField(x, y);
-				if (isFlagSetOrUnSet == true) {
-					button.setText("F");
-				} else {
-					button.setText("");
-				}
-				return;
+		
+		private void FieldFlaged(JButton button){
+			boolean flagSetted = bridge.changeFieldFlagStatus(x, y);
+			if (flagSetted == true) {
+				button.setText("F");
+			} else {
+				button.setText("");
 			}
+		}
+
+		private void FieldClick(JButton button){
 			status = bridge.checkMine(x, y);
 			switch (status) {
 			case ZERO:
@@ -81,7 +79,17 @@ public class SapperGui extends JFrame {
 				break;
 			}
 			button.setEnabled(false);
-
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			JButton button = (JButton) arg0.getSource();
+			if (arg0.getButton() == MouseEvent.BUTTON3) {
+				FieldFlaged(button);
+			}
+			else {
+				FieldClick(button);	
+			}
 		}
 
 		@Override
@@ -112,7 +120,7 @@ public class SapperGui extends JFrame {
 	public SapperGui() {
 		sizeX = 15;
 		sizeY = 10;
-		mines = 10;
+		mines = 25;
 		bridge = new Bridge(sizeX, sizeY, mines);
 		initUI();
 	}
@@ -123,12 +131,11 @@ public class SapperGui extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(new GridLayout(sizeX, sizeY, 1, 1));
 		// Buttons creating
-		JButton[][] buttons = new JButton[sizeX][sizeY];
+		buttons = new JButton[sizeX][sizeY];
 		for (int posX = 0; posX < sizeX; posX++) {
 			for (int posY = 0; posY < sizeY; posY++) {
 				buttons[posX][posY] = new JButton("");
-				buttons[posX][posY].addMouseListener(new ButtonListener(posX,
-						posY));
+				buttons[posX][posY].addMouseListener(new ButtonListener(posX, posY));
 				panel.add(buttons[posX][posY]);
 			}
 		}
