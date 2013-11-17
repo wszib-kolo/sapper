@@ -5,7 +5,7 @@ public class Board {
 	private int numberUncoveredMines;
 	private int numberOfMines;
 	private int sizeX, sizeY;
-	private boolean boom;
+	private boolean boom = false;
 
 	public Board(int sizeX, int sizeY, int numberOfMines) {
 		this.numberOfMines = numberOfMines;
@@ -26,7 +26,20 @@ public class Board {
 		generateBoard();
 	}
 
+	public void flagField(int posX, int posY, boolean flagStatus) {
+		if (fields[posX][posY].isCover() == true) {
+			fields[posX][posY].setFlag(flagStatus);
+		}
+	}
+
+	public boolean isFlaged(int posX, int posY) {
+		return fields[posX][posY].getFlag();
+	}
+
 	public int checkField(int posX, int posY) {
+		if (isFlaged(posX, posY) == true) {
+			return -1;
+		}
 		boom = fields[posX][posY].isMine();
 		if (fields[posX][posY].isCover() == true) {
 			fields[posX][posY].setCover(false);
