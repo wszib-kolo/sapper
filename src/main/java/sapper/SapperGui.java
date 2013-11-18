@@ -1,14 +1,14 @@
 package sapper;
 
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import sapper.Bridge.MineNumberWinLose;
 
 public class SapperGui extends JFrame {
@@ -20,27 +20,25 @@ public class SapperGui extends JFrame {
 	private int sizeX, sizeY, mines;
 	private Bridge bridge;
 
-	class ButtonListener implements MouseListener {
+	private class ButtonListener implements MouseListener {
 		int x, y;
 
 		public ButtonListener(int posX, int posY) {
 			x = posX;
 			y = posY;
 		}
-		
-		public void loseEvent(){
-			for(int x=0; x<sizeX;x++){
-				for(int y=0;y<sizeY;y++){
-					if(bridge.checkMine(x, y) == MineNumberWinLose.FLAG){
+
+		public void loseEvent() {
+			for (int x = 0; x < sizeX; x++) {
+				for (int y = 0; y < sizeY; y++) {
+					if (bridge.checkMine(x, y) == MineNumberWinLose.FLAG) {
 						bridge.changeFieldFlagStatus(x, y);
-						if(bridge.checkMine(x, y) == MineNumberWinLose.MINE){
+						if (bridge.checkMine(x, y) == MineNumberWinLose.MINE) {
 							buttons[x][y].setText("F");
-						}
-						else {
+						} else {
 							buttons[x][y].setText("X");
 						}
-					}
-					else if(bridge.checkMine(x, y) == MineNumberWinLose.MINE){
+					} else if (bridge.checkMine(x, y) == MineNumberWinLose.MINE) {
 						buttons[x][y].setText("M");
 					}
 					buttons[x][y].setEnabled(false);
@@ -50,7 +48,6 @@ public class SapperGui extends JFrame {
 
 		private void FieldFlaged(JButton button) {
 			boolean flagSetted = bridge.changeFieldFlagStatus(x, y);
-
 			if (flagSetted == true) {
 				button.setText("F");
 			} else {
@@ -115,29 +112,18 @@ public class SapperGui extends JFrame {
 				}
 			}
 		}
-
+		
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-
 		}
-
 		@Override
 		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-
 		}
-
 		@Override
 		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-
 		}
-
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-
 		}
 	}
 
@@ -159,24 +145,16 @@ public class SapperGui extends JFrame {
 		for (int posX = 0; posX < sizeX; posX++) {
 			for (int posY = 0; posY < sizeY; posY++) {
 				buttons[posX][posY] = new JButton("");
-				buttons[posX][posY].addMouseListener(new ButtonListener(posX,
-						posY));
+				buttons[posX][posY].addMouseListener(new ButtonListener(posX, posY));
+				buttons[posX][posY].setFont(new Font("Serif", Font.PLAIN, 10));
+				buttons[posX][posY].setMargin(new Insets(0, 0, 0, 0));
 				panel.add(buttons[posX][posY]);
 			}
 		}
 		// Window settings
 		setTitle("Sapper");
-		setSize((sizeY) * 43 + 6, (sizeX) * 43 + 7);
+		setSize((sizeY) * 25 + 6, (sizeX) * 25 + 7);
 		setResizable(true);
 	}
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				SapperGui saper = new SapperGui();
-				saper.setVisible(true);
-			}
-		});
-	}
 }
