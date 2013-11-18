@@ -121,7 +121,7 @@ public class SapperGui extends JFrame {
                 if (MineNumberWinLose.ZERO == field_up && x - 1 >= 0) {
                         buttons[x - 1][y].setText("0");
                         buttons[x - 1][y].setEnabled(false);
-                      
+                        fieldZero(x - 1, y);
                 }
                 if (MineNumberWinLose.ONE == field_up) {
                         buttons[x - 1][y].setText("1");
@@ -159,7 +159,7 @@ public class SapperGui extends JFrame {
                 if (MineNumberWinLose.ZERO == field_down && x + 1 < sizeX) {
                         buttons[x + 1][y].setEnabled(false);
                         buttons[x + 1][y].setText("0");
-                       
+                        fieldZero(x + 1, y);
                 }
 
                 if (MineNumberWinLose.ONE == field_down) {
@@ -198,7 +198,7 @@ public class SapperGui extends JFrame {
                 if (MineNumberWinLose.ZERO == field_rigt && y + 1 < sizeY) {
                         buttons[x][y + 1].setEnabled(false);
                         buttons[x][y + 1].setText("0");
-                        
+                        fieldZero(x, y + 1);
                 }
 
                 if (MineNumberWinLose.ONE == field_rigt) {
@@ -237,7 +237,7 @@ public class SapperGui extends JFrame {
                 if (MineNumberWinLose.ZERO == field_left && y - 1 >= 0) {
                         buttons[x][y - 1].setEnabled(false);
                         buttons[x][y - 1].setText("0");
-                       
+                        fieldZero(x, y - 1);
                 }
 
                 if (MineNumberWinLose.ONE == field_left) {
@@ -277,7 +277,7 @@ public class SapperGui extends JFrame {
                                 && x + 1 < sizeX) {
                         buttons[x + 1][y + 1].setEnabled(false);
                         buttons[x + 1][y + 1].setText("0");
-                      
+                        fieldZero(x + 1, y + 1);
                 }
 
                 if (MineNumberWinLose.ONE == field_down_right) {
@@ -317,7 +317,7 @@ public class SapperGui extends JFrame {
                                 && x - 1 >= 0) {
                         buttons[x - 1][y - 1].setEnabled(false);
                         buttons[x - 1][y - 1].setText("0");
-                       
+                        fieldZero(x - 1, y - 1);
                 }
 
                 if (MineNumberWinLose.ONE == field_up_left) {
@@ -357,7 +357,7 @@ public class SapperGui extends JFrame {
                                 && x + 1 < sizeX) {
                         buttons[x + 1][y - 1].setEnabled(false);
                         buttons[x + 1][y - 1].setText("0");
-                        
+                        fieldZero(x + 1, y - 1);
                 }
 
                 if (MineNumberWinLose.ONE == field_down_left) {
@@ -397,7 +397,7 @@ public class SapperGui extends JFrame {
                                 && y + 1 < sizeY) {
                         buttons[x - 1][y + 1].setEnabled(false);
                         buttons[x - 1][y + 1].setText("0");
-                       
+                        fieldZero(x - 1, y + 1);
                 }
 
                 if (MineNumberWinLose.ONE == field_up_right) {
