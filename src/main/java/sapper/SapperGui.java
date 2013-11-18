@@ -59,6 +59,7 @@ public class SapperGui extends JFrame {
 			status = bridge.checkMine(x, y);
 			switch (status) {
 			case ZERO:
+				fieldZero(x, y);
 				button.setText("0");
 				break;
 			case ONE:
@@ -100,8 +101,12 @@ public class SapperGui extends JFrame {
 			}
 			button.setEnabled(false);
 		}
+		
+		public void fieldZero(int x, int y){
+			
+		}
 
-		@Override
+		
 		public void mouseClicked(MouseEvent arg0) {
 			JButton button = (JButton) arg0.getSource();
 			if (button.isEnabled() == true) {
@@ -113,16 +118,16 @@ public class SapperGui extends JFrame {
 			}
 		}
 		
-		@Override
+		
 		public void mouseEntered(MouseEvent arg0) {
 		}
-		@Override
+	
 		public void mouseExited(MouseEvent arg0) {
 		}
-		@Override
+		
 		public void mousePressed(MouseEvent arg0) {
 		}
-		@Override
+		
 		public void mouseReleased(MouseEvent arg0) {
 		}
 	}
