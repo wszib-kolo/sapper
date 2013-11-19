@@ -135,6 +135,14 @@ public class SapperGui extends JFrame {
 		initUI();
 	}
 
+	public SapperGui(int sizeX, int sizeY, int mines) {
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		this.mines = mines;
+		bridge = new Bridge(sizeX, sizeY, mines);
+		initUI();
+	}
+
 	private void initUI() {
 		// Panel creating
 		JPanel panel = new JPanel();
