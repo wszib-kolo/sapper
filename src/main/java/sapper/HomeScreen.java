@@ -1,4 +1,4 @@
-package paka;
+package sapper;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +13,11 @@ public class HomeScreen extends javax.swing.JFrame {
     private JButton btnNewGame;
     private JButton btnOptions;
     private JLabel labelTitle;
+    
+    private int sizeX = 0;
+    private int sizeY = 0;
+    private int mines = 0;
+    
 
     
     public HomeScreen() {
@@ -20,7 +25,15 @@ public class HomeScreen extends javax.swing.JFrame {
     }
 
     
-    @SuppressWarnings("unchecked")
+    public HomeScreen(int xSize, int ySize, int mines) {
+    	this.sizeX = xSize;
+    	this.sizeY = ySize;
+    	this.mines = mines;
+    	initComponents();
+	}
+
+
+	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
@@ -90,27 +103,36 @@ public class HomeScreen extends javax.swing.JFrame {
         btnNewGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println("btn new");
-				
+				//Thread gui = new Thread(new GuiThreed(), "Gui Thread");
+				//gui.start();
+				startGame();
 			}
 		});
+        
+        
         btnOptions.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println("btn options");
+				showOptions();
 				
 			}
 		});
         
-    }                        
-   
-    public static void main(String args[]) {
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HomeScreen().setVisible(true);
-            }
-        });
+    }   
+    
+    private void startGame(){
+    	SapperGui saper = new SapperGui();
+		saper.setVisible(true);
+		this.setVisible(false);
     }
     
+    private void showOptions(){
+    	GuiOptions options = new GuiOptions(sizeX, sizeY, mines);
+    	options.setVisible(true);
+    	this.setVisible(false);
+    }
+    
+    
+  
 }

@@ -6,5 +6,6 @@ public class Main {
 	public static void main(String[] args) {
 		gui = new Thread(new GuiThreed(), "Gui Thread");
 		gui.start();
+		
 	}
 }
