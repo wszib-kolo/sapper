@@ -115,8 +115,7 @@ public class Board {
 						fields[centerHorizontal][up].increaseNearMinesNumber();
 					}
 					if (isThereBoardDown == true) {
-						fields[centerHorizontal][down]
-								.increaseNearMinesNumber();
+						fields[centerHorizontal][down].increaseNearMinesNumber();
 					}
 					if (isThereBoardRight == true) {
 						fields[right][centerVertical].increaseNearMinesNumber();
