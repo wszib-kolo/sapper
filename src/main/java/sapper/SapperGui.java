@@ -57,385 +57,156 @@ public class SapperGui extends JFrame {
 
 		private void FieldClick(JButton button) {
 			status = bridge.checkMine(x, y);
+			contentOfField(x, y, status);
+			buttons[x][y].setEnabled(false);
+		}
+
+		public void contentOfField(int x, int y, MineNumberWinLose status) {
 			switch (status) {
 			case ZERO:
 				fieldZero(x, y);
-				button.setText("0");
+				buttons[x][y].setText("0");
 				break;
 			case ONE:
-				button.setText("1");
+				buttons[x][y].setText("1");
 				break;
 			case TWO:
-				button.setText("2");
+				buttons[x][y].setText("2");
 				break;
 			case THREE:
-				button.setText("3");
+				buttons[x][y].setText("3");
 				break;
 			case FOUR:
-				button.setText("4");
+				buttons[x][y].setText("4");
 				break;
 			case FIVE:
-				button.setText("5");
+				buttons[x][y].setText("5");
 				break;
 			case SIX:
-				button.setText("6");
+				buttons[x][y].setText("6");
 				break;
 			case SEVEN:
-				button.setText("7");
+				buttons[x][y].setText("7");
 				break;
 			case EIGHT:
-				button.setText("8");
+				buttons[x][y].setText("8");
 				break;
 			case MINE:
-				button.setText("M");
+				buttons[x][y].setText("M");
 				loseEvent();
 				break;
 			case WIN:
-				button.setText("W");
+				buttons[x][y].setText("W");
 				break;
 			case FLAG:
-				button.setText("F");
+				buttons[x][y].setText("F");
 				return;
 			default:
 				break;
 			}
-			button.setEnabled(false);
-		}
-		
-		public void fieldZero(int x, int y){
-			if (x - 1 >= 0 && y - 1 >= 0 && x + 1 < sizeX && y + 1 < sizeY) {
-				 
-                MineNumberWinLose field_up = bridge.checkMine(x - 1, y);
-                MineNumberWinLose field_rigt = bridge.checkMine(x, y + 1);
-                MineNumberWinLose field_down = bridge.checkMine(x + 1, y);
-                MineNumberWinLose field_left = bridge.checkMine(x, y - 1);
-                MineNumberWinLose field_up_right = bridge.checkMine(x - 1,
-                                y + 1);
-                MineNumberWinLose field_up_left = bridge
-                                .checkMine(x - 1, y - 1);
-                MineNumberWinLose field_down_left = bridge.checkMine(x + 1,
-                                y - 1);
-                MineNumberWinLose field_down_right = bridge.checkMine(x + 1,
-                                y + 1);
-
-                if (MineNumberWinLose.ZERO == field_up && x - 1 >= 0) {
-                        buttons[x - 1][y].setText("0");
-                        buttons[x - 1][y].setEnabled(false);
-                        fieldZero(x - 1, y);
-                }
-                if (MineNumberWinLose.ONE == field_up) {
-                        buttons[x - 1][y].setText("1");
-                        buttons[x - 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.TWO == field_up) {
-                        buttons[x - 1][y].setText("2");
-                        buttons[x - 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.THREE == field_up) {
-                        buttons[x - 1][y].setText("3");
-                        buttons[x - 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.FOUR == field_up) {
-                        buttons[x - 1][y].setText("4");
-                        buttons[x - 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.FIVE == field_up) {
-                        buttons[x - 1][y].setText("5");
-                        buttons[x - 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.SIX == field_up) {
-                        buttons[x - 1][y].setText("6");
-                        buttons[x - 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.SEVEN == field_up) {
-                        buttons[x - 1][y].setText("7");
-                        buttons[x - 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.EIGHT == field_up) {
-                        buttons[x - 1][y].setText("8");
-                        buttons[x - 1][y].setEnabled(false);
-                }
-
-                if (MineNumberWinLose.ZERO == field_down && x + 1 < sizeX) {
-                        buttons[x + 1][y].setEnabled(false);
-                        buttons[x + 1][y].setText("0");
-                        fieldZero(x + 1, y);
-                }
-
-                if (MineNumberWinLose.ONE == field_down) {
-                        buttons[x + 1][y].setText("1");
-                        buttons[x + 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.TWO == field_down) {
-                        buttons[x + 1][y].setText("2");
-                        buttons[x + 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.THREE == field_down) {
-                        buttons[x + 1][y].setText("3");
-                        buttons[x + 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.FOUR == field_down) {
-                        buttons[x + 1][y].setText("4");
-                        buttons[x + 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.FIVE == field_down) {
-                        buttons[x + 1][y].setText("5");
-                        buttons[x + 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.SIX == field_down) {
-                        buttons[x + 1][y].setText("6");
-                        buttons[x + 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.SEVEN == field_down) {
-                        buttons[x + 1][y].setText("7");
-                        buttons[x + 1][y].setEnabled(false);
-                }
-                if (MineNumberWinLose.EIGHT == field_down) {
-                        buttons[x + 1][y].setText("8");
-                        buttons[x + 1][y].setEnabled(false);
-                }
-
-                if (MineNumberWinLose.ZERO == field_rigt && y + 1 < sizeY) {
-                        buttons[x][y + 1].setEnabled(false);
-                        buttons[x][y + 1].setText("0");
-                        fieldZero(x, y + 1);
-                }
-
-                if (MineNumberWinLose.ONE == field_rigt) {
-                        buttons[x][y + 1].setText("1");
-                        buttons[x][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.TWO == field_rigt) {
-                        buttons[x][y + 1].setText("2");
-                        buttons[x][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.THREE == field_rigt) {
-                        buttons[x][y + 1].setText("3");
-                        buttons[x][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.FOUR == field_rigt) {
-                        buttons[x][y + 1].setText("4");
-                        buttons[x][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.FIVE == field_rigt) {
-                        buttons[x][y + 1].setText("5");
-                        buttons[x][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.SIX == field_rigt) {
-                        buttons[x][y + 1].setText("6");
-                        buttons[x][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.SEVEN == field_rigt) {
-                        buttons[x][y + 1].setText("7");
-                        buttons[x][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.EIGHT == field_rigt) {
-                        buttons[x][y + 1].setText("8");
-                        buttons[x][y + 1].setEnabled(false);
-                }
-
-                if (MineNumberWinLose.ZERO == field_left && y - 1 >= 0) {
-                        buttons[x][y - 1].setEnabled(false);
-                        buttons[x][y - 1].setText("0");
-                        fieldZero(x, y - 1);
-                }
-
-                if (MineNumberWinLose.ONE == field_left) {
-                        buttons[x][y - 1].setText("1");
-                        buttons[x][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.TWO == field_left) {
-                        buttons[x][y - 1].setText("2");
-                        buttons[x][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.THREE == field_left) {
-                        buttons[x][y - 1].setText("3");
-                        buttons[x][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.FOUR == field_left) {
-                        buttons[x][y - 1].setText("4");
-                        buttons[x][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.FIVE == field_left) {
-                        buttons[x][y - 1].setText("5");
-                        buttons[x][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.SIX == field_left) {
-                        buttons[x][y - 1].setText("6");
-                        buttons[x][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.SEVEN == field_left) {
-                        buttons[x][y - 1].setText("7");
-                        buttons[x][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.EIGHT == field_left) {
-                        buttons[x][y - 1].setText("8");
-                        buttons[x][y - 1].setEnabled(false);
-                }
-
-                if (MineNumberWinLose.ZERO == field_down_right && y + 1 < sizeY
-                                && x + 1 < sizeX) {
-                        buttons[x + 1][y + 1].setEnabled(false);
-                        buttons[x + 1][y + 1].setText("0");
-                        fieldZero(x + 1, y + 1);
-                }
-
-                if (MineNumberWinLose.ONE == field_down_right) {
-                        buttons[x + 1][y + 1].setText("1");
-                        buttons[x + 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.TWO == field_down_right) {
-                        buttons[x + 1][y + 1].setText("2");
-                        buttons[x + 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.THREE == field_down_right) {
-                        buttons[x + 1][y + 1].setText("3");
-                        buttons[x + 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.FOUR == field_down_right) {
-                        buttons[x + 1][y + 1].setText("4");
-                        buttons[x + 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.FIVE == field_down_right) {
-                        buttons[x + 1][y + 1].setText("5");
-                        buttons[x + 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.SIX == field_down_right) {
-                        buttons[x + 1][y + 1].setText("6");
-                        buttons[x + 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.SEVEN == field_down_right) {
-                        buttons[x + 1][y + 1].setText("7");
-                        buttons[x + 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.EIGHT == field_down_right) {
-                        buttons[x + 1][y + 1].setText("8");
-                        buttons[x + 1][y + 1].setEnabled(false);
-                }
-
-                if (MineNumberWinLose.ZERO == field_up_left && y - 1 >= 0
-                                && x - 1 >= 0) {
-                        buttons[x - 1][y - 1].setEnabled(false);
-                        buttons[x - 1][y - 1].setText("0");
-                        fieldZero(x - 1, y - 1);
-                }
-
-                if (MineNumberWinLose.ONE == field_up_left) {
-                        buttons[x - 1][y - 1].setText("1");
-                        buttons[x - 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.TWO == field_up_left) {
-                        buttons[x - 1][y - 1].setText("2");
-                        buttons[x - 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.THREE == field_up_left) {
-                        buttons[x - 1][y - 1].setText("3");
-                        buttons[x - 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.FOUR == field_up_left) {
-                        buttons[x - 1][y - 1].setText("4");
-                        buttons[x - 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.FIVE == field_up_left) {
-                        buttons[x - 1][y - 1].setText("5");
-                        buttons[x - 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.SIX == field_up_left) {
-                        buttons[x - 1][y - 1].setText("6");
-                        buttons[x - 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.SEVEN == field_up_left) {
-                        buttons[x - 1][y - 1].setText("7");
-                        buttons[x - 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.EIGHT == field_up_left) {
-                        buttons[x - 1][y - 1].setText("8");
-                        buttons[x - 1][y - 1].setEnabled(false);
-                }
-
-                if (MineNumberWinLose.ZERO == field_down_left && y - 1 >= 0
-                                && x + 1 < sizeX) {
-                        buttons[x + 1][y - 1].setEnabled(false);
-                        buttons[x + 1][y - 1].setText("0");
-                        fieldZero(x + 1, y - 1);
-                }
-
-                if (MineNumberWinLose.ONE == field_down_left) {
-                        buttons[x + 1][y - 1].setText("1");
-                        buttons[x + 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.TWO == field_down_left) {
-                        buttons[x + 1][y - 1].setText("2");
-                        buttons[x + 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.THREE == field_down_left) {
-                        buttons[x + 1][y - 1].setText("3");
-                        buttons[x + 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.FOUR == field_down_left) {
-                        buttons[x + 1][y - 1].setText("4");
-                        buttons[x + 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.FIVE == field_down_left) {
-                        buttons[x + 1][y - 1].setText("5");
-                        buttons[x + 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.SIX == field_down_left) {
-                        buttons[x + 1][y - 1].setText("6");
-                        buttons[x + 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.SEVEN == field_down_left) {
-                        buttons[x + 1][y - 1].setText("7");
-                        buttons[x + 1][y - 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.EIGHT == field_down_left) {
-                        buttons[x + 1][y - 1].setText("8");
-                        buttons[x + 1][y - 1].setEnabled(false);
-                }
-
-                if (MineNumberWinLose.ZERO == field_up_right && x - 1 >= 0
-                                && y + 1 < sizeY) {
-                        buttons[x - 1][y + 1].setEnabled(false);
-                        buttons[x - 1][y + 1].setText("0");
-                        fieldZero(x - 1, y + 1);
-                }
-
-                if (MineNumberWinLose.ONE == field_up_right) {
-                        buttons[x - 1][y + 1].setText("1");
-                        buttons[x - 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.TWO == field_up_right) {
-                        buttons[x - 1][y + 1].setText("2");
-                        buttons[x - 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.THREE == field_up_right) {
-                        buttons[x - 1][y + 1].setText("3");
-                        buttons[x - 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.FOUR == field_up_right) {
-                        buttons[x - 1][y + 1].setText("4");
-                        buttons[x - 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.FIVE == field_up_right) {
-                        buttons[x - 1][y + 1].setText("5");
-                        buttons[x - 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.SIX == field_up_right) {
-                        buttons[x - 1][y + 1].setText("6");
-                        buttons[x - 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.SEVEN == field_up_right) {
-                        buttons[x - 1][y + 1].setText("7");
-                        buttons[x - 1][y + 1].setEnabled(false);
-                }
-                if (MineNumberWinLose.EIGHT == field_up_right) {
-                        buttons[x - 1][y + 1].setText("8");
-                        buttons[x - 1][y + 1].setEnabled(false);
-                }
-        }
 		}
 
+		public void fieldZero(int x, int y) {
+			
+			int up = x - 1;
+			int left = y - 1;
+			int right = y + 1;
+			int down = x + 1;
+			
+			if (up >= 0 && left >= 0 && down < sizeX && right < sizeY) {
+
+				MineNumberWinLose field_up = bridge.checkMine(x - 1, y);
+				MineNumberWinLose field_right = bridge.checkMine(x, y + 1);
+				MineNumberWinLose field_down = bridge.checkMine(x + 1, y);
+				MineNumberWinLose field_left = bridge.checkMine(x, y - 1);
+				MineNumberWinLose field_up_right = bridge.checkMine(x - 1, y + 1);
+				MineNumberWinLose field_up_left = bridge.checkMine(x - 1, y - 1);
+				MineNumberWinLose field_down_left = bridge.checkMine(x + 1, y - 1);
+				MineNumberWinLose field_down_right = bridge.checkMine(x + 1, y + 1);				
+
+				if (MineNumberWinLose.ZERO == field_up && up >= 0) {
+					setValueOfField(up, y);
+					fieldZero(up, y);
+				} else {
+					status = field_up;
+					contentOfField(up, y, status);
+					buttons[up][y].setEnabled(false);
+				}
+
+				if (MineNumberWinLose.ZERO == field_down && down < sizeX) {
+					setValueOfField(down, y);
+					fieldZero(down, y);
+				} else {
+					status = field_down;
+					contentOfField(down, y, status);
+					buttons[down][y].setEnabled(false);
+				}
+
+				if (MineNumberWinLose.ZERO == field_right && right < sizeY) {
+					setValueOfField(x, right);
+					fieldZero(x, right);
+				} else {
+					status = field_right;
+					contentOfField(x, right, status);
+					buttons[x][right].setEnabled(false);
+				}
+
+				if (MineNumberWinLose.ZERO == field_left && left >= 0) {
+					setValueOfField(x, left);
+					fieldZero(x, left);
+				} else {
+					status = field_left;
+					contentOfField(x, left, status);
+					buttons[x][left].setEnabled(false);
+				}
+
+				if (MineNumberWinLose.ZERO == field_down_right && right < sizeY
+						&& down < sizeX) {
+					setValueOfField(down, right);
+					fieldZero(down, right);
+				} else {
+					status = field_down_right;
+					contentOfField(down, right, status);
+					buttons[down][right].setEnabled(false);
+				}
+
+				if (MineNumberWinLose.ZERO == field_up_left && left >= 0
+						&& up >= 0) {
+					setValueOfField(up, left);
+					fieldZero(up, left);
+				} else {
+					status = field_up_left;
+					contentOfField(up, left, status);
+					buttons[up][left].setEnabled(false);
+				}
+
+				if (MineNumberWinLose.ZERO == field_down_left && left >= 0
+						&& down < sizeX) {
+					setValueOfField(down, left);
+					fieldZero(down, left);
+				} else {
+					status = field_down_left;
+					contentOfField(down, left, status);
+					buttons[down][left].setEnabled(false);
+				}
+
+				if (MineNumberWinLose.ZERO == field_up_right && up >= 0
+						&& right < sizeY) {
+					setValueOfField(up, right);
+					fieldZero(up, right);
+				} else {
+					status = field_up_right;
+					contentOfField(up, right, status);
+					buttons[up][right].setEnabled(false);
+				}
+			}
+		}
 		
+		public void setValueOfField(int x, int y){
+			buttons[x][y].setEnabled(false);
+			buttons[x][y].setText("0");
+		}
+
 		public void mouseClicked(MouseEvent arg0) {
 			JButton button = (JButton) arg0.getSource();
 			if (button.isEnabled() == true) {
@@ -446,17 +217,16 @@ public class SapperGui extends JFrame {
 				}
 			}
 		}
-		
-		
+
 		public void mouseEntered(MouseEvent arg0) {
 		}
-	
+
 		public void mouseExited(MouseEvent arg0) {
 		}
-		
+
 		public void mousePressed(MouseEvent arg0) {
 		}
-		
+
 		public void mouseReleased(MouseEvent arg0) {
 		}
 	}
@@ -479,7 +249,8 @@ public class SapperGui extends JFrame {
 		for (int posX = 0; posX < sizeX; posX++) {
 			for (int posY = 0; posY < sizeY; posY++) {
 				buttons[posX][posY] = new JButton("");
-				buttons[posX][posY].addMouseListener(new ButtonListener(posX, posY));
+				buttons[posX][posY].addMouseListener(new ButtonListener(posX,
+						posY));
 				buttons[posX][posY].setFont(new Font("Serif", Font.PLAIN, 10));
 				buttons[posX][posY].setMargin(new Insets(0, 0, 0, 0));
 				panel.add(buttons[posX][posY]);
