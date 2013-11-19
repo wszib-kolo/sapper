@@ -207,14 +207,6 @@ public class SapperGui extends JFrame {
 		}
 	}
 
-	public SapperGui() {
-		sizeX = 10;
-		sizeY = 10;
-		mines = 15;
-		bridge = new Bridge(sizeX, sizeY, mines);
-		initUI();
-	}
-	
 	private void loadIcons(){
 		String prefix = "icons/";
 		try {
@@ -238,6 +230,14 @@ public class SapperGui extends JFrame {
 		}
 	}
 	
+	public SapperGui(int sizeX, int sizeY, int mines) {
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		this.mines = mines;
+		bridge = new Bridge(sizeX, sizeY, this.mines);
+		initUI();
+	}
+
 	private void initUI() {
 		loadIcons();
 		// Panel creating
