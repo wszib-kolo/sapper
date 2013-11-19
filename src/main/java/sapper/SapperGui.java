@@ -58,7 +58,7 @@ public class SapperGui extends JFrame {
 		private void FieldClick(JButton button) {
 			status = bridge.checkMine(x, y);
 			contentOfField(x, y, status);
-			buttons[x][y].setEnabled(false);
+
 		}
 
 		public void contentOfField(int x, int y, MineNumberWinLose status) {
@@ -104,15 +104,16 @@ public class SapperGui extends JFrame {
 			default:
 				break;
 			}
+			buttons[x][y].setEnabled(false);
 		}
 
 		public void fieldZero(int x, int y) {
-			
+
 			int up = x - 1;
 			int left = y - 1;
 			int right = y + 1;
 			int down = x + 1;
-			
+
 			if (up >= 0 && left >= 0 && down < sizeX && right < sizeY) {
 
 				MineNumberWinLose field_up = bridge.checkMine(x - 1, y);
@@ -122,89 +123,40 @@ public class SapperGui extends JFrame {
 				MineNumberWinLose field_up_right = bridge.checkMine(x - 1, y + 1);
 				MineNumberWinLose field_up_left = bridge.checkMine(x - 1, y - 1);
 				MineNumberWinLose field_down_left = bridge.checkMine(x + 1, y - 1);
-				MineNumberWinLose field_down_right = bridge.checkMine(x + 1, y + 1);				
+				MineNumberWinLose field_down_right = bridge.checkMine(x + 1, y + 1);
 
-				if (MineNumberWinLose.ZERO == field_up && up >= 0) {
-					setValueOfField(up, y);
-					fieldZero(up, y);
-				} else {
-					status = field_up;
-					contentOfField(up, y, status);
-					buttons[up][y].setEnabled(false);
+				if (up >= 0) {
+					contentOfField(up, y, field_up);
 				}
 
-				if (MineNumberWinLose.ZERO == field_down && down < sizeX) {
-					setValueOfField(down, y);
-					fieldZero(down, y);
-				} else {
-					status = field_down;
-					contentOfField(down, y, status);
-					buttons[down][y].setEnabled(false);
+				if (down < sizeX) {
+					contentOfField(down, y, field_down);
+				}
+				if (right < sizeY) {
+					contentOfField(x, right, field_right);
 				}
 
-				if (MineNumberWinLose.ZERO == field_right && right < sizeY) {
-					setValueOfField(x, right);
-					fieldZero(x, right);
-				} else {
-					status = field_right;
-					contentOfField(x, right, status);
-					buttons[x][right].setEnabled(false);
+				if (left >= 0) {
+					contentOfField(x, left, field_left);
 				}
 
-				if (MineNumberWinLose.ZERO == field_left && left >= 0) {
-					setValueOfField(x, left);
-					fieldZero(x, left);
-				} else {
-					status = field_left;
-					contentOfField(x, left, status);
-					buttons[x][left].setEnabled(false);
+				if (right < sizeY && down < sizeX) {
+					contentOfField(down, right, field_down_right);
 				}
 
-				if (MineNumberWinLose.ZERO == field_down_right && right < sizeY
-						&& down < sizeX) {
-					setValueOfField(down, right);
-					fieldZero(down, right);
-				} else {
-					status = field_down_right;
-					contentOfField(down, right, status);
-					buttons[down][right].setEnabled(false);
+				if (left >= 0 && up >= 0) {
+					contentOfField(up, left, field_up_left);
 				}
 
-				if (MineNumberWinLose.ZERO == field_up_left && left >= 0
-						&& up >= 0) {
-					setValueOfField(up, left);
-					fieldZero(up, left);
-				} else {
-					status = field_up_left;
-					contentOfField(up, left, status);
-					buttons[up][left].setEnabled(false);
+				if (left >= 0 && down < sizeX) {
+					contentOfField(down, left, field_down_left);
 				}
 
-				if (MineNumberWinLose.ZERO == field_down_left && left >= 0
-						&& down < sizeX) {
-					setValueOfField(down, left);
-					fieldZero(down, left);
-				} else {
-					status = field_down_left;
-					contentOfField(down, left, status);
-					buttons[down][left].setEnabled(false);
+				if (up >= 0 && right < sizeY) {
+					contentOfField(up, right, field_up_right);
 				}
 
-				if (MineNumberWinLose.ZERO == field_up_right && up >= 0
-						&& right < sizeY) {
-					setValueOfField(up, right);
-					fieldZero(up, right);
-				} else {
-					status = field_up_right;
-					contentOfField(up, right, status);
-					buttons[up][right].setEnabled(false);
-				}
 			}
-		}
-		
-		public void setValueOfField(int x, int y){
-			buttons[x][y].setEnabled(false);
-			buttons[x][y].setText("0");
 		}
 
 		public void mouseClicked(MouseEvent arg0) {
