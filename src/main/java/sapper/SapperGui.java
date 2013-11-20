@@ -27,35 +27,38 @@ public class SapperGui extends JFrame {
 	private MineNumberWinLose status;
 	private int sizeX, sizeY, mines;
 	private Bridge bridge;
-	private Icon zeroBomb,oneBomb,twoBombs,threeBombs,fourBombs,fiveBombs,sixBombs,sevenBombs,eightBombs, bomb,flag,flagedBomb,win, explode,clean,badflaged;
-	
+	private Icon zeroBomb, oneBomb, twoBombs, threeBombs, fourBombs, fiveBombs,
+			sixBombs, sevenBombs, eightBombs, bomb, flag, flagedBomb, win,
+			explode, clean, badflaged;
+
 	private class ButtonListener implements MouseListener {
-		
+
 		int x, y;
 
 		public ButtonListener(int posX, int posY) {
 			x = posX;
 			y = posY;
 		}
-		
+
 		private void setFieldLabelImage(Icon fieldIcon, int posX, int posY) {
-				panel.remove((sizeY) * posX + posY);
-				
-				JLabel fieldImageLabel = new JLabel(fieldIcon);
-				panel.add(fieldImageLabel, (sizeY) * posX + posY);
-				
-				fieldImageLabel.setBorder(BorderFactory.createDashedBorder(Color.black));
-				panel.updateUI();
+			panel.remove((sizeY) * posX + posY);
+
+			JLabel fieldImageLabel = new JLabel(fieldIcon);
+			panel.add(fieldImageLabel, (sizeY) * posX + posY);
+
+			fieldImageLabel.setBorder(BorderFactory
+					.createDashedBorder(Color.black));
+			panel.updateUI();
 		}
 
 		private void setFieldButtonImage(Icon fieldIcon, int posX, int posY) {
 			buttons[posX][posY].setIcon(fieldIcon);
 		}
-		
-		private void winEvent(){
-			setFieldLabelImage(win, x, y);	
+
+		private void winEvent() {
+			setFieldLabelImage(win, x, y);
 		}
-		
+
 		private void loseEvent() {
 			for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
 				for (int yFieldPos = 0; yFieldPos < sizeY; yFieldPos++) {
@@ -142,44 +145,48 @@ public class SapperGui extends JFrame {
 			int right = y + 1;
 			int down = x + 1;
 
-				if (up >= 0) {
-					MineNumberWinLose field_up = bridge.checkMine(x - 1, y);
-					contentOfField(up, y, field_up);
-				}
+			if (up >= 0) {
+				MineNumberWinLose field_up = bridge.checkMine(x - 1, y);
+				contentOfField(up, y, field_up);
+			}
 
-				if (down < sizeX) {
-					MineNumberWinLose field_down = bridge.checkMine(x + 1, y);
-					contentOfField(down, y, field_down);
-				}
-				if (right < sizeY) {
-					MineNumberWinLose field_right = bridge.checkMine(x, y + 1);
-					contentOfField(x, right, field_right);
-				}
+			if (down < sizeX) {
+				MineNumberWinLose field_down = bridge.checkMine(x + 1, y);
+				contentOfField(down, y, field_down);
+			}
+			if (right < sizeY) {
+				MineNumberWinLose field_right = bridge.checkMine(x, y + 1);
+				contentOfField(x, right, field_right);
+			}
 
-				if (left >= 0) {
-					MineNumberWinLose field_left = bridge.checkMine(x, y - 1);
-					contentOfField(x, left, field_left);
-				}
+			if (left >= 0) {
+				MineNumberWinLose field_left = bridge.checkMine(x, y - 1);
+				contentOfField(x, left, field_left);
+			}
 
-				if (right < sizeY && down < sizeX) {
-					MineNumberWinLose field_down_right = bridge.checkMine(x + 1, y + 1);
-					contentOfField(down, right, field_down_right);
-				}
+			if (right < sizeY && down < sizeX) {
+				MineNumberWinLose field_down_right = bridge.checkMine(x + 1,
+						y + 1);
+				contentOfField(down, right, field_down_right);
+			}
 
-				if (left >= 0 && up >= 0) {
-					MineNumberWinLose field_up_left = bridge.checkMine(x - 1, y - 1);
-					contentOfField(up, left, field_up_left);
-				}
+			if (left >= 0 && up >= 0) {
+				MineNumberWinLose field_up_left = bridge
+						.checkMine(x - 1, y - 1);
+				contentOfField(up, left, field_up_left);
+			}
 
-				if (left >= 0 && down < sizeX) {
-					MineNumberWinLose field_down_left = bridge.checkMine(x + 1, y - 1);
-					contentOfField(down, left, field_down_left);
-				}
+			if (left >= 0 && down < sizeX) {
+				MineNumberWinLose field_down_left = bridge.checkMine(x + 1,
+						y - 1);
+				contentOfField(down, left, field_down_left);
+			}
 
-				if (up >= 0 && right < sizeY) {
-					MineNumberWinLose field_up_right = bridge.checkMine(x - 1, y + 1);
-					contentOfField(up, right, field_up_right);
-				}
+			if (up >= 0 && right < sizeY) {
+				MineNumberWinLose field_up_right = bridge.checkMine(x - 1,
+						y + 1);
+				contentOfField(up, right, field_up_right);
+			}
 
 		}
 
@@ -207,34 +214,44 @@ public class SapperGui extends JFrame {
 		}
 	}
 
-	private void loadIcons(){
+	private void loadIcons() {
 		String prefix = "icons/";
 		try {
-			zeroBomb = new ImageIcon(ImageIO.read(new File(prefix+"0.png")));
-			oneBomb = new ImageIcon(ImageIO.read(new File(prefix+"1.png")));
-			twoBombs = new ImageIcon(ImageIO.read(new File(prefix+"2.png")));
-			threeBombs = new ImageIcon(ImageIO.read(new File(prefix+"3.png")));
-			fourBombs = new ImageIcon(ImageIO.read(new File(prefix+"4.png")));
-			fiveBombs = new ImageIcon(ImageIO.read(new File(prefix+"5.png")));
-			sixBombs = new ImageIcon(ImageIO.read(new File(prefix+"6.png")));
-			sevenBombs = new ImageIcon(ImageIO.read(new File(prefix+"7.png")));
-			eightBombs = new ImageIcon(ImageIO.read(new File(prefix+"8.png")));
-			flag = new ImageIcon(ImageIO.read(new File(prefix+"flag.png")));
-			explode = new ImageIcon(ImageIO.read(new File(prefix+"expl.png")));
-			bomb = new ImageIcon(ImageIO.read(new File(prefix+"bomb.png")));
-			flagedBomb = new ImageIcon(ImageIO.read(new File(prefix+"bombflag.png")));
-			win = new ImageIcon(ImageIO.read(new File(prefix+"win.png")));
-			clean = new ImageIcon(ImageIO.read(new File(prefix+"clean.png")));
-			badflaged = new ImageIcon(ImageIO.read(new File(prefix+"badflag.png")));
+			zeroBomb = new ImageIcon(ImageIO.read(new File(prefix + "0.png")));
+			oneBomb = new ImageIcon(ImageIO.read(new File(prefix + "1.png")));
+			twoBombs = new ImageIcon(ImageIO.read(new File(prefix + "2.png")));
+			threeBombs = new ImageIcon(ImageIO.read(new File(prefix + "3.png")));
+			fourBombs = new ImageIcon(ImageIO.read(new File(prefix + "4.png")));
+			fiveBombs = new ImageIcon(ImageIO.read(new File(prefix + "5.png")));
+			sixBombs = new ImageIcon(ImageIO.read(new File(prefix + "6.png")));
+			sevenBombs = new ImageIcon(ImageIO.read(new File(prefix + "7.png")));
+			eightBombs = new ImageIcon(ImageIO.read(new File(prefix + "8.png")));
+			flag = new ImageIcon(ImageIO.read(new File(prefix + "flag.png")));
+			explode = new ImageIcon(ImageIO.read(new File(prefix + "expl.png")));
+			bomb = new ImageIcon(ImageIO.read(new File(prefix + "bomb.png")));
+			flagedBomb = new ImageIcon(ImageIO.read(new File(prefix
+					+ "bombflag.png")));
+			win = new ImageIcon(ImageIO.read(new File(prefix + "win.png")));
+			clean = new ImageIcon(ImageIO.read(new File(prefix + "clean.png")));
+			badflaged = new ImageIcon(ImageIO.read(new File(prefix
+					+ "badflag.png")));
 		} catch (IOException ex) {
 		}
 	}
-	
+
 	public SapperGui(int sizeX, int sizeY, int mines) {
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		this.mines = mines;
 		bridge = new Bridge(sizeX, sizeY, this.mines);
+		initUI();
+	}
+
+	public SapperGui(int sizeX, int sizeY, int mines) {
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		this.mines = mines;
+		bridge = new Bridge(sizeX, sizeY, mines);
 		initUI();
 	}
 
@@ -244,18 +261,19 @@ public class SapperGui extends JFrame {
 		panel = new JPanel();
 		getContentPane().add(panel);
 		panel.setLayout(new GridLayout(sizeX, sizeY, 1, 1));
-		
+
 		// Buttons creating
 		buttons = new JButton[sizeX][sizeY];
 		for (int posX = 0; posX < sizeX; posX++) {
 			for (int posY = 0; posY < sizeY; posY++) {
 				buttons[posX][posY] = new JButton();
-				buttons[posX][posY].addMouseListener(new ButtonListener(posX, posY));
+				buttons[posX][posY].addMouseListener(new ButtonListener(posX,
+						posY));
 				buttons[posX][posY].setMargin(new Insets(0, 0, 0, 0));
 				panel.add(buttons[posX][posY]);
 			}
 		}
-		
+
 		// Window settings
 		setTitle("Sapper");
 		setSize((sizeY) * 32 + 6, (sizeX) * 32 + 7);
