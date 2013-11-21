@@ -4,7 +4,7 @@ public class Bridge {
 	public enum MineNumberWinLose {
 		ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, WIN, MINE, FLAG, OTHER;
 	}
-
+	
 	MineNumberWinLose status;
 	Board gameBoard;
 
@@ -36,6 +36,10 @@ public class Bridge {
 
 	}
 
+	public long giveTimeStart() {
+		return gameBoard.getTimeStart();
+	}
+	
 	public Bridge(int x, int y, int minesNumber) {
 		gameBoard = new Board(x, y, minesNumber);
 	}

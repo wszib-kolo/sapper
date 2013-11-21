@@ -6,6 +6,7 @@ public class Board {
 	private int numberOfMines;
 	private int sizeX, sizeY;
 	private boolean boom = false;
+	private long timeStart;
 
 	public Board(int sizeX, int sizeY, int numberOfMines) {
 		this.numberOfMines = numberOfMines;
@@ -93,6 +94,12 @@ public class Board {
 		}
 	}
 
+	public long getTimeStart() {
+		timeStart = Math.round((System.currentTimeMillis())/1000l);
+
+		return timeStart;
+	}
+	
 	private void generateBoard() {
 		for (int x = 0; x < sizeX; x++) {
 			for (int y = 0; y < sizeY; y++) {

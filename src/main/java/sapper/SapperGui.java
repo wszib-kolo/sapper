@@ -1,5 +1,6 @@
 package sapper;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -19,8 +20,9 @@ public class SapperGui extends JFrame {
 	private JButton[][] buttons;
 	private MineNumberWinLose status;
 	private int sizeX, sizeY, mines;
-	private Bridge bridge;
+	private static Bridge bridge;
 	private JLabel minesCounter;
+	private static JLabel timeCounter;
 	private int flags;
 
 	class ButtonListener implements MouseListener {
@@ -148,6 +150,14 @@ public class SapperGui extends JFrame {
 		minesCounter.setText("Pozostało min: " + String.valueOf(numberOfMines));
 	}
 
+	private static String updateTimeCounter() {
+		long timeStart = bridge.giveTimeStart();
+		long timeNow = (System.currentTimeMillis()) / 1000;
+		long timeOfGame = timeNow - timeStart;
+		
+		return String.valueOf(timeOfGame);
+	}
+
 	public SapperGui() {
 		sizeX = 15;
 		sizeY = 10;
@@ -159,9 +169,19 @@ public class SapperGui extends JFrame {
 	private void initUI() {
 		// Panel creating
 		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
 		getContentPane().add(panel);
-		panel.setLayout(new GridLayout(sizeX + 1, sizeY, 1, 1));
-		
+
+		// Top panel creating
+		JPanel top = new JPanel();
+		top.setLayout(new BorderLayout());
+		panel.add(top, BorderLayout.CENTER);
+
+		// Grid layout for the board creating
+		JPanel boardInTopPanel = new JPanel();
+		boardInTopPanel.setLayout(new GridLayout(sizeX, sizeY, 1, 1));
+		top.add(boardInTopPanel);
+
 		// Buttons creating
 		buttons = new JButton[sizeX][sizeY];
 		for (int posX = 0; posX < sizeX; posX++) {
@@ -169,13 +189,26 @@ public class SapperGui extends JFrame {
 				buttons[posX][posY] = new JButton("");
 				buttons[posX][posY].addMouseListener(new ButtonListener(posX,
 						posY));
-				panel.add(buttons[posX][posY]);
+				boardInTopPanel.add(buttons[posX][posY]);
 			}
 		}
-		
-		// Mines Counter creating
-		minesCounter = new JLabel(String.valueOf("Pozostało min: " + mines));
-		panel.add(minesCounter);
+
+		// Bottom panel creating
+		JPanel bottom = new JPanel();
+		panel.add(bottom, BorderLayout.SOUTH);
+
+		// Grid layout for counters creating
+		JPanel countersInBottomPanel = new JPanel();
+		countersInBottomPanel.setLayout(new GridLayout(0, 2));
+		bottom.add(countersInBottomPanel);
+
+		// Mines counter creating
+		minesCounter = new JLabel("Pozostało min: " + String.valueOf(mines));
+		countersInBottomPanel.add(minesCounter);
+
+		// Time counter creating
+		timeCounter = new JLabel("Czas gry: " + updateTimeCounter() + " sekund");
+		countersInBottomPanel.add(timeCounter);
 
 		// Window settings
 		setTitle("Sapper");
@@ -190,5 +223,13 @@ public class SapperGui extends JFrame {
 				saper.setVisible(true);
 			}
 		});
+		while (true) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			timeCounter.setText("Czas gry: " + updateTimeCounter() + " sekund");
+		}
 	}
 }
