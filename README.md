@@ -8,8 +8,8 @@ sapper
 - (done) Flag a field
 -	(done) Lose event
 -	(in progress) Mine and Time counters
+-	(in progress) Users
+-	(in progress) Game stats
 
 TO DO
--	Users
--	Game stats
 -	Trophes
