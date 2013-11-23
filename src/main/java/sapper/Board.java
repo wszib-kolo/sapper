@@ -1,6 +1,10 @@
 package sapper;
 
-public class Board {
+import java.io.Serializable;
+
+public class Board implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private Field[][] fields;
 	private int numberUncoveredMines;
 	private int numberOfMines;
@@ -115,7 +119,8 @@ public class Board {
 						fields[centerHorizontal][up].increaseNearMinesNumber();
 					}
 					if (isThereBoardDown == true) {
-						fields[centerHorizontal][down].increaseNearMinesNumber();
+						fields[centerHorizontal][down]
+								.increaseNearMinesNumber();
 					}
 					if (isThereBoardRight == true) {
 						fields[right][centerVertical].increaseNearMinesNumber();

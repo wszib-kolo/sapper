@@ -1,6 +1,9 @@
 package sapper;
+import java.io.Serializable;
 
-public class Field {
+public class Field implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private boolean flag = false;
 	private boolean mine;
 	private int NearMinesNumber = 0;

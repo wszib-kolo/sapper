@@ -27,12 +27,12 @@ public class SapperGui extends JFrame {
 	private MineNumberWinLose status;
 	private int sizeX, sizeY, mines;
 	private Bridge bridge;
+
 	private Icon zeroBomb, oneBomb, twoBombs, threeBombs, fourBombs, fiveBombs,
 			sixBombs, sevenBombs, eightBombs, bomb, flag, flagedBomb, win,
 			explode, clean, badflaged;
 
 	private class ButtonListener implements MouseListener {
-
 		int x, y;
 
 		public ButtonListener(int posX, int posY) {
@@ -90,7 +90,6 @@ public class SapperGui extends JFrame {
 		private void FieldClick(JButton button) {
 			status = bridge.checkMine(x, y);
 			contentOfField(x, y, status);
-
 		}
 
 		public void contentOfField(int x, int y, MineNumberWinLose status) {
@@ -187,7 +186,6 @@ public class SapperGui extends JFrame {
 						y + 1);
 				contentOfField(up, right, field_up_right);
 			}
-
 		}
 
 		public void mouseClicked(MouseEvent arg0) {
@@ -247,10 +245,7 @@ public class SapperGui extends JFrame {
 		initUI();
 	}
 
-	public SapperGui(int sizeX, int sizeY, int mines) {
-		this.sizeX = sizeX;
-		this.sizeY = sizeY;
-		this.mines = mines;
+	public SapperGui() {
 		bridge = new Bridge(sizeX, sizeY, mines);
 		initUI();
 	}
@@ -273,7 +268,6 @@ public class SapperGui extends JFrame {
 				panel.add(buttons[posX][posY]);
 			}
 		}
-
 		// Window settings
 		setTitle("Sapper");
 		setSize((sizeY) * 32 + 6, (sizeX) * 32 + 7);

@@ -117,7 +117,6 @@ public class HomeScreen extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// System.out.println("btn load");
-
 			}
 		});
 		btnNewGame.addActionListener(new ActionListener() {

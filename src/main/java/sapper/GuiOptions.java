@@ -13,6 +13,8 @@ import javax.swing.WindowConstants;
 
 public class GuiOptions extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+
 	private JButton btnBack;
 	private JButton btnSave;
 	private JLabel labelBoardSize;
