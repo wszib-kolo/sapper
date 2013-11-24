@@ -151,9 +151,8 @@ public class SapperGui extends JFrame {
 	}
 
 	private static String updateTimeCounter() {
-		long timeStart = bridge.giveTimeStart();
-		long timeNow = (System.currentTimeMillis()) / 1000;
-		long timeOfGame = timeNow - timeStart;
+		int timeNow = (int) ((System.currentTimeMillis() / 1000));
+		int timeOfGame = timeNow - bridge.getTimeStart();
 		
 		return String.valueOf(timeOfGame);
 	}

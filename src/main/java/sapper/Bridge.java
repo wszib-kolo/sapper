@@ -36,7 +36,7 @@ public class Bridge {
 
 	}
 
-	public long giveTimeStart() {
+	public int getTimeStart() {
 		return gameBoard.getTimeStart();
 	}
 	

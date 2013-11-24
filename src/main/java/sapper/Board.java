@@ -6,7 +6,7 @@ public class Board {
 	private int numberOfMines;
 	private int sizeX, sizeY;
 	private boolean boom = false;
-	private long timeStart;
+	public int timeStart;
 
 	public Board(int sizeX, int sizeY, int numberOfMines) {
 		this.numberOfMines = numberOfMines;
@@ -15,6 +15,7 @@ public class Board {
 		fillArray();
 		int[][] mines = RandomMines();
 		setMines(mines);
+		setTimeStart();
 		generateBoard();
 	}
 
@@ -93,13 +94,15 @@ public class Board {
 			}
 		}
 	}
-
-	public long getTimeStart() {
-		timeStart = Math.round((System.currentTimeMillis())/1000l);
-
-		return timeStart;
+	
+	private void setTimeStart() {		
+		this.timeStart = (int) ((System.currentTimeMillis() / 1000));
 	}
 	
+	public int getTimeStart() {
+		return timeStart;
+	}
+
 	private void generateBoard() {
 		for (int x = 0; x < sizeX; x++) {
 			for (int y = 0; y < sizeY; y++) {
