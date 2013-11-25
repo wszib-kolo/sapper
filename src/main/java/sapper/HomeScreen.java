@@ -107,20 +107,16 @@ public class HomeScreen extends JFrame {
 		pack();
 
 		btnExit.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
-				// System.out.println("btn exit");
-
+				closeWindow();
 			}
 		});
 		btnLoadGame.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				// System.out.println("btn load");
 			}
 		});
 		btnNewGame.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Thread gui = new Thread(new GuiThreed(), "Gui Thread");
 				// gui.start();
@@ -129,11 +125,9 @@ public class HomeScreen extends JFrame {
 		});
 
 		btnOptions.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				// System.out.println("btn options");
 				showOptions();
-
 			}
 		});
 
@@ -153,4 +147,7 @@ public class HomeScreen extends JFrame {
 		this.setVisible(false);
 	}
 
+	private void closeWindow() {
+		this.setVisible(false);
+	}
 }

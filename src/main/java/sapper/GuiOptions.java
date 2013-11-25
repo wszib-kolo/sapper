@@ -59,7 +59,6 @@ public class GuiOptions extends JFrame {
 		btnBack.setText("<< Back");
 
 		btnSave.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				xSize = (Integer) spinnerXsize.getValue();
 				ySize = (Integer) spinnerYSize.getValue();
@@ -68,7 +67,6 @@ public class GuiOptions extends JFrame {
 		});
 
 		btnBack.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				backToHomeScreen();
 			}
