@@ -142,7 +142,6 @@ public class HomeScreen extends JFrame {
 	private void startGame() {
 		SapperGui saper = new SapperGui(sizeX, sizeY, mines);
 		saper.setLocation(this.getLocationOnScreen());
-
 		saper.setVisible(true);
 		this.setVisible(false);
 	}

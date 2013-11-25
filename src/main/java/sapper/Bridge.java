@@ -9,7 +9,7 @@ public class Bridge implements Serializable {
 	public enum MineNumberWinLose {
 		ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, WIN, MINE, FLAG, OTHER;
 	}
-
+	
 	MineNumberWinLose status;
 	Board gameBoard;
 	Save save;
@@ -43,6 +43,10 @@ public class Bridge implements Serializable {
 
 	}
 
+	public int getGameTime() {
+		return gameBoard.getGameTime();
+	}
+	
 	public Bridge(int x, int y, int minesNumber) {
 		gameBoard = new Board(x, y, minesNumber);
 		save = new Save(gameBoard);

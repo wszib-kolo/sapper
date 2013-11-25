@@ -1,8 +1,8 @@
 package sapper;
 
 import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -22,12 +22,15 @@ public class SapperGui extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private JPanel panel;
+	private JPanel panel,gamePanel;
 	private JButton[][] buttons;
 	private MineNumberWinLose status;
 	private int sizeX, sizeY, mines;
-	private Bridge bridge;
-
+	private static Bridge bridge;
+	private JLabel minesCounter;
+	private static JLabel timeCounter;
+	private int flags;
+	private Thread counter;
 	private Icon zeroBomb, oneBomb, twoBombs, threeBombs, fourBombs, fiveBombs,
 			sixBombs, sevenBombs, eightBombs, bomb, flag, flagedBomb, win,
 			explode, clean, badflaged;
@@ -41,25 +44,29 @@ public class SapperGui extends JFrame {
 		}
 
 		private void setFieldLabelImage(Icon fieldIcon, int posX, int posY) {
-			panel.remove((sizeY) * posX + posY);
+			gamePanel.remove((sizeY) * posX + posY);
 
 			JLabel fieldImageLabel = new JLabel(fieldIcon);
-			panel.add(fieldImageLabel, (sizeY) * posX + posY);
+			gamePanel.add(fieldImageLabel, (sizeY) * posX + posY);
 
 			fieldImageLabel.setBorder(BorderFactory
 					.createDashedBorder(Color.black));
-			panel.updateUI();
+			gamePanel.updateUI();
 		}
 
 		private void setFieldButtonImage(Icon fieldIcon, int posX, int posY) {
 			buttons[posX][posY].setIcon(fieldIcon);
 		}
 
+		@SuppressWarnings("deprecation")
 		private void winEvent() {
 			setFieldLabelImage(win, x, y);
+			counter.stop();
 		}
 
+		@SuppressWarnings("deprecation")
 		private void loseEvent() {
+			counter.stop();
 			for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
 				for (int yFieldPos = 0; yFieldPos < sizeY; yFieldPos++) {
 					if (bridge.checkMine(xFieldPos, yFieldPos) == MineNumberWinLose.FLAG) {
@@ -81,13 +88,19 @@ public class SapperGui extends JFrame {
 		private void FieldFlaged() {
 			boolean flagSetted = bridge.changeFieldFlagStatus(x, y);
 			if (flagSetted == true) {
+
 				setFieldButtonImage(flag, x, y);
+				flags++;
+				calculateMines(mines, flags);
 			} else {
 				setFieldButtonImage(clean, x, y);
+				flags--;
+				calculateMines(mines, flags);
+
 			}
 		}
 
-		private void FieldClick(JButton button) {
+		private void fieldClick(JButton button) {
 			status = bridge.checkMine(x, y);
 			contentOfField(x, y, status);
 		}
@@ -170,8 +183,7 @@ public class SapperGui extends JFrame {
 			}
 
 			if (left >= 0 && up >= 0) {
-				MineNumberWinLose field_up_left = bridge
-						.checkMine(x - 1, y - 1);
+				MineNumberWinLose field_up_left = bridge.checkMine(x - 1, y - 1);
 				contentOfField(up, left, field_up_left);
 			}
 
@@ -194,7 +206,7 @@ public class SapperGui extends JFrame {
 				if (arg0.getButton() == MouseEvent.BUTTON3) {
 					FieldFlaged();
 				} else {
-					FieldClick(button);
+					fieldClick(button);
 				}
 			}
 		}
@@ -227,12 +239,10 @@ public class SapperGui extends JFrame {
 			flag = new ImageIcon(ImageIO.read(new File(prefix + "flag.png")));
 			explode = new ImageIcon(ImageIO.read(new File(prefix + "expl.png")));
 			bomb = new ImageIcon(ImageIO.read(new File(prefix + "bomb.png")));
-			flagedBomb = new ImageIcon(ImageIO.read(new File(prefix
-					+ "bombflag.png")));
+			flagedBomb = new ImageIcon(ImageIO.read(new File(prefix + "bombflag.png")));
 			win = new ImageIcon(ImageIO.read(new File(prefix + "win.png")));
 			clean = new ImageIcon(ImageIO.read(new File(prefix + "clean.png")));
-			badflaged = new ImageIcon(ImageIO.read(new File(prefix
-					+ "badflag.png")));
+			badflaged = new ImageIcon(ImageIO.read(new File(prefix	+ "badflag.png")));
 		} catch (IOException ex) {
 		}
 	}
@@ -243,35 +253,71 @@ public class SapperGui extends JFrame {
 		this.mines = mines;
 		bridge = new Bridge(sizeX, sizeY, this.mines);
 		initUI();
+		counterStart();
 	}
 
 	public SapperGui() {
 		bridge = new Bridge(sizeX, sizeY, mines);
 		initUI();
+		counterStart();
 	}
 
 	private void initUI() {
 		loadIcons();
 		// Panel creating
+
 		panel = new JPanel();
+		panel.setLayout(new BorderLayout());
 		getContentPane().add(panel);
-		panel.setLayout(new GridLayout(sizeX, sizeY, 1, 1));
+
+		// Grid layout for the board creating
+		gamePanel = new JPanel();
+		gamePanel.setLayout(new GridLayout(sizeX, sizeY, 1, 1));
+		panel.add(gamePanel);
 
 		// Buttons creating
 		buttons = new JButton[sizeX][sizeY];
-		for (int posX = 0; posX < sizeX; posX++) {
-			for (int posY = 0; posY < sizeY; posY++) {
-				buttons[posX][posY] = new JButton();
-				buttons[posX][posY].addMouseListener(new ButtonListener(posX,
-						posY));
-				buttons[posX][posY].setMargin(new Insets(0, 0, 0, 0));
-				panel.add(buttons[posX][posY]);
-			}
-		}
+        for (int posX = 0; posX < sizeX; posX++) {
+                for (int posY = 0; posY < sizeY; posY++) {
+                	System.out.println(posX);
+                        buttons[posX][posY] = new JButton();
+                        buttons[posX][posY].addMouseListener(new ButtonListener(posX,posY));
+                        gamePanel.add(buttons[posX][posY]);
+                }
+        }
+
+		// Bottom panel creating
+		JPanel bottom = new JPanel();
+		panel.add(bottom, BorderLayout.SOUTH);
+
+		// Grid layout for counters creating
+		JPanel countersInBottomPanel = new JPanel();
+		countersInBottomPanel.setLayout(new GridLayout(0, 2));
+		bottom.add(countersInBottomPanel);
+
+		// Mines counter creating
+		minesCounter = new JLabel("Pozostało min: " + String.valueOf(mines));
+		countersInBottomPanel.add(minesCounter);
+
+		// Time counter creating
+		timeCounter = new JLabel("Czas gry: 0 sekund");
+		countersInBottomPanel.add(timeCounter);
+
 		// Window settings
 		setTitle("Sapper");
 		setSize((sizeY) * 32 + 6, (sizeX) * 32 + 7);
 		setResizable(true);
 	}
+	
+	private void calculateMines(int mines, int flags) {
+		int numberOfMines = 0;
+		numberOfMines = mines - flags;
 
+		minesCounter.setText("Pozostało min: " + String.valueOf(numberOfMines));
+	}
+
+	private void counterStart() {
+		counter = new Thread(new Counter(timeCounter, bridge), "Counter Thread");
+		counter.start();
+	}
 }

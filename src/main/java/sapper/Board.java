@@ -10,6 +10,7 @@ public class Board implements Serializable {
 	private int numberOfMines;
 	private int sizeX, sizeY;
 	private boolean boom = false;
+	public long timeStart;
 
 	public Board(int sizeX, int sizeY, int numberOfMines) {
 		this.numberOfMines = numberOfMines;
@@ -18,6 +19,7 @@ public class Board implements Serializable {
 		fillArray();
 		int[][] mines = RandomMines();
 		setMines(mines);
+		setTimeStart();
 		generateBoard();
 	}
 
@@ -27,6 +29,7 @@ public class Board implements Serializable {
 		this.sizeY = sizeY;
 		fillArray();
 		setMines(mines);
+		setTimeStart();
 		generateBoard();
 	}
 
@@ -95,6 +98,15 @@ public class Board implements Serializable {
 				}
 			}
 		}
+	}
+	
+	private void setTimeStart() {		
+		this.timeStart = System.currentTimeMillis();
+	}
+	
+	public int getGameTime() {
+		int gameTime = (int) ((System.currentTimeMillis() - timeStart)/1000);
+		return gameTime;
 	}
 
 	private void generateBoard() {
