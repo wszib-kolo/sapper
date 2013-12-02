@@ -9,10 +9,15 @@ public class Field implements Serializable {
 	}
 
 	private static final long serialVersionUID = 1L;
+	
 	protected boolean flag;
 	public int NearMinesNumber = 0;
-	protected boolean covered=true;
+	protected boolean covered = true;
+	static protected int fieldToUncover, fieldUncovered=0;
 
+	static void setFieldToUncover(int NumberOfFieldWithoutMines){
+		fieldToUncover=NumberOfFieldWithoutMines;
+	}
 	public boolean getFlag() {
 		return flag;
 	}
@@ -36,7 +41,7 @@ public class Field implements Serializable {
 	}
 
 	public MineNumberWinLose tryUncoverField() {
-			return MineNumberWinLose.OTHER;
+		return MineNumberWinLose.OTHER;
 	}
 
 	public MineNumberWinLose getFieldStatus() {

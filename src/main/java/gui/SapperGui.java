@@ -101,7 +101,6 @@ public class SapperGui extends JFrame {
 
 		private void fieldClick(JButton button) {
 			status = bridge.checkMine(x, y);
-			System.out.println(status);
 			contentOfField(x, y, status);
 		}
 

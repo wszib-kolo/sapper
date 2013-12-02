@@ -27,8 +27,8 @@ public class Bridge implements Serializable {
 	}
 	
 	public Bridge(int x, int y, int minesNumber) {
-		MineGenerator mineGen = new MineGenerator(x, y, minesNumber);
-		gameBoard = new Board(x, y, minesNumber,mineGen.RandomizeMines());
+		BoardGenerator boardGen = new BoardGenerator(x, y, minesNumber);
+		gameBoard = new Board(boardGen.RandomizeMines());
 		counter = new Counter();
 		save = new Save(gameBoard);
 		load = new Load();
