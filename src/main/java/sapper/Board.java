@@ -1,112 +1,78 @@
 package sapper;
 
 import java.io.Serializable;
+import sapper.Field.MineNumberWinLose;
 
 public class Board implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Field[][] fields;
-	private int numberUncoveredMines;
-	private int numberOfMines;
 	private int sizeX, sizeY;
-	private boolean boom = false;
-	public long timeStart;
-
-	public Board(int sizeX, int sizeY, int numberOfMines) {
-		this.numberOfMines = numberOfMines;
-		this.sizeX = sizeX;
-		this.sizeY = sizeY;
-		fillArray();
-		int[][] mines = RandomMines();
-		setMines(mines);
-		setTimeStart();
-		generateBoard();
-	}
 
 	public Board(int sizeX, int sizeY, int numberOfMines, int[][] mines) {
-		this.numberOfMines = numberOfMines;
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		fillArray();
 		setMines(mines);
-		setTimeStart();
 		generateBoard();
 	}
 
-	public void flagField(int posX, int posY, boolean flagStatus) {
-		if (fields[posX][posY].isCover() == true) {
-			fields[posX][posY].setFlag(flagStatus);
-		}
+	private void flagField(int posX, int posY, boolean flagStatus) {
+		fields[posX][posY].setFlag(flagStatus);
 	}
 
 	public boolean isFlaged(int posX, int posY) {
 		return fields[posX][posY].getFlag();
 	}
 
-	public int checkField(int posX, int posY) {
-		if (isFlaged(posX, posY) == true) {
-			return -1;
+	public boolean changeFlagStatus(int x, int y) {
+		flagField(x, y, !isFlaged(x, y));
+		return isFlaged(x, y);
+	}
+	
+	public MineNumberWinLose checkField(int posX, int posY) {
+		MineNumberWinLose status = fields[posX][posY].tryUncoverField();
+		if (status != MineNumberWinLose.MINE) {
+			if (isWin() == true) {
+				return MineNumberWinLose.WIN;
+			}
 		}
-		boom = fields[posX][posY].isMine();
-		if (fields[posX][posY].isCover() == true) {
-			fields[posX][posY].setCover(false);
-			numberUncoveredMines++;
-			return fields[posX][posY].getNearMinesNumber();
-		}
-		return -1;
+		return status;
 	}
 
-	public boolean isWin() {
-		if (numberUncoveredMines + numberOfMines == sizeX * sizeY) {
-			return true;
+	private boolean isWin() {
+		boolean win = true;
+		for (int x = 0; x < sizeX; x++) {
+			for (int y = 0; y < sizeY; y++) {
+				if (fields[x][y].getClass() != MineField.class	&& fields[x][y].isCover() == true) {
+					win = false;
+					break;
+				}
+			}
+			if (win == false) {
+				break;
+			}
 		}
-		return false;
-	}
-
-	public boolean isLoose() {
-		return boom;
+		return win;
 	}
 
 	private void fillArray() {
 		fields = new Field[sizeX][sizeY];
 		for (int i = 0; i < sizeX; i++) {
 			for (int j = 0; j < sizeY; j++) {
-				fields[i][j] = new Field();
+				fields[i][j] = new NormalField();
 			}
 		}
-	}
-
-	private int[][] RandomMines() {
-		int[][] mines = new int[sizeX][sizeY];
-		int MinesSetted = 0;
-		while (MinesSetted < numberOfMines) {
-			int x = (int) (Math.random() * sizeX);
-			int y = (int) (Math.random() * sizeY);
-			if (mines[x][y] != 1) {
-				mines[x][y] = 1;
-				MinesSetted++;
-			}
-		}
-		return mines;
 	}
 
 	private void setMines(int[][] mines) {
 		for (int x = 0; x < mines.length; x++) {
 			for (int y = 0; y < mines[0].length; y++) {
 				if (mines[x][y] == 1) {
-					fields[x][y].setMine(true);
+					fields[x][y] = new MineField();
 				}
 			}
 		}
-	}
-	
-	private void setTimeStart() {		
-		this.timeStart = System.currentTimeMillis();
-	}
-	
-	public int getGameTime() {
-		int gameTime = (int) ((System.currentTimeMillis() - timeStart)/1000);
-		return gameTime;
 	}
 
 	private void generateBoard() {
@@ -123,7 +89,7 @@ public class Board implements Serializable {
 				boolean isThereBoardLeft = (left > -1);
 				boolean isThereBoardRight = (right < sizeX);
 
-				if (fields[centerHorizontal][centerVertical].isMine() == true) {
+				if (fields[centerHorizontal][centerVertical].getFieldStatus() == MineNumberWinLose.MINE) {
 					if (isThereBoardLeft == true) {
 						fields[left][centerVertical].increaseNearMinesNumber();
 					}

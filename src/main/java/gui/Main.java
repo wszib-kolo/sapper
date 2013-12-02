@@ -1,4 +1,4 @@
-package sapper;
+package gui;
 
 public class Main {
 	private static Thread gui;
