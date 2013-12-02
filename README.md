@@ -15,7 +15,7 @@ TO DO
 - Trophes
 
 ======
-// Koło 26.11.2013
+Koło 26.11.2013
 rozdzielić pakiety
 refaktoryzacja kodu
 nieużywane konstruktory
