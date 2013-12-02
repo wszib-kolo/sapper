@@ -14,11 +14,11 @@ public class NormalField extends Field {
 		}
 		covered = false;
 		fieldUncovered++;
-		
-		if(fieldToUncover==fieldUncovered){
+
+		if (fieldToUncover == fieldUncovered) {
 			return MineNumberWinLose.WIN;
 		}
-		
+
 		return MineNumberWinLose.values()[NearMinesNumber];
 
 	}

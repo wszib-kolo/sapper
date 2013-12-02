@@ -28,5 +28,4 @@ public class Board implements Serializable {
 	public MineNumberWinLose checkField(int posX, int posY) {
 		return fields[posX][posY].tryUncoverField();
 	}
-
 }

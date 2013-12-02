@@ -8,11 +8,10 @@ public class Bridge implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	MineNumberWinLose status;
-	Board gameBoard;
-	Counter counter;
-	Save save;
-	Load load;
+	private Board gameBoard;
+	private Counter counter;
+	private Save save;
+	private Load load;
 
 	public boolean changeFieldFlagStatus(int x, int y) {
 		return gameBoard.changeFlagStatus(x, y);	
