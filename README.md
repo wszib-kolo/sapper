@@ -16,10 +16,11 @@ TO DO
 
 ======
 Koło wtorek 26.11.2013
+To do:
 rozdzielić pakiety
 refaktoryzacja kodu
 nieużywane konstruktory
-klasa powinna mieć jedną przycznkę do zmiany!!!
+klasa powinna mieć jedną przyczynę do zmiany!!!
 Board może przyjmować jako parametr generator lub zadane wartości
 w kl Bridge: funkcja changeFieldFlagStatus();
 GuiOptions: WTF! nieczytelne
