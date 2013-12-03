@@ -18,6 +18,9 @@ public class Field implements Serializable {
 	static void setFieldToUncover(int NumberOfFieldWithoutMines){
 		fieldToUncover=NumberOfFieldWithoutMines;
 	}
+	public Field(){
+		fieldUncovered=0;
+	}
 	public boolean getFlag() {
 		return flag;
 	}

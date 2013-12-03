@@ -14,7 +14,6 @@ public class NormalField extends Field {
 		}
 		covered = false;
 		fieldUncovered++;
-
 		if (fieldToUncover == fieldUncovered) {
 			return MineNumberWinLose.WIN;
 		}
