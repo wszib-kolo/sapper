@@ -8,14 +8,14 @@ import sapper.Field.MineNumberWinLose;
 public class FieldTest {
 
 	@Test
-	public void getFileStatusTest() {
+	public void getFileStatusTest(){
 		Field field = new Field();
 		Assert.assertEquals(field.getFieldStatus(), MineNumberWinLose.OTHER);
 	}
 
 	@Test
-	public void tryUncoverFieldTest() {
+	public void UncoverFieldTest() {
 		Field field = new Field();
-		Assert.assertEquals(field.tryUncoverField(), MineNumberWinLose.OTHER);
+		Assert.assertEquals(field.uncoverField(), MineNumberWinLose.OTHER);
 	}
 }

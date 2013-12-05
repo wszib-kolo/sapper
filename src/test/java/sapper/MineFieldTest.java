@@ -15,22 +15,20 @@ public class MineFieldTest {
 
 	public void tryUncoverFieldCoverTestWithCoverField() {
 		Field field = new MineField();
-		Assert.assertEquals(field.tryUncoverField(), MineNumberWinLose.MINE);
+		Assert.assertEquals(field.uncoverField(), MineNumberWinLose.MINE);
 	}
 
 	@Test
 	public void tryUncoverFieldCoverTestWithFlaggedField() {
 		Field field = new MineField();
 		field.setFlag(true);
-		Assert.assertEquals(field.tryUncoverField(), MineNumberWinLose.FLAGGEDMINE);
-		field.setFlag(false);
-		Assert.assertEquals(field.tryUncoverField(), MineNumberWinLose.MINE);	
+		Assert.assertEquals(field.uncoverField(), MineNumberWinLose.FLAG);
 	}
 
 	@Test
 	public void tryUncoverFieldCoverTestWithUncoverField() {
 		Field field = new MineField();
-		field.tryUncoverField();
-		Assert.assertEquals(field.tryUncoverField(), MineNumberWinLose.OTHER);
+		field.uncoverField();
+		Assert.assertEquals(field.uncoverField(), MineNumberWinLose.OTHER);
 	}
 }

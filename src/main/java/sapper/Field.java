@@ -9,33 +9,26 @@ public class Field implements Serializable {
 	}
 
 	private static final long serialVersionUID = 1L;
-	
-	protected boolean flag;
-	public int NearMinesNumber = 0;
-	protected boolean covered = true;
-	static protected int fieldToUncover, fieldUncovered=0;
 
-	static void setFieldToUncover(int NumberOfFieldWithoutMines){
-		fieldToUncover=NumberOfFieldWithoutMines;
-	}
-	public Field(){
-		fieldUncovered=0;
-	}
-	public boolean getFlag() {
-		return flag;
+	protected boolean flagged;
+	public int nearMinesNumber = 0;
+	protected boolean covered = true;
+
+	public boolean isFlagged() {
+		return flagged;
 	}
 
 	public void setFlag(boolean flagStatus) {
 		if (covered == true) {
-			flag = flagStatus;
+			flagged = flagStatus;
 		}
 	}
 
 	public void increaseNearMinesNumber() {
-		NearMinesNumber++;
+		nearMinesNumber++;
 	}
 
-	public boolean isCover() {
+	public boolean isCovered() {
 		return covered;
 	}
 
@@ -43,8 +36,18 @@ public class Field implements Serializable {
 		this.covered = cover;
 	}
 
-	public MineNumberWinLose tryUncoverField() {
-		return MineNumberWinLose.OTHER;
+	public MineNumberWinLose uncoverField() {
+		
+		if (isCovered() == false) {
+			return MineNumberWinLose.OTHER;
+		}
+		
+		MineNumberWinLose fieldStatus = getFieldStatus();
+		if (fieldStatus == MineNumberWinLose.FLAG) {
+			return MineNumberWinLose.FLAG;
+		}
+		covered = false;
+		return fieldStatus;
 	}
 
 	public MineNumberWinLose getFieldStatus() {

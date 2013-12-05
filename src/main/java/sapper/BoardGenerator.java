@@ -10,18 +10,17 @@ public class BoardGenerator {
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		this.numberOfMines = numberOfMines;
-		Field.setFieldToUncover(sizeY*sizeX-numberOfMines);
 	}
 
 	public Field[][] RandomizeMines() {
 		int[][] mines = new int[sizeX][sizeY];
-		int MinesSetted = 0;
-		while (MinesSetted < numberOfMines) {
+		int minesSetted = 0;
+		while (minesSetted < numberOfMines) {
 			int x = (int) (Math.random() * sizeX);
 			int y = (int) (Math.random() * sizeY);
 			if (mines[x][y] != 1) {
 				mines[x][y] = 1;
-				MinesSetted++;
+				minesSetted++;
 			}
 		}
 		fillArray();

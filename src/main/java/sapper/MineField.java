@@ -6,20 +6,9 @@ public class MineField extends Field {
 
 	private static final long serialVersionUID = 1L;
 
-	public MineNumberWinLose tryUncoverField() {
-		if (covered == false) {
-			return MineNumberWinLose.OTHER;
-		}
-		if (flag == true) {
-			return MineNumberWinLose.FLAGGEDMINE;
-		}
-		covered = false;
-		return MineNumberWinLose.MINE;
-	}
-
 	public MineNumberWinLose getFieldStatus() {
-		if (flag == true) {
-			return MineNumberWinLose.FLAGGEDMINE;
+		if (isFlagged() == true) {
+			return MineNumberWinLose.FLAG;
 		}
 		return MineNumberWinLose.MINE;
 	}

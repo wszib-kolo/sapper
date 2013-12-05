@@ -11,10 +11,10 @@ public class NormalFieldTest {
 	public Object[][] UncoverFieldData() {
 		return new Object[][] { { 1, MineNumberWinLose.ONE },
 				{ 2, MineNumberWinLose.TWO }, { 3, MineNumberWinLose.THREE },
-				{ 4, MineNumberWinLose.FOUR }, { 5, MineNumberWinLose.FIVE},
+				{ 4, MineNumberWinLose.FOUR }, { 5, MineNumberWinLose.FIVE },
 				{ 6, MineNumberWinLose.SIX }, { 7, MineNumberWinLose.SEVEN },
 				{ 8, MineNumberWinLose.EIGHT }, { 9, MineNumberWinLose.NINE },
-				{ 0, MineNumberWinLose.ZERO}, };
+				{ 0, MineNumberWinLose.ZERO }, };
 	}
 
 	@Test
@@ -25,35 +25,28 @@ public class NormalFieldTest {
 	}
 
 	@Test(dataProvider = "UncoverFieldData")
-	public void tryUncoverFieldCoverTestWithCoverField(int mineNumber,	MineNumberWinLose uncoverFieldResult) {
+	public void UncoverFieldCoverTestWithCoverField(int mineNumber,
+			MineNumberWinLose uncoverFieldResult) {
 		Field field = new NormalField();
 		for (int i = 0; i < mineNumber; i++) {
 			field.increaseNearMinesNumber();
 		}
-		Assert.assertEquals(field.tryUncoverField(), uncoverFieldResult);
+		Assert.assertEquals(field.uncoverField(), uncoverFieldResult);
 	}
 
 	@Test
-	public void tryUncoverFieldCoverTestWithFlaggedField() {
+	public void UncoverFieldCoverTestWithFlaggedField() {
 		Field field = new NormalField();
 		field.increaseNearMinesNumber();
 		field.setFlag(true);
-		Assert.assertEquals(field.tryUncoverField(), MineNumberWinLose.FLAG);
-		field.setFlag(false);
-		Assert.assertEquals(field.tryUncoverField(), MineNumberWinLose.ONE);	
+		Assert.assertEquals(field.uncoverField(), MineNumberWinLose.FLAG);
 	}
 
 	@Test
-	public void tryUncoverFieldCoverTestWithUncoverField() {
+	public void UncoverFieldCoverTestWithUncoverField() {
 		Field field = new NormalField();
 		field.increaseNearMinesNumber();
-		field.tryUncoverField();
-		Assert.assertEquals(field.tryUncoverField(), MineNumberWinLose.OTHER);
-	}
-	@Test
-	public void winTest() {
-		Field field = new NormalField();
-		Field.setFieldToUncover(1);
-		Assert.assertEquals(field.tryUncoverField(), MineNumberWinLose.WIN);
+		field.uncoverField();
+		Assert.assertEquals(field.uncoverField(), MineNumberWinLose.OTHER);
 	}
 }
