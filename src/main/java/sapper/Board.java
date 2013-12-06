@@ -22,7 +22,9 @@ public class Board implements Serializable {
 	}
 
 	public boolean changeFlagStatus(int x, int y) {
-		flagField(x, y, !isFlaged(x, y));
+		if (!isWin()) {
+			flagField(x, y, !isFlaged(x, y));
+		}
 		return isFlaged(x, y);
 	}
 
