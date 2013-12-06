@@ -1,4 +1,4 @@
-package sapper;
+package gui;
 
 class GuiThreed implements Runnable {
 	public void run() {
