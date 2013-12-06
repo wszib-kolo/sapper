@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import sapper.Bridge;
-import sapper.Field.MineNumberWinLose;
+import sapper.MineNumberWinLose;
 
 public class SapperGui extends JFrame {
 

@@ -1,6 +1,6 @@
 package sapper;
 
-import sapper.Field.MineNumberWinLose;
+import sapper.MineNumberWinLose;
 
 public class BoardGenerator {
 	private Field[][] fields; 
@@ -12,15 +12,15 @@ public class BoardGenerator {
 		this.numberOfMines = numberOfMines;
 	}
 
-	public Field[][] RandomizeMines() {
+	public Field[][] randomizeMines() {
 		int[][] mines = new int[sizeX][sizeY];
-		int minesSetted = 0;
-		while (minesSetted < numberOfMines) {
+		int minesSet = 0;
+		while (minesSet < numberOfMines) {
 			int x = (int) (Math.random() * sizeX);
 			int y = (int) (Math.random() * sizeY);
 			if (mines[x][y] != 1) {
 				mines[x][y] = 1;
-				minesSetted++;
+				minesSet++;
 			}
 		}
 		fillArray();

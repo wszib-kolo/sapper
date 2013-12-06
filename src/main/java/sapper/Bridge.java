@@ -2,7 +2,7 @@ package sapper;
 
 import java.io.Serializable;
 
-import sapper.Field.MineNumberWinLose;
+import sapper.MineNumberWinLose;
 
 public class Bridge implements Serializable {
 
@@ -27,7 +27,7 @@ public class Bridge implements Serializable {
 	
 	public Bridge(int x, int y, int minesNumber) {
 		BoardGenerator boardGen = new BoardGenerator(x, y, minesNumber);
-		gameBoard = new Board(boardGen.RandomizeMines());
+		gameBoard = new Board(boardGen.randomizeMines());
 		counter = new Counter();
 		save = new Save(gameBoard);
 		load = new Load();

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
-import sapper.Field.MineNumberWinLose;
+import sapper.MineNumberWinLose;
 
 public class Board implements Serializable {
 	private Logger logger = Logger.getLogger(Board.class.getName());

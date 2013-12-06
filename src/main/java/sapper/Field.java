@@ -4,10 +4,6 @@ import java.io.Serializable;
 
 public class Field implements Serializable {
 
-	public enum MineNumberWinLose {
-		ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, WIN, MINE, FLAG, FLAGGEDMINE, OTHER;
-	}
-
 	private static final long serialVersionUID = 1L;
 
 	protected boolean flagged;
@@ -32,7 +28,7 @@ public class Field implements Serializable {
 		return covered;
 	}
 
-	public void setCover(boolean cover) {
+	public void setCovered(boolean cover) {
 		this.covered = cover;
 	}
 
