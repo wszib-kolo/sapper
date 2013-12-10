@@ -28,20 +28,16 @@ public class Board implements Serializable {
 		return isFlaged(x, y);
 	}
 
-	public MineNumberWinLose checkField(int posX, int posY) {
-		MineNumberWinLose fieldStatus = fields[posX][posY].uncoverField();
-		if ((isWin() == true)) {
-			logger.debug(MineNumberWinLose.WIN);
-			return MineNumberWinLose.WIN;
-		}
-		if ((fieldStatus == MineNumberWinLose.FLAG)
-				&& (fields[posX][posY] instanceof MineField)) {
-			logger.debug(MineNumberWinLose.FLAGGEDMINE);
-			return MineNumberWinLose.FLAGGEDMINE;
-		}
-		logger.debug(fieldStatus);
-		return fieldStatus;
-	}
+    public MineNumberWinLose checkField(int posX, int posY) {
+        MineNumberWinLose fieldStatus = fields[posX][posY].uncoverField();
+
+        if ((isWin() == true)) {
+            fieldStatus = MineNumberWinLose.WIN;
+        }
+
+        logger.debug(fieldStatus);
+        return fieldStatus;
+    }
 
 	private void flagField(int posX, int posY, boolean flagStatus) {
 		fields[posX][posY].setFlag(flagStatus);

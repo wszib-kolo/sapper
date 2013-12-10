@@ -3,8 +3,6 @@ package sapper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import sapper.Field.MineNumberWinLose;
-
 public class FieldTest {
 
 	@Test

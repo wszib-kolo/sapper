@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import sapper.Field.MineNumberWinLose;
 
 public class NormalFieldTest {
 	@DataProvider(name = "UncoverFieldData")

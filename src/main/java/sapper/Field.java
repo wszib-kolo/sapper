@@ -32,19 +32,17 @@ public class Field implements Serializable {
 		this.covered = cover;
 	}
 
-	public MineNumberWinLose uncoverField() {
-		
-		if (isCovered() == false) {
-			return MineNumberWinLose.OTHER;
-		}
-		
-		MineNumberWinLose fieldStatus = getFieldStatus();
-		if (fieldStatus == MineNumberWinLose.FLAG) {
-			return MineNumberWinLose.FLAG;
-		}
-		covered = false;
-		return fieldStatus;
-	}
+    public MineNumberWinLose uncoverField() {
+        if (isCovered() == false) {
+            return MineNumberWinLose.OTHER;
+        }
+        MineNumberWinLose fieldStatus = getFieldStatus();
+        if (isFlagged() == true) {
+            return fieldStatus;
+        }
+        covered = false;
+        return fieldStatus;
+    }
 
 	public MineNumberWinLose getFieldStatus() {
 		return MineNumberWinLose.OTHER;
