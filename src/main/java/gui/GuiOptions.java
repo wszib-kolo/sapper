@@ -132,13 +132,13 @@ public class GuiOptions extends JFrame {
 														GroupLayout.Alignment.TRAILING,
 														layout.createSequentialGroup()
 																.addComponent(
-																		btnCancel)
+																		btnSave)
 																.addPreferredGap(
 																		LayoutStyle.ComponentPlacement.RELATED,
 																		GroupLayout.DEFAULT_SIZE,
 																		Short.MAX_VALUE)
 																.addComponent(
-																		btnSave)))
+																		btnCancel)))
 								.addContainerGap()));
 		layout.setVerticalGroup(layout.createParallelGroup(
 				GroupLayout.Alignment.LEADING).addGroup(
@@ -197,8 +197,4 @@ public class GuiOptions extends JFrame {
 		this.setVisible(false);
 	}
 	
-	private void saveOptions() {
-		
-	}
-
 }
