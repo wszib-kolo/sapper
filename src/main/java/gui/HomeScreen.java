@@ -48,7 +48,7 @@ public class HomeScreen extends JFrame {
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-		labelTitle.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+		labelTitle.setFont(new java.awt.Font("Tahoma", 0, 24));
 		labelTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitle.setText("Sapper");
 
@@ -58,14 +58,14 @@ public class HomeScreen extends JFrame {
 		btnExit.setText("Exit");
 
 		JPanel homeScreenPanel = new JPanel();
-		homeScreenPanel.setLayout(new GridLayout(5, 1, 1, 1));
+		homeScreenPanel.setLayout(new GridLayout(5, 3, 30, 10));
 		homeScreenPanel.add(labelTitle);
 		homeScreenPanel.add(btnNewGame);
 		homeScreenPanel.add(btnLoadGame);
 		homeScreenPanel.add(btnOptions);
 		homeScreenPanel.add(btnExit);
 		getContentPane().add(homeScreenPanel);
-		pack();
+		setSize(200, 300);
 
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -74,20 +74,16 @@ public class HomeScreen extends JFrame {
 		});
 		btnLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// System.out.println("btn load");
 			}
 		});
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Thread gui = new Thread(new GuiThreed(), "Gui Thread");
-				// gui.start();
 				startGame();
 			}
 		});
 
 		btnOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// System.out.println("btn options");
 				showOptions();
 			}
 		});
