@@ -1,4 +1,4 @@
-package sapper;
+package gui;
 
 import java.awt.Color;
 import java.awt.BorderLayout;
@@ -16,13 +16,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import sapper.Bridge.MineNumberWinLose;
+import sapper.Bridge;
+import sapper.MineNumberWinLose;
 
 public class SapperGui extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private JPanel panel,gamePanel;
+	private JPanel panel, gamePanel;
 	private JButton[][] buttons;
 	private MineNumberWinLose status;
 	private int sizeX, sizeY, mines;
@@ -49,8 +50,7 @@ public class SapperGui extends JFrame {
 			JLabel fieldImageLabel = new JLabel(fieldIcon);
 			gamePanel.add(fieldImageLabel, (sizeY) * posX + posY);
 
-			fieldImageLabel.setBorder(BorderFactory
-					.createDashedBorder(Color.black));
+			fieldImageLabel.setBorder(BorderFactory.createDashedBorder(Color.black));
 			gamePanel.updateUI();
 		}
 
@@ -69,15 +69,16 @@ public class SapperGui extends JFrame {
 			counter.stop();
 			for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
 				for (int yFieldPos = 0; yFieldPos < sizeY; yFieldPos++) {
-					if (bridge.checkMine(xFieldPos, yFieldPos) == MineNumberWinLose.FLAG) {
-						bridge.changeFieldFlagStatus(xFieldPos, yFieldPos);
-						if (bridge.checkMine(xFieldPos, yFieldPos) == MineNumberWinLose.MINE) {
+					switch (bridge.checkMine(xFieldPos, yFieldPos)){
+						case FLAGGEDMINE:
 							setFieldLabelImage(flagedBomb, xFieldPos, yFieldPos);
-						} else {
+							break;
+						case MINE:
+							setFieldLabelImage(bomb, xFieldPos, yFieldPos);
+							break;
+						case FLAG:
 							setFieldLabelImage(badflaged, xFieldPos, yFieldPos);
-						}
-					} else if (bridge.checkMine(xFieldPos, yFieldPos) == MineNumberWinLose.MINE) {
-						setFieldLabelImage(bomb, xFieldPos, yFieldPos);
+							break;
 					}
 					buttons[xFieldPos][yFieldPos].setEnabled(false);
 				}
@@ -88,7 +89,6 @@ public class SapperGui extends JFrame {
 		private void FieldFlaged() {
 			boolean flagSetted = bridge.changeFieldFlagStatus(x, y);
 			if (flagSetted == true) {
-
 				setFieldButtonImage(flag, x, y);
 				flags++;
 				calculateMines(mines, flags);
@@ -96,7 +96,6 @@ public class SapperGui extends JFrame {
 				setFieldButtonImage(clean, x, y);
 				flags--;
 				calculateMines(mines, flags);
-
 			}
 		}
 
@@ -144,6 +143,9 @@ public class SapperGui extends JFrame {
 			case FLAG:
 				setFieldButtonImage(flag, x, y);
 				return;
+			case FLAGGEDMINE:
+				setFieldButtonImage(flag, x, y);
+				return;
 			default:
 				break;
 			}
@@ -183,7 +185,8 @@ public class SapperGui extends JFrame {
 			}
 
 			if (left >= 0 && up >= 0) {
-				MineNumberWinLose field_up_left = bridge.checkMine(x - 1, y - 1);
+				MineNumberWinLose field_up_left = bridge
+						.checkMine(x - 1, y - 1);
 				contentOfField(up, left, field_up_left);
 			}
 
@@ -239,10 +242,12 @@ public class SapperGui extends JFrame {
 			flag = new ImageIcon(ImageIO.read(new File(prefix + "flag.png")));
 			explode = new ImageIcon(ImageIO.read(new File(prefix + "expl.png")));
 			bomb = new ImageIcon(ImageIO.read(new File(prefix + "bomb.png")));
-			flagedBomb = new ImageIcon(ImageIO.read(new File(prefix + "bombflag.png")));
+			flagedBomb = new ImageIcon(ImageIO.read(new File(prefix
+					+ "bombflag.png")));
 			win = new ImageIcon(ImageIO.read(new File(prefix + "win.png")));
 			clean = new ImageIcon(ImageIO.read(new File(prefix + "clean.png")));
-			badflaged = new ImageIcon(ImageIO.read(new File(prefix	+ "badflag.png")));
+			badflaged = new ImageIcon(ImageIO.read(new File(prefix
+					+ "badflag.png")));
 		} catch (IOException ex) {
 		}
 	}
@@ -277,14 +282,14 @@ public class SapperGui extends JFrame {
 
 		// Buttons creating
 		buttons = new JButton[sizeX][sizeY];
-        for (int posX = 0; posX < sizeX; posX++) {
-                for (int posY = 0; posY < sizeY; posY++) {
-                	System.out.println(posX);
-                        buttons[posX][posY] = new JButton();
-                        buttons[posX][posY].addMouseListener(new ButtonListener(posX,posY));
-                        gamePanel.add(buttons[posX][posY]);
-                }
-        }
+		for (int posX = 0; posX < sizeX; posX++) {
+			for (int posY = 0; posY < sizeY; posY++) {
+				buttons[posX][posY] = new JButton();
+				buttons[posX][posY].addMouseListener(new ButtonListener(posX,
+						posY));
+				gamePanel.add(buttons[posX][posY]);
+			}
+		}
 
 		// Bottom panel creating
 		JPanel bottom = new JPanel();
@@ -308,7 +313,7 @@ public class SapperGui extends JFrame {
 		setSize((sizeY) * 32 + 6, (sizeX) * 32 + 7);
 		setResizable(true);
 	}
-	
+
 	private void calculateMines(int mines, int flags) {
 		int numberOfMines = 0;
 		numberOfMines = mines - flags;
@@ -317,7 +322,7 @@ public class SapperGui extends JFrame {
 	}
 
 	private void counterStart() {
-		counter = new Thread(new Counter(timeCounter, bridge), "Counter Thread");
+		counter = new Thread(new CounterGUI(timeCounter, bridge), "Counter Thread");
 		counter.start();
 	}
 }

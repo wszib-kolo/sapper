@@ -1,4 +1,4 @@
-package sapper;
+package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,9 +21,9 @@ public class HomeScreen extends JFrame {
 	private JButton btnOptions;
 	private JLabel labelTitle;
 
-	private int sizeX = 10;
-	private int sizeY = 15;
-	private int mines = 20;
+	private int sizeX = 5;
+	private int sizeY = 5;
+	private int mines = 5;
 
 	public HomeScreen() {
 		initComponents();
