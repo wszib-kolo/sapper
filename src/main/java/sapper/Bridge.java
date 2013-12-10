@@ -29,6 +29,8 @@ public class Bridge implements Serializable {
 		BoardGenerator boardGen = new BoardGenerator(x, y, minesNumber);
 		gameBoard = new Board(boardGen.randomizeMines());
 		counter = new Counter();
+		
+		//tworzenie save i load dopiero przy sejwowaniu
 		save = new Save(gameBoard);
 		load = new Load();
 	}
