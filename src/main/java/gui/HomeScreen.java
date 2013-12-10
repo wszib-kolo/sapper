@@ -66,6 +66,7 @@ public class HomeScreen extends JFrame {
 		homeScreenPanel.add(btnExit);
 		getContentPane().add(homeScreenPanel);
 		setSize(200, 300);
+		setTitle("Sapper");
 
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
