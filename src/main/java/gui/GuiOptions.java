@@ -15,7 +15,7 @@ public class GuiOptions extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private JButton btnBack;
+	private JButton btnCancel;
 	private JButton btnSave;
 	private JLabel labelBoardSize;
 	private JLabel labelMines;
@@ -32,9 +32,12 @@ public class GuiOptions extends JFrame {
 		initComponents();
 	}
 
-	public GuiOptions(int sizeX, int sizeY, int mines2) {
+	public GuiOptions(int sizeX, int sizeY, int mines) {
 		initComponents();
-		spinnerMines.setValue(mines2);
+		this.xSize = sizeX;
+		this.ySize = sizeY;
+		this.mines = mines;
+		spinnerMines.setValue(mines);
 		spinnerXsize.setValue(sizeX);
 		spinnerYSize.setValue(sizeY);
 	}
@@ -48,7 +51,7 @@ public class GuiOptions extends JFrame {
 		labelMines = new JLabel();
 		spinnerMines = new JSpinner();
 		btnSave = new JButton();
-		btnBack = new JButton();
+		btnCancel = new JButton();
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,17 +59,18 @@ public class GuiOptions extends JFrame {
 		labelX.setText("X");
 		labelMines.setText("Mines:");
 		btnSave.setText("Save");
-		btnBack.setText("<< Back");
+		btnCancel.setText("Cancel");
 
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				xSize = (Integer) spinnerXsize.getValue();
 				ySize = (Integer) spinnerYSize.getValue();
 				mines = (Integer) spinnerMines.getValue();
+				backToHomeScreen();
 			}
 		});
 
-		btnBack.addActionListener(new ActionListener() {
+		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				backToHomeScreen();
 			}
@@ -128,13 +132,13 @@ public class GuiOptions extends JFrame {
 														GroupLayout.Alignment.TRAILING,
 														layout.createSequentialGroup()
 																.addComponent(
-																		btnBack)
+																		btnSave)
 																.addPreferredGap(
 																		LayoutStyle.ComponentPlacement.RELATED,
 																		GroupLayout.DEFAULT_SIZE,
 																		Short.MAX_VALUE)
 																.addComponent(
-																		btnSave)))
+																		btnCancel)))
 								.addContainerGap()));
 		layout.setVerticalGroup(layout.createParallelGroup(
 				GroupLayout.Alignment.LEADING).addGroup(
@@ -167,7 +171,7 @@ public class GuiOptions extends JFrame {
 								layout.createParallelGroup(
 										GroupLayout.Alignment.BASELINE)
 										.addComponent(btnSave)
-										.addComponent(btnBack))
+										.addComponent(btnCancel))
 						.addContainerGap(GroupLayout.DEFAULT_SIZE,
 								Short.MAX_VALUE)));
 
@@ -192,5 +196,5 @@ public class GuiOptions extends JFrame {
 		saper.setVisible(true);
 		this.setVisible(false);
 	}
-
+	
 }
