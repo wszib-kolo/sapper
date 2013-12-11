@@ -31,7 +31,7 @@ public class SapperGui extends JFrame {
 	private JLabel minesCounter;
 	private static JLabel timeCounter;
 	private int flags;
-	private Thread counter;
+	private CounterGUI counter;
 	private Icon zeroBomb, oneBomb, twoBombs, threeBombs, fourBombs, fiveBombs,
 			sixBombs, sevenBombs, eightBombs, bomb, flag, flagedBomb, win,
 			explode, clean, badflaged;
@@ -58,13 +58,11 @@ public class SapperGui extends JFrame {
 			buttons[posX][posY].setIcon(fieldIcon);
 		}
 
-		@SuppressWarnings("deprecation")
 		private void winEvent() {
 			setFieldLabelImage(win, x, y);
 			counter.stop();
 		}
 
-		@SuppressWarnings("deprecation")
 		private void loseEvent() {
 			counter.stop();
 			for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
@@ -322,7 +320,7 @@ public class SapperGui extends JFrame {
 	}
 
 	private void counterStart() {
-		counter = new Thread(new CounterGUI(timeCounter, bridge), "Counter Thread");
+		counter = new CounterGUI(timeCounter, bridge);
 		counter.start();
 	}
 }

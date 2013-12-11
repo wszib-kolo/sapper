@@ -8,9 +8,23 @@ public class CounterGUI implements Runnable {
 	private JLabel timeCounter;
 	private boolean stop = false;
 
+	private String updateTimeCounter() {
+		int timeOfGame = bridge.getGameTime();
+		return String.valueOf(timeOfGame);
+	}
+	
 	public CounterGUI(JLabel timeCounter, Bridge bridge) {
 		this.bridge = bridge;
 		this.timeCounter = timeCounter;
+	}
+
+	public void stop(){
+		stop=true;
+	}
+	
+	public void start(){
+		 Thread counterThread = new Thread(this,"Counter Thread" );
+		 counterThread.start();
 	}
 
 	public void run() {
@@ -22,10 +36,5 @@ public class CounterGUI implements Runnable {
 			}
 			timeCounter.setText("Czas gry: " + updateTimeCounter() + " sekund");
 		}
-	}
-
-	private String updateTimeCounter() {
-		int timeOfGame = bridge.getGameTime();
-		return String.valueOf(timeOfGame);
 	}
 }
