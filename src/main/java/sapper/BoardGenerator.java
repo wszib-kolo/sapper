@@ -3,21 +3,15 @@ package sapper;
 import sapper.MineNumberWinLose;
 
 public class BoardGenerator {
-	private Field[][] fields; 
-	private int sizeX, sizeY, numberOfMines;	
-	
-	public BoardGenerator(int sizeX, int sizeY, int numberOfMines) {
-		this.sizeX = sizeX;
-		this.sizeY = sizeY;
-		this.numberOfMines = numberOfMines;
-	}
+
+	private Field[][] fields;
 
 	public Field[][] randomizeMines() {
-		int[][] mines = new int[sizeX][sizeY];
+		int[][] mines = new int[GameOptions.sizeX][GameOptions.sizeY];
 		int minesSet = 0;
-		while (minesSet < numberOfMines) {
-			int x = (int) (Math.random() * sizeX);
-			int y = (int) (Math.random() * sizeY);
+		while (minesSet < GameOptions.numberOfMines) {
+			int x = (int) (Math.random() * GameOptions.sizeX);
+			int y = (int) (Math.random() * GameOptions.sizeY);
 			if (mines[x][y] != 1) {
 				mines[x][y] = 1;
 				minesSet++;
@@ -28,10 +22,11 @@ public class BoardGenerator {
 		generateBoard();
 		return fields;
 	}
+
 	private void fillArray() {
-		fields = new Field[sizeX][sizeY];
-		for (int i = 0; i < sizeX; i++) {
-			for (int j = 0; j < sizeY; j++) {
+		fields = new Field[GameOptions.sizeX][GameOptions.sizeY];
+		for (int i = 0; i < GameOptions.sizeX; i++) {
+			for (int j = 0; j < GameOptions.sizeY; j++) {
 				fields[i][j] = new NormalField();
 			}
 		}
@@ -48,18 +43,18 @@ public class BoardGenerator {
 	}
 
 	private void generateBoard() {
-		for (int x = 0; x < sizeX; x++) {
-			for (int y = 0; y < sizeY; y++) {
+		for (int x = 0; x < GameOptions.sizeX; x++) {
+			for (int y = 0; y < GameOptions.sizeY; y++) {
 				int centerHorizontal = x;
 				int centerVertical = y;
 				int down = y - 1;
 				int up = y + 1;
 				int left = x - 1;
 				int right = x + 1;
-				boolean isThereBoardUp = (up < sizeY);
+				boolean isThereBoardUp = (up < GameOptions.sizeY);
 				boolean isThereBoardDown = (down > -1);
 				boolean isThereBoardLeft = (left > -1);
-				boolean isThereBoardRight = (right < sizeX);
+				boolean isThereBoardRight = (right < GameOptions.sizeX);
 
 				if (fields[centerHorizontal][centerVertical].getFieldStatus() == MineNumberWinLose.MINE) {
 					if (isThereBoardLeft == true) {
@@ -92,4 +87,3 @@ public class BoardGenerator {
 		}
 	}
 }
-

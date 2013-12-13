@@ -7,14 +7,14 @@ import sapper.MineNumberWinLose;
 public class Bridge implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Board gameBoard;
 	private Counter counter;
 	private Save save;
 	private Load load;
 
 	public boolean changeFieldFlagStatus(int x, int y) {
-		return gameBoard.changeFlagStatus(x, y);	
+		return gameBoard.changeFlagStatus(x, y);
 	}
 
 	public MineNumberWinLose checkMine(int x, int y) {
@@ -24,20 +24,20 @@ public class Bridge implements Serializable {
 	public int getGameTime() {
 		return counter.getGameTime();
 	}
-	
+
 	public Bridge(int x, int y, int minesNumber) {
-		BoardGenerator boardGen = new BoardGenerator(x, y, minesNumber);
+		BoardGenerator boardGen = new BoardGenerator();
 		gameBoard = new Board(boardGen.randomizeMines());
 		counter = new Counter();
 		save = new Save(gameBoard);
 		load = new Load();
 	}
-	
-	public void save(){
+
+	public void save() {
 		save.saveToFile();
 	}
-	
-	public void load(){
-		gameBoard=load.loadFromFile();
+
+	public void load() {
+		gameBoard = load.loadFromFile();
 	}
 }

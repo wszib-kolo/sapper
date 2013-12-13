@@ -11,6 +11,8 @@ import javax.swing.JSpinner;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
+import sapper.GameOptions;
+
 public class GuiOptions extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -191,10 +193,10 @@ public class GuiOptions extends JFrame {
 	}
 
 	private void backToHomeScreen() {
-		HomeScreen saper = new HomeScreen(xSize, ySize, mines);
-		saper.setLocation(this.getLocationOnScreen());
-		saper.setVisible(true);
+		GameOptions options = new GameOptions(xSize, ySize, mines);
+		options.setLocation(this.getLocationOnScreen());
+		options.setVisible(true);
 		this.setVisible(false);
 	}
-	
+
 }

@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import sapper.GameOptions;
+
 public class HomeScreen extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -22,23 +24,12 @@ public class HomeScreen extends JFrame {
 	private JButton btnOptions;
 	private JLabel labelTitle;
 
-	private int sizeX = 5;
-	private int sizeY = 5;
-	private int mines = 5;
-
 	public HomeScreen() {
-		initComponents();
-	}
-
-	public HomeScreen(int xSize, int ySize, int mines) {
-		this.sizeX = xSize;
-		this.sizeY = ySize;
-		this.mines = mines;
 		setSize(new Dimension(150, 300));
 		initComponents();
 	}
 
-	private void initComponents() {
+	public void initComponents() {
 
 		labelTitle = new JLabel();
 		btnNewGame = new JButton();
@@ -92,14 +83,16 @@ public class HomeScreen extends JFrame {
 	}
 
 	private void startGame() {
-		SapperGui saper = new SapperGui(sizeX, sizeY, mines);
+		SapperGui saper = new SapperGui(GameOptions.sizeX, GameOptions.sizeY,
+				GameOptions.numberOfMines);
 		saper.setLocation(this.getLocationOnScreen());
 		saper.setVisible(true);
 		this.setVisible(false);
 	}
 
 	private void showOptions() {
-		GuiOptions options = new GuiOptions(sizeX, sizeY, mines);
+		GuiOptions options = new GuiOptions(GameOptions.sizeX,
+				GameOptions.sizeY, GameOptions.numberOfMines);
 		options.setLocation(this.getLocationOnScreen());
 		options.setVisible(true);
 		this.setVisible(false);
