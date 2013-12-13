@@ -1,13 +1,14 @@
 package gui;
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.LayoutStyle;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
@@ -33,6 +34,7 @@ public class HomeScreen extends JFrame {
 		this.sizeX = xSize;
 		this.sizeY = ySize;
 		this.mines = mines;
+		setSize(new Dimension(150, 300));
 		initComponents();
 	}
 
@@ -46,7 +48,7 @@ public class HomeScreen extends JFrame {
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-		labelTitle.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+		labelTitle.setFont(new java.awt.Font("Tahoma", 0, 24));
 		labelTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitle.setText("Sapper");
 
@@ -55,56 +57,16 @@ public class HomeScreen extends JFrame {
 		btnOptions.setText("Options");
 		btnExit.setText("Exit");
 
-		GroupLayout layout = new GroupLayout(getContentPane());
-		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout.createParallelGroup(
-				GroupLayout.Alignment.LEADING).addGroup(
-				layout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								layout.createParallelGroup(
-										GroupLayout.Alignment.LEADING)
-										.addComponent(labelTitle,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addComponent(btnNewGame,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addComponent(btnLoadGame,
-												GroupLayout.DEFAULT_SIZE, 180,
-												Short.MAX_VALUE)
-										.addComponent(btnOptions,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addComponent(btnExit,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE))
-						.addContainerGap()));
-		layout.setVerticalGroup(layout.createParallelGroup(
-				GroupLayout.Alignment.LEADING)
-				.addGroup(
-						layout.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(labelTitle)
-								.addGap(18, 18, 18)
-								.addComponent(btnNewGame)
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(btnLoadGame)
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(btnOptions)
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(btnExit)
-								.addContainerGap(GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)));
-
-		pack();
+		JPanel homeScreenPanel = new JPanel();
+		homeScreenPanel.setLayout(new GridLayout(5, 3, 30, 10));
+		homeScreenPanel.add(labelTitle);
+		homeScreenPanel.add(btnNewGame);
+		homeScreenPanel.add(btnLoadGame);
+		homeScreenPanel.add(btnOptions);
+		homeScreenPanel.add(btnExit);
+		getContentPane().add(homeScreenPanel);
+		setSize(200, 300);
+		setTitle("Sapper");
 
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -113,20 +75,16 @@ public class HomeScreen extends JFrame {
 		});
 		btnLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// System.out.println("btn load");
 			}
 		});
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Thread gui = new Thread(new GuiThreed(), "Gui Thread");
-				// gui.start();
 				startGame();
 			}
 		});
 
 		btnOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// System.out.println("btn options");
 				showOptions();
 			}
 		});
