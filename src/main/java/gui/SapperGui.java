@@ -2,11 +2,13 @@ package gui;
 
 import java.awt.Color;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -50,7 +52,8 @@ public class SapperGui extends JFrame {
 			JLabel fieldImageLabel = new JLabel(fieldIcon);
 			gamePanel.add(fieldImageLabel, (sizeY) * posX + posY);
 
-			fieldImageLabel.setBorder(BorderFactory.createDashedBorder(Color.black));
+			fieldImageLabel.setBorder(BorderFactory
+					.createDashedBorder(Color.black));
 			gamePanel.updateUI();
 		}
 
@@ -69,16 +72,16 @@ public class SapperGui extends JFrame {
 			counter.stop();
 			for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
 				for (int yFieldPos = 0; yFieldPos < sizeY; yFieldPos++) {
-					switch (bridge.checkMine(xFieldPos, yFieldPos)){
-						case FLAGGEDMINE:
-							setFieldLabelImage(flagedBomb, xFieldPos, yFieldPos);
-							break;
-						case MINE:
-							setFieldLabelImage(bomb, xFieldPos, yFieldPos);
-							break;
-						case FLAG:
-							setFieldLabelImage(badflaged, xFieldPos, yFieldPos);
-							break;
+					switch (bridge.checkMine(xFieldPos, yFieldPos)) {
+					case FLAGGEDMINE:
+						setFieldLabelImage(flagedBomb, xFieldPos, yFieldPos);
+						break;
+					case MINE:
+						setFieldLabelImage(bomb, xFieldPos, yFieldPos);
+						break;
+					case FLAG:
+						setFieldLabelImage(badflaged, xFieldPos, yFieldPos);
+						break;
 					}
 					buttons[xFieldPos][yFieldPos].setEnabled(false);
 				}
@@ -309,20 +312,44 @@ public class SapperGui extends JFrame {
 		countersInBottomPanel.add(timeCounter);
 
 		// Window settings
+		setWindow();
+	}
+
+	public void setWindow() {
 		setTitle("Sapper");
-		setSize((sizeY) * 32 + 6, (sizeX) * 32 + 7);
+		int averageX = ((sizeX) * (sizeY)) * 6 + 120;
+		int averageY = ((sizeY) * (sizeX)) * 6 + 120;
+		int minX = 250;
+		int minY = 250;
+		int maxX = 200 + averageX / 5;
+		int maxY = 200 + averageY / 5;
+
+		if (averageY < minY && averageX < minX) {
+			setSize(minY, minX);
+		}
+
+		if (averageY > maxY && averageX > maxX) {
+			setSize(maxY, maxX);
+		}
+
+		if (averageX < maxX && averageX > minX && averageY < maxY
+				&& averageY > minY) {
+			setSize(averageY, averageX);
+		}
 		setResizable(true);
+
 	}
 
 	private void calculateMines(int mines, int flags) {
 		int numberOfMines = 0;
 		numberOfMines = mines - flags;
 
-		minesCounter.setText("Pozosta≈Ço min: " + String.valueOf(numberOfMines));
+		minesCounter.setText("Pozosta≥o min: " + String.valueOf(numberOfMines));
 	}
 
 	private void counterStart() {
-		counter = new Thread(new CounterGUI(timeCounter, bridge), "Counter Thread");
+		counter = new Thread(new CounterGUI(timeCounter, bridge),
+				"Counter Thread");
 		counter.start();
 	}
 }
