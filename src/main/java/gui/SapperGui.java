@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -304,7 +303,7 @@ public class SapperGui extends JFrame {
 		bottom.add(countersInBottomPanel);
 
 		// Mines counter creating
-		minesCounter = new JLabel("Pozosta≈Ço min: " + String.valueOf(mines));
+		minesCounter = new JLabel("Pozosta≥o min: " + String.valueOf(mines));
 		countersInBottomPanel.add(minesCounter);
 
 		// Time counter creating
