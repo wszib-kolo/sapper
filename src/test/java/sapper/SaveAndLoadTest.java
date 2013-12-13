@@ -6,7 +6,7 @@ import static org.testng.Assert.*;
 public class SaveAndLoadTest {
  
 	@Test
-  public void loadedBoardEqualsSavedBoard() {
+  public void loadedBoardAndCounterEqualsSavedBoardAndCounter() {
 		Bridge bridgeInput = new Bridge(5,5,5);
   	Board boardInput = bridgeInput.getBoard();
   	Counter counterInput = bridgeInput.getCounter();
