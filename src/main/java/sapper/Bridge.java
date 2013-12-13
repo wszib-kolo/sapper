@@ -11,8 +11,7 @@ public class Bridge implements Serializable {
 	private Board gameBoard;
 	private Counter counter;
 	private Save save;
-	private Load load;
-
+	
 	public boolean changeFieldFlagStatus(int x, int y) {
 		return gameBoard.changeFlagStatus(x, y);	
 	}
@@ -29,15 +28,21 @@ public class Bridge implements Serializable {
 		BoardGenerator boardGen = new BoardGenerator(x, y, minesNumber);
 		gameBoard = new Board(boardGen.randomizeMines());
 		counter = new Counter();
-		save = new Save(gameBoard);
-		load = new Load();
 	}
 	
 	public void save(){
+		save = new Save(gameBoard);
 		save.saveToFile();
 	}
 	
-	public void load(){
-		gameBoard=load.loadFromFile();
+	public static BoardAndCounter load(){
+		return Load.loadFromFile();
+	}
+	
+	public Board getBoard(){
+		return gameBoard;
+	}
+	public Counter getCounter(){
+		return counter;
 	}
 }
