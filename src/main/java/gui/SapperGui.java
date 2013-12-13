@@ -303,7 +303,7 @@ public class SapperGui extends JFrame {
 		bottom.add(countersInBottomPanel);
 
 		// Mines counter creating
-		minesCounter = new JLabel("Pozosta≥o min: " + String.valueOf(mines));
+		minesCounter = new JLabel("Pozosta≈Ço min: " + String.valueOf(mines));
 		countersInBottomPanel.add(minesCounter);
 
 		// Time counter creating
@@ -343,7 +343,7 @@ public class SapperGui extends JFrame {
 		int numberOfMines = 0;
 		numberOfMines = mines - flags;
 
-		minesCounter.setText("Pozosta≥o min: " + String.valueOf(numberOfMines));
+		minesCounter.setText("Pozosta≈Ço min: " + String.valueOf(numberOfMines));
 	}
 
 	private void counterStart() {
