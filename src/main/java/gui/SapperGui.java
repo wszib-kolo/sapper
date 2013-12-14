@@ -284,11 +284,13 @@ public class SapperGui extends JFrame {
 
 		// Buttons creating
 		buttons = new JButton[sizeX][sizeY];
+
 		for (int posX = 0; posX < sizeX; posX++) {
 			for (int posY = 0; posY < sizeY; posY++) {
 				buttons[posX][posY] = new JButton();
 				buttons[posX][posY].addMouseListener(new ButtonListener(posX,
 						posY));
+				buttons[posX][posY].setPreferredSize(new Dimension(40, 40));
 				gamePanel.add(buttons[posX][posY]);
 			}
 		}
@@ -310,32 +312,22 @@ public class SapperGui extends JFrame {
 		timeCounter = new JLabel("Czas gry: 0 sekund");
 		countersInBottomPanel.add(timeCounter);
 
-		// Window settings
 		setWindow();
 	}
 
 	public void setWindow() {
 		setTitle("Sapper");
-		int averageX = ((sizeX) * (sizeY)) * 6 + 120;
-		int averageY = ((sizeY) * (sizeX)) * 6 + 120;
-		int minX = 250;
-		int minY = 250;
-		int maxX = 200 + averageX / 5;
-		int maxY = 200 + averageY / 5;
 
-		if (averageY < minY && averageX < minX) {
-			setSize(minY, minX);
-		}
+		int averageX = (sizeX) * 6 + 120;
+		int averageY = (sizeY) * 6 + 120;
+		int minX = 150;
+		int minY = 150;
 
-		if (averageY > maxY && averageX > maxX) {
-			setSize(maxY, maxX);
+		if (averageX < minX && averageY < minY) {
+			setMinimumSize(new Dimension(240, 240));
+		} else {
+			pack();
 		}
-
-		if (averageX < maxX && averageX > minX && averageY < maxY
-				&& averageY > minY) {
-			setSize(averageY, averageX);
-		}
-		setResizable(true);
 
 	}
 
