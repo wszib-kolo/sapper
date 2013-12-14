@@ -24,10 +24,25 @@ public class HomeScreen extends JFrame {
 	private JButton btnOptions;
 	private JLabel labelTitle;
 
-	public HomeScreen() {
+	public int sizeX = 5, sizeY = 5, numberOfMines = 5;
+	
+	GameOptions gameOptions;
+	
+	public HomeScreen(int sizeX, int sizeY, int numberOfMines) {
+		
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		this.numberOfMines = numberOfMines;
+		//gameOptions = new GameOptions(sizeX, sizeY, numberOfMines);
 		setSize(new Dimension(150, 300));
 		initComponents();
+		
 	}
+	
+	public HomeScreen(){
+		initComponents();
+	}
+	
 
 	public void initComponents() {
 
@@ -83,16 +98,14 @@ public class HomeScreen extends JFrame {
 	}
 
 	private void startGame() {
-		SapperGui saper = new SapperGui(GameOptions.sizeX, GameOptions.sizeY,
-				GameOptions.numberOfMines);
+		SapperGui saper = new SapperGui(sizeX, sizeY, numberOfMines);
 		saper.setLocation(this.getLocationOnScreen());
 		saper.setVisible(true);
 		this.setVisible(false);
 	}
 
 	private void showOptions() {
-		GuiOptions options = new GuiOptions(GameOptions.sizeX,
-				GameOptions.sizeY, GameOptions.numberOfMines);
+		GuiOptions options = new GuiOptions(sizeX, sizeY, numberOfMines);
 		options.setLocation(this.getLocationOnScreen());
 		options.setVisible(true);
 		this.setVisible(false);

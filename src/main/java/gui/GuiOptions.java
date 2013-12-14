@@ -33,15 +33,20 @@ public class GuiOptions extends JFrame {
 	public GuiOptions() {
 		initComponents();
 	}
+	
+	GameOptions gameOptions;
 
 	public GuiOptions(int sizeX, int sizeY, int mines) {
+
 		initComponents();
+		
 		this.xSize = sizeX;
 		this.ySize = sizeY;
 		this.mines = mines;
 		spinnerMines.setValue(mines);
 		spinnerXsize.setValue(sizeX);
 		spinnerYSize.setValue(sizeY);
+		
 	}
 
 	private void initComponents() {

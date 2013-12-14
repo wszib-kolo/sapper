@@ -1,17 +1,21 @@
 package sapper;
-
 import sapper.MineNumberWinLose;
 
-public class BoardGenerator {
+public class BoardGenerator{
+		
 
 	private Field[][] fields;
-
+	
+	public int sizeX, sizeY, numberOfMines;
+	
+	GameOptions gameOptions = new GameOptions(sizeX, sizeY, numberOfMines);
+	
 	public Field[][] randomizeMines() {
-		int[][] mines = new int[GameOptions.sizeX][GameOptions.sizeY];
+		int[][] mines = new int[gameOptions.sizeX][gameOptions.sizeY];
 		int minesSet = 0;
-		while (minesSet < GameOptions.numberOfMines) {
-			int x = (int) (Math.random() * GameOptions.sizeX);
-			int y = (int) (Math.random() * GameOptions.sizeY);
+		while (minesSet < gameOptions.numberOfMines) {
+			int x = (int) (Math.random() * gameOptions.sizeX);
+			int y = (int) (Math.random() * gameOptions.sizeY);
 			if (mines[x][y] != 1) {
 				mines[x][y] = 1;
 				minesSet++;
@@ -24,9 +28,9 @@ public class BoardGenerator {
 	}
 
 	private void fillArray() {
-		fields = new Field[GameOptions.sizeX][GameOptions.sizeY];
-		for (int i = 0; i < GameOptions.sizeX; i++) {
-			for (int j = 0; j < GameOptions.sizeY; j++) {
+		fields = new Field[gameOptions.sizeX][gameOptions.sizeY];
+		for (int i = 0; i < gameOptions.sizeX; i++) {
+			for (int j = 0; j < gameOptions.sizeY; j++) {
 				fields[i][j] = new NormalField();
 			}
 		}
@@ -43,18 +47,18 @@ public class BoardGenerator {
 	}
 
 	private void generateBoard() {
-		for (int x = 0; x < GameOptions.sizeX; x++) {
-			for (int y = 0; y < GameOptions.sizeY; y++) {
+		for (int x = 0; x < gameOptions.sizeX; x++) {
+			for (int y = 0; y < gameOptions.sizeY; y++) {
 				int centerHorizontal = x;
 				int centerVertical = y;
 				int down = y - 1;
 				int up = y + 1;
 				int left = x - 1;
 				int right = x + 1;
-				boolean isThereBoardUp = (up < GameOptions.sizeY);
+				boolean isThereBoardUp = (up < gameOptions.sizeY);
 				boolean isThereBoardDown = (down > -1);
 				boolean isThereBoardLeft = (left > -1);
-				boolean isThereBoardRight = (right < GameOptions.sizeX);
+				boolean isThereBoardRight = (right < gameOptions.sizeX);
 
 				if (fields[centerHorizontal][centerVertical].getFieldStatus() == MineNumberWinLose.MINE) {
 					if (isThereBoardLeft == true) {
