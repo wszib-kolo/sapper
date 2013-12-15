@@ -74,7 +74,7 @@ public class BoardTest {
 	public void ChangeFlagStatusTest() {
 		Field[][] field = new Field[1][1];
 		field[0][0] = mock(Field.class);
-		;
+	
 		Board board = spy(new Board(field));
 
 		when(field[0][0].isCovered()).thenReturn(true);
@@ -92,7 +92,7 @@ public class BoardTest {
 	public void ChangeFlagStatusWhenWinTest() {
 		Field[][] field = new Field[1][1];
 		field[0][0] = mock(Field.class);
-		;
+		
 		Board board = spy(new Board(field));
 
 		when(field[0][0].isCovered()).thenReturn(false);
