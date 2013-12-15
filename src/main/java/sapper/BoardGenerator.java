@@ -62,7 +62,7 @@ public class BoardGenerator {
 				boolean isThereBoardLeft = (left > -1);
 				boolean isThereBoardRight = (right < sizeX);
 
-				if (isFieldMine(centerVertical, centerHorizontal)) {
+				if (isFieldMine(centerHorizontal, centerVertical)) {
 					if (isThereBoardLeft == true) {
 						increaseFieldMineNumber(left, centerVertical);
 					}
