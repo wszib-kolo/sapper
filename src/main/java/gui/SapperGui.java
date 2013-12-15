@@ -288,8 +288,7 @@ public class SapperGui extends JFrame {
 		for (int posX = 0; posX < sizeX; posX++) {
 			for (int posY = 0; posY < sizeY; posY++) {
 				buttons[posX][posY] = new JButton();
-				buttons[posX][posY].addMouseListener(new ButtonListener(posX,
-						posY));
+				buttons[posX][posY].addMouseListener(new ButtonListener(posX, posY));
 				buttons[posX][posY].setPreferredSize(new Dimension(40, 40));
 				gamePanel.add(buttons[posX][posY]);
 			}
@@ -317,30 +316,18 @@ public class SapperGui extends JFrame {
 
 	public void setWindow() {
 		setTitle("Sapper");
-
-		int averageX = (sizeX) * 6 + 120;
-		int averageY = (sizeY) * 6 + 120;
-		int minX = 150;
-		int minY = 150;
-
-		if (averageX < minX && averageY < minY) {
-			setMinimumSize(new Dimension(240, 240));
-		} else {
-			pack();
-		}
-
+		setMinimumSize(new Dimension(240, 240));
+		pack();
 	}
 
 	private void calculateMines(int mines, int flags) {
 		int numberOfMines = 0;
 		numberOfMines = mines - flags;
-
 		minesCounter.setText("Pozosta³o min: " + String.valueOf(numberOfMines));
 	}
 
 	private void counterStart() {
-		counter = new Thread(new CounterGUI(timeCounter, bridge),
-				"Counter Thread");
+		counter = new Thread(new CounterGUI(timeCounter, bridge), "Counter Thread");
 		counter.start();
 	}
 }
