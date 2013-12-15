@@ -30,7 +30,6 @@ public class Board implements Serializable {
 
 	public MineNumberWinLose checkField(int posX, int posY) {
 		MineNumberWinLose fieldStatus = fields[posX][posY].uncoverField();
-		;
 		if ((isWin() == true)) {
 			fieldStatus = MineNumberWinLose.WIN;
 		}
