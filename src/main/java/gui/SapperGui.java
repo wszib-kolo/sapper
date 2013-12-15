@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -31,7 +32,7 @@ public class SapperGui extends JFrame {
 	private JLabel minesCounter;
 	private static JLabel timeCounter;
 	private int flags;
-	private CounterGUI counter;
+	private Thread counter;
 	private Icon zeroBomb, oneBomb, twoBombs, threeBombs, fourBombs, fiveBombs,
 			sixBombs, sevenBombs, eightBombs, bomb, flag, flagedBomb, win,
 			explode, clean, badflaged;
@@ -59,11 +60,13 @@ public class SapperGui extends JFrame {
 			buttons[posX][posY].setIcon(fieldIcon);
 		}
 
+		@SuppressWarnings("deprecation")
 		private void winEvent() {
 			setFieldLabelImage(win, x, y);
 			counter.stop();
 		}
 
+		@SuppressWarnings("deprecation")
 		private void loseEvent() {
 			counter.stop();
 			for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
@@ -281,11 +284,12 @@ public class SapperGui extends JFrame {
 
 		// Buttons creating
 		buttons = new JButton[sizeX][sizeY];
+
 		for (int posX = 0; posX < sizeX; posX++) {
 			for (int posY = 0; posY < sizeY; posY++) {
 				buttons[posX][posY] = new JButton();
-				buttons[posX][posY].addMouseListener(new ButtonListener(posX,
-						posY));
+				buttons[posX][posY].addMouseListener(new ButtonListener(posX, posY));
+				buttons[posX][posY].setPreferredSize(new Dimension(40, 40));
 				gamePanel.add(buttons[posX][posY]);
 			}
 		}
@@ -307,21 +311,23 @@ public class SapperGui extends JFrame {
 		timeCounter = new JLabel("Czas gry: 0 sekund");
 		countersInBottomPanel.add(timeCounter);
 
-		// Window settings
+		setWindow();
+	}
+
+	public void setWindow() {
 		setTitle("Sapper");
-		setSize((sizeY) * 32 + 6, (sizeX) * 32 + 7);
-		setResizable(true);
+		setMinimumSize(new Dimension(240, 240));
+		pack();
 	}
 
 	private void calculateMines(int mines, int flags) {
 		int numberOfMines = 0;
 		numberOfMines = mines - flags;
-
 		minesCounter.setText("Pozostało min: " + String.valueOf(numberOfMines));
 	}
 
 	private void counterStart() {
-		counter = new CounterGUI(timeCounter, bridge);
+		counter = new Thread(new CounterGUI(timeCounter, bridge), "Counter Thread");
 		counter.start();
 	}
 }
