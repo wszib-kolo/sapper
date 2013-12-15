@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import sapper.Bridge;
 import sapper.MineNumberWinLose;
+import static gui.Icons.*;
 
 public class SapperGui extends JFrame {
 
@@ -52,7 +53,7 @@ public class SapperGui extends JFrame {
 		}
 
 		private void winEvent() {
-			setFieldLabelImage(Icons.win, x, y);
+			setFieldLabelImage(win, x, y);
 			counter.stop();
 		}
 
@@ -62,29 +63,29 @@ public class SapperGui extends JFrame {
 				for (int yFieldPos = 0; yFieldPos < sizeY; yFieldPos++) {
 					switch (bridge.checkMine(xFieldPos, yFieldPos)) {
 					case FLAGGEDMINE:
-						setFieldLabelImage(Icons.flaggedBomb, xFieldPos, yFieldPos);
+						setFieldLabelImage(flaggedBomb, xFieldPos, yFieldPos);
 						break;
 					case MINE:
-						setFieldLabelImage(Icons.bomb, xFieldPos, yFieldPos);
+						setFieldLabelImage(bomb, xFieldPos, yFieldPos);
 						break;
 					case FLAG:
-						setFieldLabelImage(Icons.badFlagged, xFieldPos, yFieldPos);
+						setFieldLabelImage(badFlagged, xFieldPos, yFieldPos);
 						break;
 					}
 					buttons[xFieldPos][yFieldPos].setEnabled(false);
 				}
 			}
-			setFieldLabelImage(Icons.explode, x, y);
+			setFieldLabelImage(explode, x, y);
 		}
 
 		private void FieldFlaged() {
 			boolean flagSetted = bridge.changeFieldFlagStatus(x, y);
 			if (flagSetted == true) {
-				setFieldButtonImage(Icons.flag, x, y);
+				setFieldButtonImage(flag, x, y);
 				flags++;
 				calculateMines(mines, flags);
 			} else {
-				setFieldButtonImage(Icons.clean, x, y);
+				setFieldButtonImage(clean, x, y);
 				flags--;
 				calculateMines(mines, flags);
 			}
@@ -99,31 +100,31 @@ public class SapperGui extends JFrame {
 			switch (status) {
 			case ZERO:
 				fieldZero(x, y);
-				setFieldLabelImage(Icons.zeroBomb, x, y);
+				setFieldLabelImage(zeroBomb, x, y);
 				break;
 			case ONE:
-				setFieldLabelImage(Icons.oneBomb, x, y);
+				setFieldLabelImage(oneBomb, x, y);
 				break;
 			case TWO:
-				setFieldLabelImage(Icons.twoBombs, x, y);
+				setFieldLabelImage(twoBombs, x, y);
 				break;
 			case THREE:
-				setFieldLabelImage(Icons.threeBombs, x, y);
+				setFieldLabelImage(threeBombs, x, y);
 				break;
 			case FOUR:
-				setFieldLabelImage(Icons.fourBombs, x, y);
+				setFieldLabelImage(fourBombs, x, y);
 				break;
 			case FIVE:
-				setFieldLabelImage(Icons.fiveBombs, x, y);
+				setFieldLabelImage(fiveBombs, x, y);
 				break;
 			case SIX:
-				setFieldLabelImage(Icons.sixBombs, x, y);
+				setFieldLabelImage(sixBombs, x, y);
 				break;
 			case SEVEN:
-				setFieldLabelImage(Icons.sevenBombs, x, y);
+				setFieldLabelImage(sevenBombs, x, y);
 				break;
 			case EIGHT:
-				setFieldLabelImage(Icons.eightBombs, x, y);
+				setFieldLabelImage(eightBombs, x, y);
 				break;
 			case MINE:
 				loseEvent();
@@ -132,10 +133,10 @@ public class SapperGui extends JFrame {
 				winEvent();
 				break;
 			case FLAG:
-				setFieldButtonImage(Icons.flag, x, y);
+				setFieldButtonImage(flag, x, y);
 				return;
 			case FLAGGEDMINE:
-				setFieldButtonImage(Icons.flag, x, y);
+				setFieldButtonImage(flag, x, y);
 				return;
 			default:
 				break;
