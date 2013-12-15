@@ -5,19 +5,15 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import sapper.Bridge;
 import sapper.MineNumberWinLose;
+import static gui.Icons.*;
 
 public class SapperGui extends JFrame {
 
@@ -32,9 +28,6 @@ public class SapperGui extends JFrame {
 	private static JLabel timeCounter;
 	private int flags;
 	private CounterGUI counter;
-	private Icon zeroBomb, oneBomb, twoBombs, threeBombs, fourBombs, fiveBombs,
-			sixBombs, sevenBombs, eightBombs, bomb, flag, flagedBomb, win,
-			explode, clean, badflaged;
 
 	private class ButtonListener implements MouseListener {
 		int x, y;
@@ -70,13 +63,13 @@ public class SapperGui extends JFrame {
 				for (int yFieldPos = 0; yFieldPos < sizeY; yFieldPos++) {
 					switch (bridge.checkMine(xFieldPos, yFieldPos)) {
 					case FLAGGEDMINE:
-						setFieldLabelImage(flagedBomb, xFieldPos, yFieldPos);
+						setFieldLabelImage(flaggedBomb, xFieldPos, yFieldPos);
 						break;
 					case MINE:
 						setFieldLabelImage(bomb, xFieldPos, yFieldPos);
 						break;
 					case FLAG:
-						setFieldLabelImage(badflaged, xFieldPos, yFieldPos);
+						setFieldLabelImage(badFlagged, xFieldPos, yFieldPos);
 						break;
 					}
 					buttons[xFieldPos][yFieldPos].setEnabled(false);
@@ -226,31 +219,6 @@ public class SapperGui extends JFrame {
 		}
 	}
 
-	private void loadIcons() {
-		String prefix = "icons/";
-		try {
-			zeroBomb = new ImageIcon(ImageIO.read(new File(prefix + "0.png")));
-			oneBomb = new ImageIcon(ImageIO.read(new File(prefix + "1.png")));
-			twoBombs = new ImageIcon(ImageIO.read(new File(prefix + "2.png")));
-			threeBombs = new ImageIcon(ImageIO.read(new File(prefix + "3.png")));
-			fourBombs = new ImageIcon(ImageIO.read(new File(prefix + "4.png")));
-			fiveBombs = new ImageIcon(ImageIO.read(new File(prefix + "5.png")));
-			sixBombs = new ImageIcon(ImageIO.read(new File(prefix + "6.png")));
-			sevenBombs = new ImageIcon(ImageIO.read(new File(prefix + "7.png")));
-			eightBombs = new ImageIcon(ImageIO.read(new File(prefix + "8.png")));
-			flag = new ImageIcon(ImageIO.read(new File(prefix + "flag.png")));
-			explode = new ImageIcon(ImageIO.read(new File(prefix + "expl.png")));
-			bomb = new ImageIcon(ImageIO.read(new File(prefix + "bomb.png")));
-			flagedBomb = new ImageIcon(ImageIO.read(new File(prefix
-					+ "bombflag.png")));
-			win = new ImageIcon(ImageIO.read(new File(prefix + "win.png")));
-			clean = new ImageIcon(ImageIO.read(new File(prefix + "clean.png")));
-			badflaged = new ImageIcon(ImageIO.read(new File(prefix
-					+ "badflag.png")));
-		} catch (IOException ex) {
-		}
-	}
-
 	public SapperGui(int sizeX, int sizeY, int mines) {
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
@@ -267,9 +235,7 @@ public class SapperGui extends JFrame {
 	}
 
 	private void initUI() {
-		loadIcons();
 		// Panel creating
-
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		getContentPane().add(panel);
