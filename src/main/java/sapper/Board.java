@@ -22,36 +22,37 @@ public class Board implements Serializable {
 	}
 
 	public boolean changeFlagStatus(int x, int y) {
-		if (!isWin()){
+		if (!isWin()) {
 			flagField(x, y, !isFlaged(x, y));
 		}
 		return isFlaged(x, y);
 	}
 
-    public MineNumberWinLose checkField(int posX, int posY) {
-        MineNumberWinLose fieldStatus = fields[posX][posY].uncoverField();
+	public MineNumberWinLose checkField(int posX, int posY) {
+		MineNumberWinLose fieldStatus = fields[posX][posY].uncoverField();
+		if ((isWin() == true)) {
+			fieldStatus = MineNumberWinLose.WIN;
+		}
+		logger.debug(fieldStatus);
+		return fieldStatus;
+	}
 
-        if ((isWin() == true)) {
-            fieldStatus = MineNumberWinLose.WIN;
-        }
-
-        logger.debug(fieldStatus);
-        return fieldStatus;
-    }
-
-	private void flagField(int posX, int posY, boolean flagStatus) {
+	public void flagField(int posX, int posY, boolean flagStatus) {
 		fields[posX][posY].setFlag(flagStatus);
 	}
 
 	private boolean isWin() {
 		for (int posX = 0; posX < fields.length; posX++) {
 			for (int posY = 0; posY < fields[0].length; posY++) {
-				if (!(fields[posX][posY] instanceof MineField)
-						&& fields[posX][posY].isCovered()) {
+				if (!isMineField(posX, posY) && fields[posX][posY].isCovered()) {
 					return false;
 				}
 			}
 		}
 		return true;
+	}
+
+	public boolean isMineField(int posX, int posY) {
+		return (fields[posX][posY] instanceof MineField);
 	}
 }
