@@ -46,6 +46,7 @@ public class Bridge implements Serializable {
 	public Board getBoard(){
 		return gameBoard;
 	}
+	
 	public Counter getCounter(){
 		return counter;
 	}
