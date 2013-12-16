@@ -1,7 +1,9 @@
-package sapper;
+package controller;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+
+import sapper.Board;
 
 public class Save{
 	private Board board;

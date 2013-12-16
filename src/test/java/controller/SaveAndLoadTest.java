@@ -1,6 +1,11 @@
-package sapper;
+package controller;
 
 import org.testng.annotations.Test;
+
+import sapper.Board;
+import sapper.BoardAndCounter;
+import sapper.Counter;
+import controller.Bridge;
 import static org.testng.Assert.*;
 
 public class SaveAndLoadTest {

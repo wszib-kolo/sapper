@@ -1,7 +1,8 @@
 package gui;
 
 import javax.swing.JLabel;
-import sapper.Bridge;
+
+import controller.Bridge;
 
 public class CounterGUI implements Runnable {
 	private Bridge bridge;

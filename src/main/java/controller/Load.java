@@ -1,7 +1,9 @@
-package sapper;
+package controller;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+
+import sapper.BoardAndCounter;
 
 public class Load{
 

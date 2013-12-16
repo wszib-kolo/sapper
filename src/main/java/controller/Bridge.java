@@ -1,7 +1,11 @@
-package sapper;
+package controller;
 
 import java.io.Serializable;
 
+import sapper.Board;
+import sapper.BoardAndCounter;
+import sapper.BoardGenerator;
+import sapper.Counter;
 import sapper.MineNumberWinLose;
 
 public class Bridge implements Serializable {
