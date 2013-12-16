@@ -1,6 +1,7 @@
 package sapper;
 
 public class BoardAndCounter {
+	
 	private Board board;
 	private Counter counter;
 	
