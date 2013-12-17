@@ -44,8 +44,7 @@ public class SapperGui extends JFrame {
 			JLabel fieldImageLabel = new JLabel(fieldIcon);
 			gamePanel.add(fieldImageLabel, (sizeY) * posX + posY);
 
-			fieldImageLabel.setBorder(BorderFactory
-					.createDashedBorder(Color.black));
+			fieldImageLabel.setBorder(BorderFactory.createDashedBorder(Color.black));
 			gamePanel.updateUI();
 		}
 
@@ -53,13 +52,11 @@ public class SapperGui extends JFrame {
 			buttons[posX][posY].setIcon(fieldIcon);
 		}
 
-		@SuppressWarnings("deprecation")
 		private void winEvent() {
 			setFieldLabelImage(win, x, y);
 			counter.stop();
 		}
 
-		@SuppressWarnings("deprecation")
 		private void loseEvent() {
 			counter.stop();
 			for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
@@ -174,26 +171,22 @@ public class SapperGui extends JFrame {
 			}
 
 			if (right < sizeY && down < sizeX) {
-				MineNumberWinLose field_down_right = bridge.checkMine(x + 1,
-						y + 1);
+				MineNumberWinLose field_down_right = bridge.checkMine(x + 1, y + 1);
 				contentOfField(down, right, field_down_right);
 			}
 
 			if (left >= 0 && up >= 0) {
-				MineNumberWinLose field_up_left = bridge
-						.checkMine(x - 1, y - 1);
+				MineNumberWinLose field_up_left = bridge.checkMine(x - 1, y - 1);
 				contentOfField(up, left, field_up_left);
 			}
 
 			if (left >= 0 && down < sizeX) {
-				MineNumberWinLose field_down_left = bridge.checkMine(x + 1,
-						y - 1);
+				MineNumberWinLose field_down_left = bridge.checkMine(x + 1, y - 1);
 				contentOfField(down, left, field_down_left);
 			}
 
 			if (up >= 0 && right < sizeY) {
-				MineNumberWinLose field_up_right = bridge.checkMine(x - 1,
-						y + 1);
+				MineNumberWinLose field_up_right = bridge.checkMine(x - 1, y + 1);
 				contentOfField(up, right, field_up_right);
 			}
 		}
@@ -238,17 +231,14 @@ public class SapperGui extends JFrame {
 	}
 
 	private void initUI() {
-		// Panel creating
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		getContentPane().add(panel);
 
-		// Grid layout for the board creating
 		gamePanel = new JPanel();
 		gamePanel.setLayout(new GridLayout(sizeX, sizeY, 1, 1));
 		panel.add(gamePanel);
 
-		// Buttons creating
 		buttons = new JButton[sizeX][sizeY];
 
 		for (int posX = 0; posX < sizeX; posX++) {
@@ -260,20 +250,16 @@ public class SapperGui extends JFrame {
 			}
 		}
 
-		// Bottom panel creating
 		JPanel bottom = new JPanel();
 		panel.add(bottom, BorderLayout.SOUTH);
 
-		// Grid layout for counters creating
 		JPanel countersInBottomPanel = new JPanel();
 		countersInBottomPanel.setLayout(new GridLayout(0, 2));
 		bottom.add(countersInBottomPanel);
 
-		// Mines counter creating
 		minesCounter = new JLabel("Pozostało min: " + String.valueOf(mines));
 		countersInBottomPanel.add(minesCounter);
 
-		// Time counter creating
 		timeCounter = new JLabel("Czas gry: 0 sekund");
 		countersInBottomPanel.add(timeCounter);
 
@@ -293,7 +279,7 @@ public class SapperGui extends JFrame {
 	}
 
 	private void counterStart() {
-		counter = new Thread(new CounterGUI(timeCounter, bridge), "Counter Thread");
+		counter = new CounterGUI(timeCounter, bridge);
 		counter.start();
 	}
 }
