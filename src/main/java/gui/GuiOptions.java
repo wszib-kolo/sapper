@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class GuiOptions extends JFrame {
 
@@ -24,9 +26,10 @@ public class GuiOptions extends JFrame {
 	private JSpinner spinnerXsize;
 	private JSpinner spinnerYSize;
 
-	private int xSize = 0;
-	private int ySize = 0;
-	private int mines = 0;
+	private int xSize = 2;
+	private int ySize = 2;
+	private int mines = 1;
+	private int tmpXsize = 2, tmpYsize = 2, tmpMines = 1;
 
 	public GuiOptions() {
 		initComponents();
@@ -75,6 +78,38 @@ public class GuiOptions extends JFrame {
 				backToHomeScreen();
 			}
 		});
+		
+		
+		
+		spinnerXsize.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				if ((Integer) spinnerXsize.getValue()<2) spinnerXsize.setValue(2);
+				compareSizeWithMines();
+				
+			}
+		});
+		
+		spinnerYSize.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				if ((Integer) spinnerYSize.getValue()<2) spinnerYSize.setValue(2);
+				compareSizeWithMines();
+			}
+		});
+		
+		spinnerMines.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				if ((Integer) spinnerMines.getValue()<1) spinnerMines.setValue(1);
+				compareMinesWithSize();
+				
+			}
+		});
+		
 
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -177,6 +212,26 @@ public class GuiOptions extends JFrame {
 
 		pack();
 	}
+	
+	private void compareSizeWithMines(){
+		tmpXsize = (Integer) spinnerXsize.getValue();
+		tmpYsize = (Integer) spinnerYSize.getValue();
+		tmpMines = (Integer) spinnerMines.getValue();
+		
+		if (tmpMines>(tmpXsize*tmpYsize)) spinnerMines.setValue(tmpXsize*tmpYsize);
+	}
+	
+	private void compareMinesWithSize(){
+		tmpXsize = (Integer)spinnerXsize.getValue();
+		tmpYsize = (Integer)spinnerYSize.getValue();
+		tmpMines = tmpXsize*tmpYsize;
+		if ((Integer)spinnerMines.getValue()>tmpMines){
+			if (tmpMines>1) spinnerMines.setValue(tmpMines);
+			else spinnerMines.setValue(1);
+		}
+	}
+	
+	
 
 	public int getXsize() {
 		return xSize;
