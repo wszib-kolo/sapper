@@ -1,26 +1,50 @@
 package gui;
 
-import java.awt.Color;
+import static gui.Icons.badFlagged;
+import static gui.Icons.bomb;
+import static gui.Icons.clean;
+import static gui.Icons.eightBombs;
+import static gui.Icons.explode;
+import static gui.Icons.fiveBombs;
+import static gui.Icons.flag;
+import static gui.Icons.flaggedBomb;
+import static gui.Icons.fourBombs;
+import static gui.Icons.oneBomb;
+import static gui.Icons.sevenBombs;
+import static gui.Icons.sixBombs;
+import static gui.Icons.threeBombs;
+import static gui.Icons.twoBombs;
+import static gui.Icons.win;
+import static gui.Icons.zeroBomb;
+
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import controller.Bridge;
+
 import sapper.MineNumberWinLose;
-import static gui.Icons.*;
+import controller.Bridge;
 
 public class SapperGui extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
 	private JPanel panel, gamePanel;
+	private JMenuBar menuBar;
 	private JButton[][] buttons;
 	private MineNumberWinLose status;
 	private int sizeX, sizeY, mines;
@@ -44,7 +68,8 @@ public class SapperGui extends JFrame {
 			JLabel fieldImageLabel = new JLabel(fieldIcon);
 			gamePanel.add(fieldImageLabel, (sizeY) * posX + posY);
 
-			fieldImageLabel.setBorder(BorderFactory.createDashedBorder(Color.black));
+			fieldImageLabel.setBorder(BorderFactory
+					.createDashedBorder(Color.black));
 			gamePanel.updateUI();
 		}
 
@@ -171,22 +196,26 @@ public class SapperGui extends JFrame {
 			}
 
 			if (right < sizeY && down < sizeX) {
-				MineNumberWinLose field_down_right = bridge.checkMine(x + 1, y + 1);
+				MineNumberWinLose field_down_right = bridge.checkMine(x + 1,
+						y + 1);
 				contentOfField(down, right, field_down_right);
 			}
 
 			if (left >= 0 && up >= 0) {
-				MineNumberWinLose field_up_left = bridge.checkMine(x - 1, y - 1);
+				MineNumberWinLose field_up_left = bridge
+						.checkMine(x - 1, y - 1);
 				contentOfField(up, left, field_up_left);
 			}
 
 			if (left >= 0 && down < sizeX) {
-				MineNumberWinLose field_down_left = bridge.checkMine(x + 1, y - 1);
+				MineNumberWinLose field_down_left = bridge.checkMine(x + 1,
+						y - 1);
 				contentOfField(down, left, field_down_left);
 			}
 
 			if (up >= 0 && right < sizeY) {
-				MineNumberWinLose field_up_right = bridge.checkMine(x - 1, y + 1);
+				MineNumberWinLose field_up_right = bridge.checkMine(x - 1,
+						y + 1);
 				contentOfField(up, right, field_up_right);
 			}
 		}
@@ -230,10 +259,49 @@ public class SapperGui extends JFrame {
 		counterStart();
 	}
 
+	private void closeWindow() {
+		this.setVisible(false);
+	}
+
 	private void initUI() {
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		getContentPane().add(panel);
+
+		JPanel top = new JPanel();
+		panel.add(top, BorderLayout.NORTH);
+		top.setLayout(new GridLayout(1, 0));
+
+		menuBar = new JMenuBar();
+		top.add(menuBar);
+
+		JMenu gameMenu = new JMenu("Gra");
+		menuBar.add(gameMenu);
+
+		JMenuItem newGameItem = new JMenuItem("Nowa gra");
+		gameMenu.add(newGameItem);
+
+		JMenuItem loadGameItem = new JMenuItem("Wczytaj grę");
+		gameMenu.add(loadGameItem);
+
+		JMenuItem optionsItem = new JMenuItem("Opcje");
+		gameMenu.add(optionsItem);
+
+		gameMenu.addSeparator();
+
+		JMenuItem exitItem = new JMenuItem("Wyjdź");
+		exitItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeWindow();
+			}
+		});
+		gameMenu.add(exitItem);
+
+		JMenu helpMenu = new JMenu("Pomoc");
+		menuBar.add(helpMenu);
+
+		JMenuItem authorsItem = new JMenuItem("O autorach");
+		helpMenu.add(authorsItem);
 
 		gamePanel = new JPanel();
 		gamePanel.setLayout(new GridLayout(sizeX, sizeY, 1, 1));
@@ -244,7 +312,8 @@ public class SapperGui extends JFrame {
 		for (int posX = 0; posX < sizeX; posX++) {
 			for (int posY = 0; posY < sizeY; posY++) {
 				buttons[posX][posY] = new JButton();
-				buttons[posX][posY].addMouseListener(new ButtonListener(posX, posY));
+				buttons[posX][posY].addMouseListener(new ButtonListener(posX,
+						posY));
 				buttons[posX][posY].setPreferredSize(new Dimension(40, 40));
 				gamePanel.add(buttons[posX][posY]);
 			}
