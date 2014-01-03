@@ -3,20 +3,36 @@ package controller;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 
-import sapper.Board;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
-public class Save{
+import sapper.Board;
+import sapper.Counter;
+
+public class Save {
 	private Board board;
-	public Save(Board board){
-		this.board=board;
+	private Counter counter;
+
+	public Save(Board board, Counter counter) {
+		this.board = board;
+		this.counter = counter;
 	}
 
-	public void saveToFile(){
+	public void saveToFile() {
 		try {
-			FileOutputStream fileStream = new FileOutputStream("MySapper.ser");
-			ObjectOutputStream os = new ObjectOutputStream(fileStream);
-			os.writeObject(board);
-			os.close();
+			JFrame parentFrame = new JFrame();
+			JFileChooser saveFileChooser = new JFileChooser();
+			saveFileChooser.setDialogTitle("Write the name of saved game...");
+
+			int userSelection = saveFileChooser.showSaveDialog(parentFrame);
+			if (userSelection == JFileChooser.APPROVE_OPTION) {
+
+				FileOutputStream fileStream = new FileOutputStream(saveFileChooser.getSelectedFile());
+				ObjectOutputStream os = new ObjectOutputStream(fileStream);
+				os.writeObject(board);
+				os.writeObject(counter);
+				os.close();
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
