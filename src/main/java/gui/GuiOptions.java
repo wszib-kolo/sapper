@@ -66,7 +66,7 @@ public class GuiOptions extends JFrame {
 				xSize = (Integer) spinnerXsize.getValue();
 				ySize = (Integer) spinnerYSize.getValue();
 				mines = (Integer) spinnerMines.getValue();
-				newGame();
+				backToGame();
 			}
 		});
 
@@ -190,14 +190,10 @@ public class GuiOptions extends JFrame {
 		return mines;
 	}
 	
-	private void newGame() {
+	private void backToGame() {
 		SapperGui sapper = new SapperGui(xSize, ySize, mines);
 		sapper.setLocation(this.getLocationOnScreen());
 		sapper.setVisible(true);
-		this.setVisible(false);
-	}
-	
-	private void backToGame() {
 		this.setVisible(false);
 	}
 	
