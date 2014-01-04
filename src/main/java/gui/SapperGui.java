@@ -273,6 +273,7 @@ public class SapperGui extends JFrame {
 		GuiOptions options = new GuiOptions(sizeX, sizeY, mines);
 		options.setLocation(this.getLocationOnScreen());
 		options.setVisible(true);
+		this.setVisible(false);
 	}
 
 	private void closeWindow() {
@@ -312,6 +313,9 @@ public class SapperGui extends JFrame {
 			}
 		});
 		gameMenu.add(optionsItem);
+		
+		JMenuItem saveGameItem = new JMenuItem("Zapisz");
+		gameMenu.add(saveGameItem);
 
 		gameMenu.addSeparator();
 
