@@ -34,6 +34,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import sapper.MineNumberWinLose;
@@ -328,6 +329,12 @@ public class SapperGui extends JFrame {
 		menuBar.add(helpMenu);
 
 		JMenuItem authorsItem = new JMenuItem("O autorach");
+		final String authors = "Koło programistów WSZiB\nwww.wszib.edu.pl";
+		authorsItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, authors, "O autorach", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		helpMenu.add(authorsItem);
 
 		gamePanel = new JPanel();
