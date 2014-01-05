@@ -75,107 +75,65 @@ public class GuiOptions extends JFrame {
 				backToHomeScreen();
 			}
 		});
-
+			
+		int preferredSize = GroupLayout.PREFERRED_SIZE;
+		int defaultSize = GroupLayout.DEFAULT_SIZE;
+		int maxValue = Short.MAX_VALUE;
+		
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout
-				.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(
-						layout.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(
-										layout.createParallelGroup(
-												GroupLayout.Alignment.LEADING)
-												.addGroup(
-														layout.createSequentialGroup()
-																.addGroup(
-																		layout.createParallelGroup(
-																				GroupLayout.Alignment.LEADING)
-																				.addGroup(
-																						layout.createSequentialGroup()
-																								.addComponent(
-																										labelBoardSize)
-																								.addPreferredGap(
-																										LayoutStyle.ComponentPlacement.UNRELATED)
-																								.addComponent(
-																										spinnerXsize,
-																										GroupLayout.PREFERRED_SIZE,
-																										40,
-																										GroupLayout.PREFERRED_SIZE))
-																				.addGroup(
-																						layout.createSequentialGroup()
-																								.addComponent(
-																										labelMines)
-																								.addGap(18,
-																										18,
-																										18)
-																								.addComponent(
-																										spinnerMines,
-																										GroupLayout.PREFERRED_SIZE,
-																										43,
-																										GroupLayout.PREFERRED_SIZE)))
-																.addPreferredGap(
-																		LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(
-																		labelX)
-																.addPreferredGap(
-																		LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(
-																		spinnerYSize,
-																		GroupLayout.PREFERRED_SIZE,
-																		40,
-																		GroupLayout.PREFERRED_SIZE)
-																.addGap(0,
-																		0,
-																		Short.MAX_VALUE))
-												.addGroup(
-														GroupLayout.Alignment.TRAILING,
-														layout.createSequentialGroup()
-																.addComponent(
-																		btnSave)
-																.addPreferredGap(
-																		LayoutStyle.ComponentPlacement.RELATED,
-																		GroupLayout.DEFAULT_SIZE,
-																		Short.MAX_VALUE)
-																.addComponent(
-																		btnCancel)))
-								.addContainerGap()));
-		layout.setVerticalGroup(layout.createParallelGroup(
-				GroupLayout.Alignment.LEADING).addGroup(
-				layout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								layout.createParallelGroup(
-										GroupLayout.Alignment.BASELINE)
-										.addComponent(labelBoardSize)
-										.addComponent(spinnerXsize,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(labelX)
-										.addComponent(spinnerYSize,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))
-						.addGap(18, 18, 18)
-						.addGroup(
-								layout.createParallelGroup(
-										GroupLayout.Alignment.BASELINE)
-										.addComponent(labelMines)
-										.addComponent(spinnerMines,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))
-						.addGap(18, 18, 18)
-						.addGroup(
-								layout.createParallelGroup(
-										GroupLayout.Alignment.BASELINE)
-										.addComponent(btnSave)
-										.addComponent(btnCancel))
-						.addContainerGap(GroupLayout.DEFAULT_SIZE,
-								Short.MAX_VALUE)));
 
-		pack();
+		layoutHorizontalSet(layout, preferredSize, defaultSize, maxValue);
+		layoutVerticalSet(layout, preferredSize, defaultSize, maxValue);
+						
+		pack();		
+	}
+	
+	public void layoutHorizontalSet(GroupLayout layout, int preferedSize, int defaultSize, int maxValue) {	
+		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup()
+				.addContainerGap()
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+					.addGroup(layout.createSequentialGroup()
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+							.addGroup(layout.createSequentialGroup()
+								.addComponent(labelBoardSize)
+								.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+							.addComponent(spinnerXsize, preferedSize, 40, preferedSize))							
+							.addGroup(layout.createSequentialGroup()
+								.addComponent(labelMines)
+								.addGap(18, 18, 18)
+						.addComponent(spinnerMines, preferedSize, 43, preferedSize)))						
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(labelX)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(spinnerYSize, preferedSize, 40, preferedSize)
+					.addGap(0, 0, maxValue))			
+					.addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+						.addComponent(btnSave)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, defaultSize, maxValue)
+				.addComponent(btnCancel)))
+		.addContainerGap()));		
+	}
+	
+	public void layoutVerticalSet(GroupLayout layout, int preferedSize, int defaultSize, int maxValue) {
+		layout.setVerticalGroup(layout.createParallelGroup(
+			GroupLayout.Alignment.LEADING).addGroup(layout.createSequentialGroup()
+				.addContainerGap()
+					.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(labelBoardSize)
+						.addComponent(spinnerXsize, preferedSize, defaultSize, preferedSize)
+						.addComponent(labelX)
+					.addComponent(spinnerYSize, preferedSize, defaultSize, preferedSize))		
+				.addGap(18, 18, 18)
+					.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(labelMines)
+					.addComponent(spinnerMines, preferedSize, defaultSize, preferedSize))				
+				.addGap(18, 18, 18)	
+					.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(btnSave)
+					.addComponent(btnCancel))
+		.addContainerGap(defaultSize, maxValue)));	
 	}
 
 	public int getXsize() {
