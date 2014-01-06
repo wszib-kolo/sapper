@@ -34,6 +34,12 @@ public class Bridge implements Serializable {
 		counter = new Counter();
 	}
 
+	public Bridge(BoardAndCounter boardAndCounter) {
+		gameBoard = boardAndCounter.getBoard();
+		counter = boardAndCounter.getCounter();
+		save = null;
+	}
+
 	public void save() {
 		save = new Save(gameBoard, counter);
 		save.saveToFile();
