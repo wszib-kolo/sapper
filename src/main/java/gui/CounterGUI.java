@@ -18,6 +18,10 @@ public class CounterGUI implements Runnable {
 		this.bridge = bridge;
 		this.timeCounter = timeCounter;
 	}
+	
+	public Bridge getBridge(){
+		return bridge;
+	}
 
 	public void stop() {
 		running = false;

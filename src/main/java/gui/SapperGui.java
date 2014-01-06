@@ -1,21 +1,6 @@
 package gui;
 
-import static gui.Icons.badFlagged;
-import static gui.Icons.bomb;
-import static gui.Icons.clean;
-import static gui.Icons.eightBombs;
-import static gui.Icons.explode;
-import static gui.Icons.fiveBombs;
-import static gui.Icons.flag;
-import static gui.Icons.flaggedBomb;
-import static gui.Icons.fourBombs;
-import static gui.Icons.oneBomb;
-import static gui.Icons.sevenBombs;
-import static gui.Icons.sixBombs;
-import static gui.Icons.threeBombs;
-import static gui.Icons.twoBombs;
-import static gui.Icons.win;
-import static gui.Icons.zeroBomb;
+import static gui.Icons.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -37,13 +22,15 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import sapper.BoardAndCounter;
 import sapper.MineNumberWinLose;
 import controller.Bridge;
+import controller.Load;
+import controller.Save;
 
 public class SapperGui extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
 	private int sizeX = 10;
 	private int sizeY = 10;
 	private int mines = 10;
@@ -56,7 +43,11 @@ public class SapperGui extends JFrame {
 	private JLabel minesCounter;
 	private static JLabel timeCounter;
 	private int flags;
-	private CounterGUI counter;
+	private static CounterGUI counter;
+
+	public static Bridge getBridge() {
+		return bridge;
+	}
 
 	private class ButtonListener implements MouseListener {
 		int x, y;
@@ -72,8 +63,7 @@ public class SapperGui extends JFrame {
 			JLabel fieldImageLabel = new JLabel(fieldIcon);
 			gamePanel.add(fieldImageLabel, (sizeY) * posX + posY);
 
-			fieldImageLabel.setBorder(BorderFactory
-					.createDashedBorder(Color.black));
+			fieldImageLabel.setBorder(BorderFactory.createDashedBorder(Color.black));
 			gamePanel.updateUI();
 		}
 
@@ -205,8 +195,7 @@ public class SapperGui extends JFrame {
 			}
 
 			if (left >= 0 && up >= 0) {
-				MineNumberWinLose field_up_left = bridge
-						.checkMine(x - 1, y - 1);
+				MineNumberWinLose field_up_left = bridge.checkMine(x - 1, y - 1);
 				contentOfField(up, left, field_up_left);
 			}
 
@@ -260,8 +249,21 @@ public class SapperGui extends JFrame {
 		counterStart();
 	}
 
+	public SapperGui(Bridge loadedBridge) {
+		bridge = loadedBridge;
+		initUI();
+		counterStart();
+	}
+
 	private void startGame() {
 		SapperGui sapper = new SapperGui(sizeX, sizeY, mines);
+		sapper.setLocation(this.getLocationOnScreen());
+		sapper.setVisible(true);
+		this.setVisible(false);
+	}
+
+	private void startGame(SapperGui loadedSapperGui) {
+		SapperGui sapper = loadedSapperGui;
 		sapper.setLocation(this.getLocationOnScreen());
 		sapper.setVisible(true);
 		this.setVisible(false);
@@ -303,6 +305,12 @@ public class SapperGui extends JFrame {
 
 		JMenuItem loadGameItem = new JMenuItem("Wczytaj grę");
 		gameMenu.add(loadGameItem);
+		loadGameItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SapperGui sapperGui = loadGame();
+				startGame(sapperGui);
+			}
+		});
 
 		JMenuItem optionsItem = new JMenuItem("Opcje");
 		optionsItem.addActionListener(new ActionListener() {
@@ -314,6 +322,11 @@ public class SapperGui extends JFrame {
 
 		JMenuItem saveGameItem = new JMenuItem("Zapisz");
 		gameMenu.add(saveGameItem);
+		saveGameItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveGame();
+			}
+		});
 
 		gameMenu.addSeparator();
 
@@ -332,7 +345,8 @@ public class SapperGui extends JFrame {
 		final String authors = "Koło programistów WSZiB\nwww.wszib.edu.pl";
 		authorsItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, authors, "O autorach", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, authors, "O autorach",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		helpMenu.add(authorsItem);
@@ -384,4 +398,17 @@ public class SapperGui extends JFrame {
 		counter = new CounterGUI(timeCounter, bridge);
 		counter.start();
 	}
+
+	public static void saveGame() {
+		Save save = new Save(bridge.getBoard(), counter.getBridge().getCounter());
+		save.saveToFile();
+	}
+
+	public static SapperGui loadGame() {
+		BoardAndCounter boardAndCounter = Load.loadFromFile();
+		Bridge bridge = new Bridge(boardAndCounter);
+		SapperGui sapperGui = new SapperGui(bridge);
+		return sapperGui;
+	}
+
 }

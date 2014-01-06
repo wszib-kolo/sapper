@@ -1,16 +1,12 @@
 package controller;
 
-import java.io.Serializable;
-
 import sapper.Board;
 import sapper.BoardAndCounter;
 import sapper.BoardGenerator;
 import sapper.Counter;
 import sapper.MineNumberWinLose;
 
-public class Bridge implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Bridge {
 
 	private Board gameBoard;
 	private Counter counter;
@@ -32,6 +28,11 @@ public class Bridge implements Serializable {
 		BoardGenerator boardGen = new BoardGenerator(x, y, minesNumber);
 		gameBoard = new Board(boardGen.randomizeMines());
 		counter = new Counter();
+	}
+
+	public Bridge(BoardAndCounter b) {
+		gameBoard = b.getBoard();
+		counter = b.getCounter();
 	}
 
 	public void save() {
