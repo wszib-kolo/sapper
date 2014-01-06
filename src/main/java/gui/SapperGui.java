@@ -35,10 +35,6 @@ public class SapperGui extends JFrame {
 	private int sizeY = 10;
 	private int mines = 10;
 
-	private int sizeX = 10;
-	private int sizeY = 10;
-	private int mines = 10;
-
 	private JPanel panel, gamePanel;
 	private JMenuBar menuBar;
 	private JButton[][] buttons;

@@ -1,7 +1,10 @@
 package sapper;
 
-public class BoardAndCounter {
+import java.io.Serializable;
 
+public class BoardAndCounter implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private Board board;
 	private Counter counter;
 
