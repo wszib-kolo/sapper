@@ -34,6 +34,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import sapper.MineNumberWinLose;
@@ -199,8 +200,7 @@ public class SapperGui extends JFrame {
 			}
 
 			if (right < sizeY && down < sizeX) {
-				MineNumberWinLose field_down_right = bridge.checkMine(x + 1,
-						y + 1);
+				MineNumberWinLose field_down_right = bridge.checkMine(x + 1, y + 1);
 				contentOfField(down, right, field_down_right);
 			}
 
@@ -211,14 +211,12 @@ public class SapperGui extends JFrame {
 			}
 
 			if (left >= 0 && down < sizeX) {
-				MineNumberWinLose field_down_left = bridge.checkMine(x + 1,
-						y - 1);
+				MineNumberWinLose field_down_left = bridge.checkMine(x + 1, y - 1);
 				contentOfField(down, left, field_down_left);
 			}
 
 			if (up >= 0 && right < sizeY) {
-				MineNumberWinLose field_up_right = bridge.checkMine(x - 1,
-						y + 1);
+				MineNumberWinLose field_up_right = bridge.checkMine(x - 1, y + 1);
 				contentOfField(up, right, field_up_right);
 			}
 		}
@@ -313,7 +311,7 @@ public class SapperGui extends JFrame {
 			}
 		});
 		gameMenu.add(optionsItem);
-		
+
 		JMenuItem saveGameItem = new JMenuItem("Zapisz");
 		gameMenu.add(saveGameItem);
 
@@ -331,6 +329,12 @@ public class SapperGui extends JFrame {
 		menuBar.add(helpMenu);
 
 		JMenuItem authorsItem = new JMenuItem("O autorach");
+		final String authors = "Koło programistów WSZiB\nwww.wszib.edu.pl";
+		authorsItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, authors, "O autorach", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		helpMenu.add(authorsItem);
 
 		gamePanel = new JPanel();
@@ -342,8 +346,7 @@ public class SapperGui extends JFrame {
 		for (int posX = 0; posX < sizeX; posX++) {
 			for (int posY = 0; posY < sizeY; posY++) {
 				buttons[posX][posY] = new JButton();
-				buttons[posX][posY].addMouseListener(new ButtonListener(posX,
-						posY));
+				buttons[posX][posY].addMouseListener(new ButtonListener(posX, posY));
 				buttons[posX][posY].setPreferredSize(new Dimension(40, 40));
 				gamePanel.add(buttons[posX][posY]);
 			}
