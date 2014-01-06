@@ -1,15 +1,16 @@
 package gui;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.LayoutStyle;
-import javax.swing.WindowConstants;
 
 public class GuiOptions extends JFrame {
 
@@ -20,9 +21,9 @@ public class GuiOptions extends JFrame {
 	private JLabel labelBoardSize;
 	private JLabel labelMines;
 	private JLabel labelX;
-	private JSpinner spinnerMines;
-	private JSpinner spinnerXsize;
+	private JSpinner spinnerXSize;
 	private JSpinner spinnerYSize;
+	private JSpinner spinnerMines;
 
 	private int xSize = 0;
 	private int ySize = 0;
@@ -37,33 +38,61 @@ public class GuiOptions extends JFrame {
 		this.xSize = sizeX;
 		this.ySize = sizeY;
 		this.mines = mines;
-		spinnerMines.setValue(mines);
-		spinnerXsize.setValue(sizeX);
+		spinnerXSize.setValue(sizeX);
 		spinnerYSize.setValue(sizeY);
+		spinnerMines.setValue(mines);
+	}
+
+	public void setWindow() {
+		setTitle("Opcje");
+		setMinimumSize(new Dimension(250, 130));
+		setResizable(false);
 	}
 
 	private void initComponents() {
 
-		labelBoardSize = new JLabel();
-		spinnerXsize = new JSpinner();
-		labelX = new JLabel();
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		getContentPane().add(panel);
+
+		JPanel top = new JPanel();
+		top.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+		panel.add(top, BorderLayout.PAGE_START);
+
+		labelBoardSize = new JLabel("Rozmiar planszy:");
+		top.add(labelBoardSize);
+
+		spinnerXSize = new JSpinner();
+		top.add(spinnerXSize);
+		labelX = new JLabel("X");
+		top.add(labelX);
+
 		spinnerYSize = new JSpinner();
-		labelMines = new JLabel();
+		top.add(spinnerYSize);
+
+		JPanel center = new JPanel();
+		center.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+		panel.add(center, BorderLayout.CENTER);
+
+		labelMines = new JLabel("Min:");
+		center.add(labelMines);
+
 		spinnerMines = new JSpinner();
-		btnSave = new JButton();
-		btnCancel = new JButton();
+		center.add(spinnerMines);
 
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		JPanel bottom = new JPanel();
+		bottom.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 10));
+		panel.add(bottom, BorderLayout.PAGE_END);
 
-		labelBoardSize.setText("Board size:");
-		labelX.setText("X");
-		labelMines.setText("Mines:");
-		btnSave.setText("Save");
-		btnCancel.setText("Cancel");
+		btnSave = new JButton("Zapisz");
+		bottom.add(btnSave);
+
+		btnCancel = new JButton("Anuluj");
+		bottom.add(btnCancel);
 
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				xSize = (Integer) spinnerXsize.getValue();
+				xSize = (Integer) spinnerXSize.getValue();
 				ySize = (Integer) spinnerYSize.getValue();
 				mines = (Integer) spinnerMines.getValue();
 				backToGame();
@@ -76,106 +105,8 @@ public class GuiOptions extends JFrame {
 			}
 		});
 
-		GroupLayout layout = new GroupLayout(getContentPane());
-		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout
-				.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(
-						layout.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(
-										layout.createParallelGroup(
-												GroupLayout.Alignment.LEADING)
-												.addGroup(
-														layout.createSequentialGroup()
-																.addGroup(
-																		layout.createParallelGroup(
-																				GroupLayout.Alignment.LEADING)
-																				.addGroup(
-																						layout.createSequentialGroup()
-																								.addComponent(
-																										labelBoardSize)
-																								.addPreferredGap(
-																										LayoutStyle.ComponentPlacement.UNRELATED)
-																								.addComponent(
-																										spinnerXsize,
-																										GroupLayout.PREFERRED_SIZE,
-																										40,
-																										GroupLayout.PREFERRED_SIZE))
-																				.addGroup(
-																						layout.createSequentialGroup()
-																								.addComponent(
-																										labelMines)
-																								.addGap(18,
-																										18,
-																										18)
-																								.addComponent(
-																										spinnerMines,
-																										GroupLayout.PREFERRED_SIZE,
-																										43,
-																										GroupLayout.PREFERRED_SIZE)))
-																.addPreferredGap(
-																		LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(
-																		labelX)
-																.addPreferredGap(
-																		LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(
-																		spinnerYSize,
-																		GroupLayout.PREFERRED_SIZE,
-																		40,
-																		GroupLayout.PREFERRED_SIZE)
-																.addGap(0,
-																		0,
-																		Short.MAX_VALUE))
-												.addGroup(
-														GroupLayout.Alignment.TRAILING,
-														layout.createSequentialGroup()
-																.addComponent(
-																		btnSave)
-																.addPreferredGap(
-																		LayoutStyle.ComponentPlacement.RELATED,
-																		GroupLayout.DEFAULT_SIZE,
-																		Short.MAX_VALUE)
-																.addComponent(
-																		btnCancel)))
-								.addContainerGap()));
-		layout.setVerticalGroup(layout.createParallelGroup(
-				GroupLayout.Alignment.LEADING).addGroup(
-				layout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								layout.createParallelGroup(
-										GroupLayout.Alignment.BASELINE)
-										.addComponent(labelBoardSize)
-										.addComponent(spinnerXsize,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(labelX)
-										.addComponent(spinnerYSize,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))
-						.addGap(18, 18, 18)
-						.addGroup(
-								layout.createParallelGroup(
-										GroupLayout.Alignment.BASELINE)
-										.addComponent(labelMines)
-										.addComponent(spinnerMines,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))
-						.addGap(18, 18, 18)
-						.addGroup(
-								layout.createParallelGroup(
-										GroupLayout.Alignment.BASELINE)
-										.addComponent(btnSave)
-										.addComponent(btnCancel))
-						.addContainerGap(GroupLayout.DEFAULT_SIZE,
-								Short.MAX_VALUE)));
-
-		pack();
+		setWindow();
+	
 	}
 
 	public int getXsize() {
@@ -189,12 +120,12 @@ public class GuiOptions extends JFrame {
 	public int getMinesCount() {
 		return mines;
 	}
-	
+
 	private void backToGame() {
 		SapperGui sapper = new SapperGui(xSize, ySize, mines);
 		sapper.setLocation(this.getLocationOnScreen());
 		sapper.setVisible(true);
 		this.setVisible(false);
 	}
-	
+
 }
