@@ -33,6 +33,7 @@ public class Load {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("returnign BoardAndCounter ...");
 		return boardAndCounter;
 	}
 }
