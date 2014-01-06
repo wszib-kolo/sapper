@@ -45,8 +45,9 @@ public class GuiOptions extends JFrame {
 
 	public void setWindow() {
 		setTitle("Opcje");
-		setMinimumSize(new Dimension(250, 130));
+		setSize(new Dimension(250, 130));
 		setResizable(false);
+		pack();
 	}
 
 	private void initComponents() {
