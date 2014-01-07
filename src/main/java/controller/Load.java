@@ -19,12 +19,13 @@ public class Load {
 			JFrame parentFrame = new JFrame();
 			JFileChooser loadFileChooser = new JFileChooser();
 			loadFileChooser.addChoosableFileFilter(filter);
-			loadFileChooser.setDialogTitle("Choose a game ...");
+			loadFileChooser
+					.setDialogTitle("Wybierz plik z grą, który chcesz wczytać.");
 			int userSelection = loadFileChooser.showOpenDialog(parentFrame);
 
 			if (userSelection == JFileChooser.APPROVE_OPTION) {
-				File f = loadFileChooser.getSelectedFile();
-				FileInputStream fileStream = new FileInputStream(f);
+				File file = loadFileChooser.getSelectedFile();
+				FileInputStream fileStream = new FileInputStream(file);
 				ObjectInputStream is = new ObjectInputStream(fileStream);
 				boardAndCounter = (BoardAndCounter) is.readObject();
 				is.close();
@@ -32,7 +33,6 @@ public class Load {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("returnign BoardAndCounter ...");
 		return boardAndCounter;
 	}
 }

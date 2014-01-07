@@ -63,8 +63,7 @@ public class SapperGui extends JFrame {
 			JLabel fieldImageLabel = new JLabel(fieldIcon);
 			gamePanel.add(fieldImageLabel, (sizeY) * posX + posY);
 
-			fieldImageLabel.setBorder(BorderFactory
-					.createDashedBorder(Color.black));
+			fieldImageLabel.setBorder(BorderFactory.createDashedBorder(Color.black));
 			gamePanel.updateUI();
 		}
 
@@ -196,8 +195,7 @@ public class SapperGui extends JFrame {
 			}
 
 			if (left >= 0 && up >= 0) {
-				MineNumberWinLose field_up_left = bridge
-						.checkMine(x - 1, y - 1);
+				MineNumberWinLose field_up_left = bridge.checkMine(x - 1, y - 1);
 				contentOfField(up, left, field_up_left);
 			}
 
@@ -347,7 +345,8 @@ public class SapperGui extends JFrame {
 		final String authors = "Koło programistów WSZiB\nwww.wszib.edu.pl";
 		authorsItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, authors, "O autorach", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, authors, "O autorach",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		helpMenu.add(authorsItem);
