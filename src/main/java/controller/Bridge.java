@@ -29,7 +29,9 @@ public class Bridge implements Serializable {
 	}
 
 	public Bridge(int x, int y, int minesNumber) {
-		BoardGenerator boardGen = new BoardGenerator(x, y, minesNumber);
+		BoardGenerator boardGen = new BoardGenerator();
+		//gameOptions = new GameOptions(x, y, minesNumber);
+		
 		gameBoard = new Board(boardGen.randomizeMines());
 		counter = new Counter();
 	}

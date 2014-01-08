@@ -11,6 +11,8 @@ import javax.swing.JSpinner;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
+import sapper.GameOptions;
+
 public class GuiOptions extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -31,15 +33,20 @@ public class GuiOptions extends JFrame {
 	public GuiOptions() {
 		initComponents();
 	}
+	
+	GameOptions gameOptions;
 
 	public GuiOptions(int sizeX, int sizeY, int mines) {
+
 		initComponents();
+		
 		this.xSize = sizeX;
 		this.ySize = sizeY;
 		this.mines = mines;
 		spinnerMines.setValue(mines);
 		spinnerXsize.setValue(sizeX);
 		spinnerYSize.setValue(sizeY);
+		
 	}
 
 	private void initComponents() {
@@ -189,12 +196,11 @@ public class GuiOptions extends JFrame {
 	public int getMinesCount() {
 		return mines;
 	}
-	
-	private void backToGame() {
-		SapperGui sapper = new SapperGui(xSize, ySize, mines);
-		sapper.setLocation(this.getLocationOnScreen());
-		sapper.setVisible(true);
+	private void backToHomeScreen() {
+		GameOptions options = new GameOptions(xSize, ySize, mines);
+		options.setLocation(this.getLocationOnScreen());
+		options.setVisible(true);
 		this.setVisible(false);
 	}
-	
+
 }

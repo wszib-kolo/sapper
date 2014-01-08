@@ -238,7 +238,7 @@ public class SapperGui extends JFrame {
 		this.sizeX = xSize;
 		this.sizeY = ySize;
 		this.mines = mines;
-		bridge = new Bridge(sizeX, sizeY, this.mines);
+		bridge = new Bridge(sizeX, sizeY, mines);
 		initUI();
 		counterStart();
 	}
