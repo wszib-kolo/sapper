@@ -1,6 +1,10 @@
 package sapper;
 
-public class Counter {
+import java.io.Serializable;
+
+public class Counter implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private long timeStart;
 
 	public Counter() {
@@ -15,4 +19,3 @@ public class Counter {
 		return (int) ((System.currentTimeMillis() - timeStart) / 1000);
 	}
 }
-	

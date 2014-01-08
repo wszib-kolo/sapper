@@ -1,4 +1,4 @@
-package sapper;
+package controller;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;

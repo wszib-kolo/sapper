@@ -1,7 +1,9 @@
 package gui;
 
 import javax.swing.JLabel;
-import sapper.Bridge;
+
+import sapper.BoardAndCounter;
+import controller.Bridge;
 
 public class CounterGUI implements Runnable {
 	private Bridge bridge;
@@ -36,5 +38,9 @@ public class CounterGUI implements Runnable {
 			}
 			timeCounter.setText("Czas gry: " + updateTimeCounter() + " sekund");
 		}
+	}
+
+	public Bridge getBridge() {
+		return bridge;
 	}
 }
