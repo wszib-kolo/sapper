@@ -244,7 +244,19 @@ public class SapperGui extends JFrame {
 		public void mouseReleased(MouseEvent arg0) {
 		}
 	}
+	
+	public int getSizeX() {
+		return sizeX;
+	}
 
+	public int getSizeY() {
+		return sizeY;
+	}
+
+	public int getMines() {
+		return mines;
+	}
+	
 	public SapperGui(int xSize, int ySize, int mines) {
 		this.sizeX = xSize;
 		this.sizeY = ySize;
@@ -268,10 +280,9 @@ public class SapperGui extends JFrame {
 	}
 
 	private void showOptions() {
-		GuiOptions options = new GuiOptions(sizeX, sizeY, mines);
+		GuiOptions options = new GuiOptions(this);
 		options.setLocation(this.getLocationOnScreen());
 		options.setVisible(true);
-		this.setVisible(false);
 	}
 
 	private void closeWindow() {
