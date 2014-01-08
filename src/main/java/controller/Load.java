@@ -2,7 +2,6 @@ package controller;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -21,11 +20,14 @@ public class Load {
 			loadFileChooser.addChoosableFileFilter(filter);
 			loadFileChooser
 					.setDialogTitle("Wybierz plik z grą, który chcesz wczytać.");
+			loadFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
 			int userSelection = loadFileChooser.showOpenDialog(parentFrame);
 
 			if (userSelection == JFileChooser.APPROVE_OPTION) {
-				File file = loadFileChooser.getSelectedFile();
-				FileInputStream fileStream = new FileInputStream(file);
+
+				FileInputStream fileStream = new FileInputStream(
+						loadFileChooser.getSelectedFile());
 				ObjectInputStream is = new ObjectInputStream(fileStream);
 				boardAndCounter = (BoardAndCounter) is.readObject();
 				is.close();
