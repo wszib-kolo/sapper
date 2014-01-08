@@ -28,20 +28,23 @@ public class GuiOptions extends JFrame {
 	private int ySize = 0;
 	private int mines = 0;
 
+	SapperGui oldSapperGui;
+	
 	public GuiOptions() {
 		initComponents();
 	}
 
-	public GuiOptions(int sizeX, int sizeY, int mines) {
+	public GuiOptions(SapperGui oldSapperGui) {
 		initComponents();
-		this.xSize = sizeX;
-		this.ySize = sizeY;
-		this.mines = mines;
+		this.oldSapperGui = oldSapperGui;
+		this.xSize = oldSapperGui.getSizeX();
+		this.ySize = oldSapperGui.getSizeY();
+		this.mines = oldSapperGui.getMines();
 		spinnerMines.setValue(mines);
-		spinnerXsize.setValue(sizeX);
-		spinnerYSize.setValue(sizeY);
+		spinnerXsize.setValue(xSize);
+		spinnerYSize.setValue(ySize);
 	}
-
+	
 	private void initComponents() {
 
 		labelBoardSize = new JLabel();
@@ -66,13 +69,13 @@ public class GuiOptions extends JFrame {
 				xSize = (Integer) spinnerXsize.getValue();
 				ySize = (Integer) spinnerYSize.getValue();
 				mines = (Integer) spinnerMines.getValue();
-				backToHomeScreen();
+				saveGame();
 			}
 		});
 
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				backToHomeScreen();
+				backToGame();
 			}
 		});
 
@@ -189,12 +192,17 @@ public class GuiOptions extends JFrame {
 	public int getMinesCount() {
 		return mines;
 	}
-
-	private void backToHomeScreen() {
-		HomeScreen saper = new HomeScreen(xSize, ySize, mines);
-		saper.setLocation(this.getLocationOnScreen());
-		saper.setVisible(true);
+	
+	private void backToGame() {
 		this.setVisible(false);
+	}
+	
+	private void saveGame() {
+		SapperGui sapper = new SapperGui(xSize, ySize, mines);
+		sapper.setLocation(this.getLocationOnScreen());
+		sapper.setVisible(true);
+		this.setVisible(false);
+		oldSapperGui.setVisible(false);
 	}
 	
 }
