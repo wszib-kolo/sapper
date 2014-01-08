@@ -9,23 +9,19 @@ import controller.Bridge;
 import static org.testng.Assert.*;
 
 public class SaveAndLoadTest {
- 
+
 	@Test
-  public void loadedBoardAndCounterEqualsSavedBoardAndCounter() {
-		Bridge bridgeInput = new Bridge(5,5,5);
-  	Board boardInput = bridgeInput.getBoard();
-  	Counter counterInput = bridgeInput.getCounter();
-  	bridgeInput.save();
-  	
-  	BoardAndCounter boardAndCounterOutput = null;
-  	Board boardOutput = null;
-  	Counter counterOutput = null;
-  	
-  	boardAndCounterOutput = Bridge.load();
-  	counterOutput = boardAndCounterOutput.getCounter();
-  	boardOutput = boardAndCounterOutput.getBoard();
-  	
-  	assertSame(boardInput, boardOutput);
-  	assertSame(counterInput, counterOutput);
-  }
+	public void loadedBoardAndCounterEqualsSavedBoardAndCounter() {
+		Bridge bridgeInput = new Bridge();
+		BoardAndCounter boardAndCounterInput = new BoardAndCounter();
+		// boardAndCounterInput.setBoard(bridgeInput.getBoard());
+		// boardAndCounterInput.setCounter(bridgeInput.getCounter());
+		// bridgeInput.save();
+
+		BoardAndCounter boardAndCounterOutput = new BoardAndCounter();
+		boardAndCounterOutput = Bridge.load();
+		boardAndCounterInput = Bridge.load();
+
+		assertEquals(boardAndCounterInput, boardAndCounterOutput);
+	}
 }

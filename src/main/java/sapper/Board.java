@@ -8,11 +8,17 @@ import org.apache.log4j.Logger;
 import sapper.MineNumberWinLose;
 
 public class Board implements Serializable {
-	private Logger logger = Logger.getLogger(Board.class.getName());
+	private transient Logger logger = Logger.getLogger(Board.class.getName());
 	private static final long serialVersionUID = 1L;
 	private Field[][] fields;
-
+	
+	private GameOptions gameOptions;
+	
+	public GameOptions getGameOptions(){
+		return gameOptions;
+	}
 	public Board(Field[][] fields) {
+		gameOptions = new GameOptions();
 		BasicConfigurator.configure();
 		this.fields = fields;
 	}
