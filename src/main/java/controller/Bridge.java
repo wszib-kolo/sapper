@@ -28,10 +28,8 @@ public class Bridge implements Serializable {
 		return counter.getGameTime();
 	}
 
-	public Bridge(int x, int y, int minesNumber) {
+	public Bridge() {
 		BoardGenerator boardGen = new BoardGenerator();
-		//gameOptions = new GameOptions(x, y, minesNumber);
-		
 		gameBoard = new Board(boardGen.randomizeMines());
 		counter = new Counter();
 	}

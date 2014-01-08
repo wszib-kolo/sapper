@@ -1,21 +1,18 @@
 package sapper;
+
 import sapper.MineNumberWinLose;
 
-public class BoardGenerator{
-		
+public class BoardGenerator {
 
+	private GameOptions gameOptions = new GameOptions();
 	private Field[][] fields;
-	
-	public int sizeX, sizeY, numberOfMines;
-	
-	GameOptions gameOptions = new GameOptions(sizeX, sizeY, numberOfMines);
-	
+
 	public Field[][] randomizeMines() {
-		int[][] mines = new int[gameOptions.sizeX][gameOptions.sizeY];
+		int[][] mines = new int[gameOptions.getSizeX()][gameOptions.getSizeY()];
 		int minesSet = 0;
-		while (minesSet < gameOptions.numberOfMines) {
-			int x = (int) (Math.random() * gameOptions.sizeX);
-			int y = (int) (Math.random() * gameOptions.sizeY);
+		while (minesSet < gameOptions.getNumberOfMines()) {
+			int x = (int) (Math.random() * gameOptions.getSizeX());
+			int y = (int) (Math.random() * gameOptions.getSizeY());
 			if (mines[x][y] != 1) {
 				mines[x][y] = 1;
 				minesSet++;
@@ -28,9 +25,9 @@ public class BoardGenerator{
 	}
 
 	private void fillArray() {
-		fields = new Field[gameOptions.sizeX][gameOptions.sizeY];
-		for (int i = 0; i < gameOptions.sizeX; i++) {
-			for (int j = 0; j < gameOptions.sizeY; j++) {
+		fields = new Field[gameOptions.getSizeX()][gameOptions.getSizeY()];
+		for (int i = 0; i < gameOptions.getSizeX(); i++) {
+			for (int j = 0; j < gameOptions.getSizeY(); j++) {
 				fields[i][j] = new NormalField();
 			}
 		}
@@ -47,18 +44,18 @@ public class BoardGenerator{
 	}
 
 	private void generateBoard() {
-		for (int x = 0; x < gameOptions.sizeX; x++) {
-			for (int y = 0; y < gameOptions.sizeY; y++) {
+		for (int x = 0; x < gameOptions.getSizeX(); x++) {
+			for (int y = 0; y < gameOptions.getSizeY(); y++) {
 				int centerHorizontal = x;
 				int centerVertical = y;
 				int down = y - 1;
 				int up = y + 1;
 				int left = x - 1;
 				int right = x + 1;
-				boolean isThereBoardUp = (up < gameOptions.sizeY);
+				boolean isThereBoardUp = (up < gameOptions.getSizeY());
 				boolean isThereBoardDown = (down > -1);
 				boolean isThereBoardLeft = (left > -1);
-				boolean isThereBoardRight = (right < gameOptions.sizeX);
+				boolean isThereBoardRight = (right < gameOptions.getSizeX());
 
 				if (fields[centerHorizontal][centerVertical].getFieldStatus() == MineNumberWinLose.MINE) {
 					if (isThereBoardLeft == true) {
@@ -68,8 +65,7 @@ public class BoardGenerator{
 						fields[centerHorizontal][up].increaseNearMinesNumber();
 					}
 					if (isThereBoardDown == true) {
-						fields[centerHorizontal][down]
-								.increaseNearMinesNumber();
+						fields[centerHorizontal][down].increaseNearMinesNumber();
 					}
 					if (isThereBoardRight == true) {
 						fields[right][centerVertical].increaseNearMinesNumber();

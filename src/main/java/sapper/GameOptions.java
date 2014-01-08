@@ -1,25 +1,21 @@
-
 package sapper;
 
-import gui.HomeScreen;
+public class GameOptions {
 
-public class GameOptions extends HomeScreen{
+	private int sizeX = 10;
+	private int sizeY = 10;
+	private int numberOfMines = 10;
 
-	private static final long serialVersionUID = 1L;
-	
-	public int sizeX = 0;
-	public int sizeY = 0;
-	public int numberOfMines = 0;
-		
-
-	public GameOptions(int sizeX, int sizeY, int numberOfMines) {
-		this.sizeX = sizeX;
-		this.sizeY = sizeY;
-		this.numberOfMines = numberOfMines;	
+	public int getSizeX() {
+		return sizeX;
 	}
-	
-	public GameOptions(){
-		initComponents();
+
+	public int getSizeY() {
+		return sizeY;
+	}
+
+	public int getNumberOfMines() {
+		return numberOfMines;
 	}
 
 }

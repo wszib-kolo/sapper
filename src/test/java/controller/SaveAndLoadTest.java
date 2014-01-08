@@ -12,7 +12,7 @@ public class SaveAndLoadTest {
 
 	@Test
 	public void loadedBoardAndCounterEqualsSavedBoardAndCounter() {
-		Bridge bridgeInput = new Bridge(5, 5, 5);
+		Bridge bridgeInput = new Bridge();
 		BoardAndCounter boardAndCounterInput = new BoardAndCounter();
 		// boardAndCounterInput.setBoard(bridgeInput.getBoard());
 		// boardAndCounterInput.setCounter(bridgeInput.getCounter());

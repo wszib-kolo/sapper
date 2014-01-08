@@ -31,15 +31,17 @@ import controller.Save;
 public class SapperGui extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private int sizeX = 10;
-	private int sizeY = 10;
-	private int mines = 10;
+	
+	private static Bridge bridge;
+	private int sizeX;
+	private int sizeY;
+	private int numberOfMines;
 
 	private JPanel panel, gamePanel;
 	private JMenuBar menuBar;
 	private JButton[][] buttons;
 	private MineNumberWinLose status;
-	private static Bridge bridge;
+	
 	private JLabel minesCounter;
 	private static JLabel timeCounter;
 	private int flags;
@@ -90,6 +92,8 @@ public class SapperGui extends JFrame {
 					case FLAG:
 						setFieldLabelImage(badFlagged, xFieldPos, yFieldPos);
 						break;
+					default:
+						break;
 					}
 					buttons[xFieldPos][yFieldPos].setEnabled(false);
 				}
@@ -102,11 +106,11 @@ public class SapperGui extends JFrame {
 			if (flagSetted == true) {
 				setFieldButtonImage(flag, x, y);
 				flags++;
-				calculateMines(mines, flags);
+				calculateMines(numberOfMines, flags);
 			} else {
 				setFieldButtonImage(clean, x, y);
 				flags--;
-				calculateMines(mines, flags);
+				calculateMines(numberOfMines, flags);
 			}
 		}
 
@@ -234,17 +238,11 @@ public class SapperGui extends JFrame {
 		}
 	}
 
-	public SapperGui(int xSize, int ySize, int mines) {
-		this.sizeX = xSize;
-		this.sizeY = ySize;
-		this.mines = mines;
-		bridge = new Bridge(sizeX, sizeY, mines);
-		initUI();
-		counterStart();
-	}
-
 	public SapperGui() {
-		bridge = new Bridge(sizeX, sizeY, mines);
+		bridge = new Bridge();
+		sizeX = bridge.getBoard().getGameOptions().getSizeX();
+		sizeY = bridge.getBoard().getGameOptions().getSizeY();
+		numberOfMines = bridge.getBoard().getGameOptions().getNumberOfMines();
 		initUI();
 		counterStart();
 	}
@@ -256,7 +254,7 @@ public class SapperGui extends JFrame {
 	}
 
 	private void startGame() {
-		SapperGui sapper = new SapperGui(sizeX, sizeY, mines);
+		SapperGui sapper = new SapperGui();
 		sapper.setLocation(this.getLocationOnScreen());
 		sapper.setVisible(true);
 		this.setVisible(false);
@@ -270,7 +268,7 @@ public class SapperGui extends JFrame {
 	}
 
 	private void showOptions() {
-		GuiOptions options = new GuiOptions(sizeX, sizeY, mines);
+		GuiOptions options = new GuiOptions(sizeX, sizeY, numberOfMines);
 		options.setLocation(this.getLocationOnScreen());
 		options.setVisible(true);
 		this.setVisible(false);
@@ -373,7 +371,7 @@ public class SapperGui extends JFrame {
 		countersInBottomPanel.setLayout(new GridLayout(0, 2));
 		bottom.add(countersInBottomPanel);
 
-		minesCounter = new JLabel("Pozostało min: " + String.valueOf(mines));
+		minesCounter = new JLabel("Pozostało min: " + String.valueOf(numberOfMines));
 		countersInBottomPanel.add(minesCounter);
 
 		timeCounter = new JLabel("Czas gry: 0 sekund");
