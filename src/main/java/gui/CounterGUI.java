@@ -2,7 +2,6 @@ package gui;
 
 import javax.swing.JLabel;
 
-import sapper.BoardAndCounter;
 import controller.Bridge;
 
 public class CounterGUI implements Runnable {

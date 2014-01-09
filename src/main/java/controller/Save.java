@@ -10,22 +10,27 @@ import javax.swing.JFrame;
 import sapper.Board;
 import sapper.BoardAndCounter;
 import sapper.Counter;
+import sapper.Options;
 
 public class Save implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Board board;
 	private Counter counter;
+	private Options options;
 
-	public Save(Board board, Counter counter) {
+	public Save(Board board, Counter counter, Options options) {
 		this.board = board;
 		this.counter = counter;
+		this.options = options;
+		
 	}
 
 	public void saveToFile() {
 		BoardAndCounter boardAndCounter = new BoardAndCounter();
 		boardAndCounter.setBoard(board);
 		boardAndCounter.setCounter(counter);
+		boardAndCounter.setOptions(options);
 
 		try {
 			JFrame parentFrame = new JFrame();

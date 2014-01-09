@@ -8,7 +8,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.log4j.Logger;
 
-import sapper.Board;
 import sapper.BoardAndCounter;
 
 public class Load {
@@ -25,7 +24,7 @@ public class Load {
 			loadFileChooser
 					.setDialogTitle("Wybierz plik z grą, który chcesz wczytać.");
 			loadFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
+			logger.info("wybrano plik");
 			int userSelection = loadFileChooser.showOpenDialog(parentFrame);
 
 			if (userSelection == JFileChooser.APPROVE_OPTION) {

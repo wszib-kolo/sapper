@@ -189,7 +189,7 @@ public class GuiOptions extends JFrame {
 	public int getMinesCount() {
 		return mines;
 	}
-	
+
 	private void backToGame() {
 		SapperGui sapper = new SapperGui(xSize, ySize, mines);
 		sapper.setLocation(this.getLocationOnScreen());

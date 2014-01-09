@@ -19,8 +19,8 @@ public class SaveAndLoadTest {
 		// bridgeInput.save();
 
 		BoardAndCounter boardAndCounterOutput = new BoardAndCounter();
-		boardAndCounterOutput = Bridge.load();
-		boardAndCounterInput = Bridge.load();
+		//boardAndCounterOutput = Bridge.load();
+		//boardAndCounterInput = Bridge.load();
 
 		assertEquals(boardAndCounterInput, boardAndCounterOutput);
 	}

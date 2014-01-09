@@ -36,7 +36,14 @@ public class Board implements Serializable {
 		logger.debug(fieldStatus);
 		return fieldStatus;
 	}
-
+	public MineNumberWinLose chekUncoverField(int posX, int posY){
+		if(fields[posX][posY].isCovered()==false){
+			return fields[posX][posY].getFieldStatus();
+		}
+		else{
+			return MineNumberWinLose.COVERED;
+		}
+	}
 	public void flagField(int posX, int posY, boolean flagStatus) {
 		fields[posX][posY].setFlag(flagStatus);
 	}
