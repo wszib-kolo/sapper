@@ -251,7 +251,7 @@ public class SapperGui extends JFrame {
 		pack();
 	}
 
-	private void calculateMines(int mines, int flags) {
+	private void calculateMines() {
 		int numberOfMines = 0;
 		numberOfMines = mines - flags;
 		minesCounter.setText("Pozostało min: " + String.valueOf(numberOfMines));
@@ -275,7 +275,13 @@ public class SapperGui extends JFrame {
 	private void refreshBoard() {
 		for (int x = 0; x < sizeX; x++) {
 			for (int y = 0;  y< sizeY; y++) {
-				contentOfField(x,y,bridge.checkMineWithoutUncover(x, y));
+				MineNumberWinLose status = bridge.checkMineWithoutUncover(x, y);
+				System.out.println(status);
+				if(status == MineNumberWinLose.FLAG || status == MineNumberWinLose.FLAGGEDMINE){
+					flags++;
+					calculateMines();
+				}
+				contentOfField(x,y,status);
 			}
 		}
 	}
@@ -326,11 +332,11 @@ public class SapperGui extends JFrame {
 		if (flagSetted == true) {
 			setFieldButtonImage(flag, x, y);
 			flags++;
-			calculateMines(mines, flags);
+			calculateMines();
 		} else {
 			setFieldButtonImage(clean, x, y);
 			flags--;
-			calculateMines(mines, flags);
+			calculateMines();
 		}
 	}
 

@@ -37,7 +37,7 @@ public class Board implements Serializable {
 		return fieldStatus;
 	}
 	public MineNumberWinLose chekUncoverField(int posX, int posY){
-		if(fields[posX][posY].isCovered()==false){
+		if(fields[posX][posY].isCovered()==false || fields[posX][posY].isFlagged()== true){
 			return fields[posX][posY].getFieldStatus();
 		}
 		else{

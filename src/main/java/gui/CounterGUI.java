@@ -38,8 +38,4 @@ public class CounterGUI implements Runnable {
 			timeCounter.setText("Czas gry: " + updateTimeCounter() + " sekund");
 		}
 	}
-
-	public Bridge getBridge() {
-		return bridge;
-	}
 }

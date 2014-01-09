@@ -2,7 +2,6 @@ package controller;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -12,9 +11,8 @@ import sapper.BoardAndCounter;
 import sapper.Counter;
 import sapper.Options;
 
-public class Save implements Serializable {
+public class Save{
 
-	private static final long serialVersionUID = 1L;
 	private Board board;
 	private Counter counter;
 	private Options options;
