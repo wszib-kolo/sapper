@@ -1,29 +1,57 @@
 package gui;
 
-import java.awt.Color;
+import static gui.Icons.badFlagged;
+import static gui.Icons.bomb;
+import static gui.Icons.clean;
+import static gui.Icons.eightBombs;
+import static gui.Icons.explode;
+import static gui.Icons.fiveBombs;
+import static gui.Icons.flag;
+import static gui.Icons.flaggedBomb;
+import static gui.Icons.fourBombs;
+import static gui.Icons.oneBomb;
+import static gui.Icons.sevenBombs;
+import static gui.Icons.sixBombs;
+import static gui.Icons.threeBombs;
+import static gui.Icons.twoBombs;
+import static gui.Icons.win;
+import static gui.Icons.zeroBomb;
+
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import controller.Bridge;
+
 import sapper.MineNumberWinLose;
-import static gui.Icons.*;
+import controller.Bridge;
 
 public class SapperGui extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
+	private int sizeX = 10;
+	private int sizeY = 10;
+	private int mines = 10;
+
 	private JPanel panel, gamePanel;
+	private JMenuBar menuBar;
 	private JButton[][] buttons;
 	private MineNumberWinLose status;
-	private int sizeX, sizeY, mines;
 	private static Bridge bridge;
 	private JLabel minesCounter;
 	private static JLabel timeCounter;
@@ -44,7 +72,8 @@ public class SapperGui extends JFrame {
 			JLabel fieldImageLabel = new JLabel(fieldIcon);
 			gamePanel.add(fieldImageLabel, (sizeY) * posX + posY);
 
-			fieldImageLabel.setBorder(BorderFactory.createDashedBorder(Color.black));
+			fieldImageLabel.setBorder(BorderFactory
+					.createDashedBorder(Color.black));
 			gamePanel.updateUI();
 		}
 
@@ -78,7 +107,7 @@ public class SapperGui extends JFrame {
 			setFieldLabelImage(explode, x, y);
 		}
 
-		private void FieldFlaged() {
+		private void fieldFlagged() {
 			boolean flagSetted = bridge.changeFieldFlagStatus(x, y);
 			if (flagSetted == true) {
 				setFieldButtonImage(flag, x, y);
@@ -176,7 +205,8 @@ public class SapperGui extends JFrame {
 			}
 
 			if (left >= 0 && up >= 0) {
-				MineNumberWinLose field_up_left = bridge.checkMine(x - 1, y - 1);
+				MineNumberWinLose field_up_left = bridge
+						.checkMine(x - 1, y - 1);
 				contentOfField(up, left, field_up_left);
 			}
 
@@ -195,7 +225,7 @@ public class SapperGui extends JFrame {
 			JButton button = (JButton) arg0.getSource();
 			if (button.isEnabled() == true) {
 				if (arg0.getButton() == MouseEvent.BUTTON3) {
-					FieldFlaged();
+					fieldFlagged();
 				} else {
 					fieldClick(button);
 				}
@@ -215,9 +245,9 @@ public class SapperGui extends JFrame {
 		}
 	}
 
-	public SapperGui(int sizeX, int sizeY, int mines) {
-		this.sizeX = sizeX;
-		this.sizeY = sizeY;
+	public SapperGui(int xSize, int ySize, int mines) {
+		this.sizeX = xSize;
+		this.sizeY = ySize;
 		this.mines = mines;
 		bridge = new Bridge(sizeX, sizeY, this.mines);
 		initUI();
@@ -230,10 +260,82 @@ public class SapperGui extends JFrame {
 		counterStart();
 	}
 
+	private void startGame() {
+		SapperGui sapper = new SapperGui(sizeX, sizeY, mines);
+		sapper.setLocation(this.getLocationOnScreen());
+		sapper.setVisible(true);
+		this.setVisible(false);
+	}
+
+	private void showOptions() {
+		GuiOptions options = new GuiOptions(sizeX, sizeY, mines);
+		options.setLocation(this.getLocationOnScreen());
+		options.setVisible(true);
+		this.setVisible(false);
+	}
+
+	private void closeWindow() {
+		this.setVisible(false);
+	}
+
 	private void initUI() {
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		getContentPane().add(panel);
+
+		JPanel top = new JPanel();
+		panel.add(top, BorderLayout.NORTH);
+		top.setLayout(new GridLayout(1, 0));
+
+		menuBar = new JMenuBar();
+		top.add(menuBar);
+
+		JMenu gameMenu = new JMenu("Gra");
+		menuBar.add(gameMenu);
+
+		JMenuItem newGameItem = new JMenuItem("Nowa gra");
+		newGameItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				startGame();
+			}
+		});
+		gameMenu.add(newGameItem);
+
+		JMenuItem loadGameItem = new JMenuItem("Wczytaj grę");
+		gameMenu.add(loadGameItem);
+
+		JMenuItem optionsItem = new JMenuItem("Opcje");
+		optionsItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showOptions();
+			}
+		});
+		gameMenu.add(optionsItem);
+
+		JMenuItem saveGameItem = new JMenuItem("Zapisz");
+		gameMenu.add(saveGameItem);
+
+		gameMenu.addSeparator();
+
+		JMenuItem exitItem = new JMenuItem("Wyjdź");
+		exitItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeWindow();
+			}
+		});
+		gameMenu.add(exitItem);
+
+		JMenu helpMenu = new JMenu("Pomoc");
+		menuBar.add(helpMenu);
+
+		JMenuItem authorsItem = new JMenuItem("O autorach");
+		final String authors = "Koło programistów WSZiB\nwww.wszib.edu.pl";
+		authorsItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, authors, "O autorach", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		helpMenu.add(authorsItem);
 
 		gamePanel = new JPanel();
 		gamePanel.setLayout(new GridLayout(sizeX, sizeY, 1, 1));
