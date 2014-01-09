@@ -61,9 +61,9 @@ public class SapperGui extends JFrame {
 			JButton button = (JButton) arg0.getSource();
 			if (button.isEnabled() == true) {
 				if (arg0.getButton() == MouseEvent.BUTTON3) {
-					fieldFlagged(x,y);
+					fieldFlagged(x, y);
 				} else {
-					fieldClick(x,y);
+					fieldClick(x, y);
 				}
 			}
 		}
@@ -274,14 +274,15 @@ public class SapperGui extends JFrame {
 
 	private void refreshBoard() {
 		for (int x = 0; x < sizeX; x++) {
-			for (int y = 0;  y< sizeY; y++) {
+			for (int y = 0; y < sizeY; y++) {
 				MineNumberWinLose status = bridge.checkMineWithoutUncover(x, y);
 				System.out.println(status);
-				if(status == MineNumberWinLose.FLAG || status == MineNumberWinLose.FLAGGEDMINE){
+				if (status == MineNumberWinLose.FLAG
+						|| status == MineNumberWinLose.FLAGGEDMINE) {
 					flags++;
 					calculateMines();
 				}
-				contentOfField(x,y,status);
+				contentOfField(x, y, status);
 			}
 		}
 	}
@@ -371,10 +372,10 @@ public class SapperGui extends JFrame {
 			setFieldLabelImage(eightBombs, x, y);
 			break;
 		case MINE:
-			loseEvent(x,y);
+			loseEvent(x, y);
 			break;
 		case WIN:
-			winEvent(x,y);
+			winEvent(x, y);
 			break;
 		case FLAG:
 			setFieldButtonImage(flag, x, y);

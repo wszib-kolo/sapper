@@ -11,8 +11,9 @@ import org.apache.log4j.Logger;
 import sapper.BoardAndCounter;
 
 public class Load {
-	private static transient Logger logger = Logger.getLogger(Load.class.getName());
-	
+	private static transient Logger logger = Logger.getLogger(Load.class
+			.getName());
+
 	public static BoardAndCounter loadFromFile() {
 		BoardAndCounter boardAndCounter = null;
 		try {
@@ -28,7 +29,8 @@ public class Load {
 			int userSelection = loadFileChooser.showOpenDialog(parentFrame);
 
 			if (userSelection == JFileChooser.APPROVE_OPTION) {
-				FileInputStream fileStream = new FileInputStream(loadFileChooser.getSelectedFile());
+				FileInputStream fileStream = new FileInputStream(
+						loadFileChooser.getSelectedFile());
 				ObjectInputStream is = new ObjectInputStream(fileStream);
 				boardAndCounter = (BoardAndCounter) is.readObject();
 				is.close();

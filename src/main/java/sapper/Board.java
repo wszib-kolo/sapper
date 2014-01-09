@@ -8,7 +8,8 @@ import org.apache.log4j.Logger;
 import sapper.MineNumberWinLose;
 
 public class Board implements Serializable {
-	private static transient Logger logger = Logger.getLogger(Board.class.getName());
+	private static transient Logger logger = Logger.getLogger(Board.class
+			.getName());
 	private static final long serialVersionUID = 1L;
 	private Field[][] fields;
 
@@ -36,14 +37,16 @@ public class Board implements Serializable {
 		logger.debug(fieldStatus);
 		return fieldStatus;
 	}
-	public MineNumberWinLose chekUncoverField(int posX, int posY){
-		if(fields[posX][posY].isCovered()==false || fields[posX][posY].isFlagged()== true){
+
+	public MineNumberWinLose chekUncoverField(int posX, int posY) {
+		if (fields[posX][posY].isCovered() == false
+				|| fields[posX][posY].isFlagged() == true) {
 			return fields[posX][posY].getFieldStatus();
-		}
-		else{
+		} else {
 			return MineNumberWinLose.COVERED;
 		}
 	}
+
 	public void flagField(int posX, int posY, boolean flagStatus) {
 		fields[posX][posY].setFlag(flagStatus);
 	}

@@ -11,7 +11,7 @@ import sapper.BoardAndCounter;
 import sapper.Counter;
 import sapper.Options;
 
-public class Save{
+public class Save {
 
 	private Board board;
 	private Counter counter;
@@ -21,7 +21,7 @@ public class Save{
 		this.board = board;
 		this.counter = counter;
 		this.options = options;
-		
+
 	}
 
 	public void saveToFile() {
