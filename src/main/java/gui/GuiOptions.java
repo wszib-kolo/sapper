@@ -34,8 +34,6 @@ public class GuiOptions extends JFrame {
 		initComponents();
 	}
 
-	GameOptions gameOptions;
-
 	public GuiOptions(int sizeX, int sizeY, int mines) {
 
 		initComponents();
