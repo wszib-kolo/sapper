@@ -28,11 +28,12 @@ public class BoardGenerator {
 		generateBoard();
 		return fields;
 	}
+
 	private void fillArray() {
 		fields = new Field[sizeX][sizeY];
 		for (int i = 0; i < sizeX; i++) {
 			for (int j = 0; j < sizeY; j++) {
-				fields[i][j] = new NormalField();
+				createNormalField(i, j);
 			}
 		}
 	}
@@ -41,7 +42,7 @@ public class BoardGenerator {
 		for (int x = 0; x < mines.length; x++) {
 			for (int y = 0; y < mines[0].length; y++) {
 				if (mines[x][y] == 1) {
-					fields[x][y] = new MineField();
+					createMineField(x, y);
 				}
 			}
 		}
@@ -61,35 +62,50 @@ public class BoardGenerator {
 				boolean isThereBoardLeft = (left > -1);
 				boolean isThereBoardRight = (right < sizeX);
 
-				if (fields[centerHorizontal][centerVertical].getFieldStatus() == MineNumberWinLose.MINE) {
+				if (isFieldMine(centerHorizontal, centerVertical)) {
 					if (isThereBoardLeft == true) {
-						fields[left][centerVertical].increaseNearMinesNumber();
+						increaseFieldMineNumber(left, centerVertical);
 					}
 					if (isThereBoardUp == true) {
-						fields[centerHorizontal][up].increaseNearMinesNumber();
+						increaseFieldMineNumber(centerHorizontal, up);
 					}
 					if (isThereBoardDown == true) {
-						fields[centerHorizontal][down]
-								.increaseNearMinesNumber();
+						increaseFieldMineNumber(centerHorizontal, down);
 					}
 					if (isThereBoardRight == true) {
-						fields[right][centerVertical].increaseNearMinesNumber();
+						increaseFieldMineNumber(right, centerVertical);
 					}
 					if (isThereBoardLeft == true && isThereBoardUp == true) {
-						fields[left][up].increaseNearMinesNumber();
+						increaseFieldMineNumber(left, up);
 					}
 					if (isThereBoardRight == true && isThereBoardUp == true) {
-						fields[right][up].increaseNearMinesNumber();
+						increaseFieldMineNumber(right, up);
 					}
 					if (isThereBoardLeft == true && isThereBoardDown == true) {
-						fields[left][down].increaseNearMinesNumber();
+						increaseFieldMineNumber(left, down);
 					}
 					if (isThereBoardRight == true && isThereBoardDown == true) {
-						fields[right][down].increaseNearMinesNumber();
+						increaseFieldMineNumber(right, down);
 					}
 				}
 			}
 		}
+	}
+	
+	public void createNormalField(int x, int y){
+		fields[x][y] = new NormalField();
+	}
+	
+	public void createMineField(int x, int y){
+		fields[x][y] = new MineField();
+	}
+	
+	public boolean isFieldMine(int x, int y){
+		return fields[x][y].getFieldStatus() == MineNumberWinLose.MINE;
+	}
+	
+	public void increaseFieldMineNumber(int x, int y){
+		fields[x][y].increaseNearMinesNumber();
 	}
 }
 
