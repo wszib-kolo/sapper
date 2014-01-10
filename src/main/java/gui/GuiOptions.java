@@ -192,7 +192,7 @@ public class GuiOptions extends JFrame {
 	public int getMinesCount() {
 		return mines;
 	}
-	
+
 	private void backToGame() {
 		this.setVisible(false);
 	}
