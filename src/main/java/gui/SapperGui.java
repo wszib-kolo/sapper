@@ -300,12 +300,20 @@ public class SapperGui extends JFrame {
 	private void setFieldButtonImage(Icon fieldIcon, int posX, int posY) {
 		buttons[posX][posY].setIcon(fieldIcon);
 	}
-
+	
+	private void lockButtonsClik(){
+		for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
+			for (int yFieldPos = 0; yFieldPos < sizeY; yFieldPos++) {
+				buttons[xFieldPos][yFieldPos].setEnabled(false);
+			}
+		}
+	}
+	
 	private void winEvent(int x, int y) {
 		setFieldLabelImage(win, x, y);
 		counter.stop();
+		lockButtonsClik();
 	}
-
 	private void loseEvent(int x, int y) {
 		counter.stop();
 		for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
@@ -325,7 +333,9 @@ public class SapperGui extends JFrame {
 			}
 		}
 		setFieldLabelImage(explode, x, y);
+		lockButtonsClik();
 	}
+	
 
 	private void fieldFlagged(int x, int y) {
 		boolean flagSetted = bridge.changeFieldFlagStatus(x, y);
