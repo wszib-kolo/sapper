@@ -8,8 +8,9 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -47,7 +48,7 @@ public class SapperGui extends JFrame {
 		return bridge;
 	}
 
-	private class ButtonListener implements MouseListener {
+	private class ButtonListener extends MouseAdapter {
 		int x, y;
 
 		public ButtonListener(int posX, int posY) {
@@ -64,18 +65,6 @@ public class SapperGui extends JFrame {
 					fieldClick(x, y);
 				}
 			}
-		}
-
-		public void mouseEntered(MouseEvent arg0) {
-		}
-
-		public void mouseExited(MouseEvent arg0) {
-		}
-
-		public void mousePressed(MouseEvent arg0) {
-		}
-
-		public void mouseReleased(MouseEvent arg0) {
 		}
 	}
 
