@@ -301,7 +301,7 @@ public class SapperGui extends JFrame {
 		buttons[posX][posY].setIcon(fieldIcon);
 	}
 	
-	private void lockButtonsClik(){
+	private void lockButtonsClick(){
 		for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
 			for (int yFieldPos = 0; yFieldPos < sizeY; yFieldPos++) {
 				buttons[xFieldPos][yFieldPos].setEnabled(false);
@@ -312,7 +312,7 @@ public class SapperGui extends JFrame {
 	private void winEvent(int x, int y) {
 		setFieldLabelImage(win, x, y);
 		counter.stop();
-		lockButtonsClik();
+		lockButtonsClick();
 	}
 	private void loseEvent(int x, int y) {
 		counter.stop();
@@ -333,7 +333,7 @@ public class SapperGui extends JFrame {
 			}
 		}
 		setFieldLabelImage(explode, x, y);
-		lockButtonsClik();
+		lockButtonsClick();
 	}
 	
 
