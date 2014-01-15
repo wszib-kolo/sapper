@@ -301,6 +301,7 @@ public class SapperGui extends JFrame {
 		buttons[posX][posY].setIcon(fieldIcon);
 	}
 	
+	
 	private void lockButtonsClick(){
 		for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
 			for (int yFieldPos = 0; yFieldPos < sizeY; yFieldPos++) {
