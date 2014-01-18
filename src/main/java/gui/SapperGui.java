@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -115,6 +114,7 @@ public class SapperGui extends JFrame {
 		GuiOptions options = new GuiOptions(this);
 		options.setLocation(this.getLocationOnScreen());
 		options.setVisible(true);
+		options.setResizable(false);
 	}
 
 	private void closeWindow() {
@@ -289,21 +289,21 @@ public class SapperGui extends JFrame {
 	private void setFieldButtonImage(Icon fieldIcon, int posX, int posY) {
 		buttons[posX][posY].setIcon(fieldIcon);
 	}
-	
-	
-	private void lockButtonsClick(){
+
+	private void lockButtonsClick() {
 		for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
 			for (int yFieldPos = 0; yFieldPos < sizeY; yFieldPos++) {
 				buttons[xFieldPos][yFieldPos].setEnabled(false);
 			}
 		}
 	}
-	
+
 	private void winEvent(int x, int y) {
 		setFieldLabelImage(win, x, y);
 		counter.stop();
 		lockButtonsClick();
 	}
+
 	private void loseEvent(int x, int y) {
 		counter.stop();
 		for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
@@ -325,7 +325,6 @@ public class SapperGui extends JFrame {
 		setFieldLabelImage(explode, x, y);
 		lockButtonsClick();
 	}
-	
 
 	private void fieldFlagged(int x, int y) {
 		boolean flagSetted = bridge.changeFieldFlagStatus(x, y);
