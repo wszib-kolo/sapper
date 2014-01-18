@@ -4,13 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.LayoutStyle;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -104,149 +102,60 @@ public class GuiOptions extends JFrame {
 				backToGame();
 			}
 		});
-		
-		
-		
+
 		spinnerXSize.addChangeListener(new ChangeListener() {
-			
+
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				if ((Integer) spinnerXSize.getValue()<2) spinnerXSize.setValue(2);
+				if ((Integer) spinnerXSize.getValue() < 2)
+					spinnerXSize.setValue(2);
 				compareSizeWithMines();
-				
+
 			}
 		});
-		
+
 		spinnerYSize.addChangeListener(new ChangeListener() {
-			
+
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				if ((Integer) spinnerYSize.getValue()<2) spinnerYSize.setValue(2);
+				if ((Integer) spinnerYSize.getValue() < 2)
+					spinnerYSize.setValue(2);
 				compareSizeWithMines();
 			}
 		});
-		
+
 		spinnerMines.addChangeListener(new ChangeListener() {
-			
+
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				if ((Integer) spinnerMines.getValue()<1) spinnerMines.setValue(1);
+				if ((Integer) spinnerMines.getValue() < 1)
+					spinnerMines.setValue(1);
 				compareMinesWithSize();
-				
 			}
 		});
-		
-
-		GroupLayout layout = new GroupLayout(getContentPane());
-		getContentPane().setLayout(layout);
-		layout
-				.setHorizontalGroup(layout
-						.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addGroup(
-								layout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												layout
-														.createParallelGroup(GroupLayout.Alignment.LEADING)
-														.addGroup(
-																layout
-																		.createSequentialGroup()
-																		.addGroup(
-																				layout
-																						.createParallelGroup(
-																								GroupLayout.Alignment.LEADING)
-																						.addGroup(
-																								layout
-																										.createSequentialGroup()
-																										.addComponent(
-																												labelBoardSize)
-																										.addPreferredGap(
-																												LayoutStyle.ComponentPlacement.UNRELATED)
-																										.addComponent(
-																												spinnerXSize,
-																												GroupLayout.PREFERRED_SIZE,
-																												40,
-																												GroupLayout.PREFERRED_SIZE))
-																						.addGroup(
-																								layout
-																										.createSequentialGroup()
-																										.addComponent(labelMines)
-																										.addGap(18, 18, 18)
-																										.addComponent(
-																												spinnerMines,
-																												GroupLayout.PREFERRED_SIZE,
-																												43,
-																												GroupLayout.PREFERRED_SIZE)))
-																		.addPreferredGap(
-																				LayoutStyle.ComponentPlacement.RELATED)
-																		.addComponent(labelX)
-																		.addPreferredGap(
-																				LayoutStyle.ComponentPlacement.RELATED)
-																		.addComponent(spinnerYSize,
-																				GroupLayout.PREFERRED_SIZE, 40,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addGap(0, 0, Short.MAX_VALUE))
-														.addGroup(
-																GroupLayout.Alignment.TRAILING,
-																layout
-																		.createSequentialGroup()
-																		.addComponent(btnSave)
-																		.addPreferredGap(
-																				LayoutStyle.ComponentPlacement.RELATED,
-																				GroupLayout.DEFAULT_SIZE,
-																				Short.MAX_VALUE)
-																		.addComponent(btnCancel)))
-										.addContainerGap()));
-		layout.setVerticalGroup(layout.createParallelGroup(
-				GroupLayout.Alignment.LEADING).addGroup(
-				layout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								layout
-										.createParallelGroup(GroupLayout.Alignment.BASELINE)
-										.addComponent(labelBoardSize)
-										.addComponent(spinnerXSize, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(labelX)
-										.addComponent(spinnerYSize, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGap(18, 18, 18)
-						.addGroup(
-								layout
-										.createParallelGroup(GroupLayout.Alignment.BASELINE)
-										.addComponent(labelMines)
-										.addComponent(spinnerMines, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGap(18, 18, 18)
-						.addGroup(
-								layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-										.addComponent(btnSave).addComponent(btnCancel))
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-
 		pack();
 	}
-	
-	private void compareSizeWithMines(){
+
+	private void compareSizeWithMines() {
 		tmpXsize = (Integer) spinnerXSize.getValue();
 		tmpYsize = (Integer) spinnerYSize.getValue();
 		tmpMines = (Integer) spinnerMines.getValue();
-		
-		if (tmpMines>(tmpXsize*tmpYsize)) spinnerMines.setValue(tmpXsize*tmpYsize);
+
+		if (tmpMines > (tmpXsize * tmpYsize))
+			spinnerMines.setValue(tmpXsize * tmpYsize);
 	}
-	
-	private void compareMinesWithSize(){
-		tmpXsize = (Integer)spinnerXSize.getValue();
-		tmpYsize = (Integer)spinnerYSize.getValue();
-		tmpMines = tmpXsize*tmpYsize;
-		if ((Integer)spinnerMines.getValue()>tmpMines){
-			if (tmpMines>1) spinnerMines.setValue(tmpMines);
-			else spinnerMines.setValue(1);
+
+	private void compareMinesWithSize() {
+		tmpXsize = (Integer) spinnerXSize.getValue();
+		tmpYsize = (Integer) spinnerYSize.getValue();
+		tmpMines = tmpXsize * tmpYsize;
+		if ((Integer) spinnerMines.getValue() > tmpMines) {
+			if (tmpMines > 1)
+				spinnerMines.setValue(tmpMines);
+			else
+				spinnerMines.setValue(1);
 		}
 	}
-	
-	
 
 	public int getXsize() {
 		return xSize;
