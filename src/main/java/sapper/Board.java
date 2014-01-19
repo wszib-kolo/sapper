@@ -2,7 +2,6 @@ package sapper;
 
 import java.io.Serializable;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 import sapper.MineNumberWinLose;
@@ -14,7 +13,6 @@ public class Board implements Serializable {
 	private Field[][] fields;
 
 	public Board(Field[][] fields) {
-		BasicConfigurator.configure();
 		this.fields = fields;
 	}
 

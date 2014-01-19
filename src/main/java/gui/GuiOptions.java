@@ -12,6 +12,8 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import sapper.Options;
+
 public class GuiOptions extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -25,9 +27,7 @@ public class GuiOptions extends JFrame {
 	private JSpinner spinnerYSize;
 	private JSpinner spinnerMines;
 
-	private int xSize = 2;
-	private int ySize = 2;
-	private int mines = 1;
+	private Options options;
 	private int tmpXsize = 2, tmpYsize = 2, tmpMines = 1;
 
 	SapperGui oldSapperGui;
@@ -39,12 +39,10 @@ public class GuiOptions extends JFrame {
 	public GuiOptions(SapperGui oldSapperGui) {
 		initComponents();
 		this.oldSapperGui = oldSapperGui;
-		this.xSize = oldSapperGui.getSizeX();
-		this.ySize = oldSapperGui.getSizeY();
-		this.mines = oldSapperGui.getMines();
-		spinnerMines.setValue(mines);
-		spinnerXSize.setValue(xSize);
-		spinnerYSize.setValue(ySize);
+		options = oldSapperGui.getBridge().getOptions();
+		spinnerXSize.setValue(options.getSizeX());
+		spinnerYSize.setValue(options.getSizeY());
+		spinnerMines.setValue(options.getMines());
 	}
 
 	private void initComponents() {
@@ -90,9 +88,9 @@ public class GuiOptions extends JFrame {
 
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				xSize = (Integer) spinnerXSize.getValue();
-				ySize = (Integer) spinnerYSize.getValue();
-				mines = (Integer) spinnerMines.getValue();
+				options.setSizeX((Integer) spinnerXSize.getValue());
+				options.setSizeY((Integer) spinnerYSize.getValue());
+				options.setMines((Integer) spinnerMines.getValue());
 				saveGame();
 			}
 		});
@@ -156,25 +154,12 @@ public class GuiOptions extends JFrame {
 				spinnerMines.setValue(1);
 		}
 	}
-
-	public int getXsize() {
-		return xSize;
-	}
-
-	public int getYsize() {
-		return ySize;
-	}
-
-	public int getMinesCount() {
-		return mines;
-	}
-
 	private void backToGame() {
 		this.setVisible(false);
 	}
 
 	private void saveGame() {
-		SapperGui sapper = new SapperGui(xSize, ySize, mines);
+		SapperGui sapper = new SapperGui(options);
 		sapper.setLocation(this.getLocationOnScreen());
 		sapper.setVisible(true);
 		this.setVisible(false);

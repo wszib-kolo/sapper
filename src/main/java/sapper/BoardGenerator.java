@@ -4,20 +4,18 @@ import sapper.MineNumberWinLose;
 
 public class BoardGenerator {
 	private Field[][] fields; 
-	private int sizeX, sizeY, numberOfMines;	
+	private Options options;	
 	
-	public BoardGenerator(int sizeX, int sizeY, int numberOfMines) {
-		this.sizeX = sizeX;
-		this.sizeY = sizeY;
-		this.numberOfMines = numberOfMines;
+	public BoardGenerator(Options options) {
+		this.options=options;
 	}
 
 	public Field[][] randomizeMines() {
-		int[][] mines = new int[sizeX][sizeY];
+		int[][] mines = new int[options.getSizeX()][options.getSizeY()];
 		int minesSet = 0;
-		while (minesSet < numberOfMines) {
-			int x = (int) (Math.random() * sizeX);
-			int y = (int) (Math.random() * sizeY);
+		while (minesSet < options.getMines()) {
+			int x = (int) (Math.random() * options.getSizeX());
+			int y = (int) (Math.random() * options.getSizeY());
 			if (mines[x][y] != 1) {
 				mines[x][y] = 1;
 				minesSet++;
@@ -30,9 +28,9 @@ public class BoardGenerator {
 	}
 
 	private void fillArray() {
-		fields = new Field[sizeX][sizeY];
-		for (int i = 0; i < sizeX; i++) {
-			for (int j = 0; j < sizeY; j++) {
+		fields = new Field[options.getSizeX()][options.getSizeY()];
+		for (int i = 0; i < options.getSizeX(); i++) {
+			for (int j = 0; j < options.getSizeY(); j++) {
 				createNormalField(i, j);
 			}
 		}
@@ -49,18 +47,18 @@ public class BoardGenerator {
 	}
 
 	private void generateBoard() {
-		for (int x = 0; x < sizeX; x++) {
-			for (int y = 0; y < sizeY; y++) {
+		for (int x = 0; x < options.getSizeX(); x++) {
+			for (int y = 0; y < options.getSizeY(); y++) {
 				int centerHorizontal = x;
 				int centerVertical = y;
 				int down = y - 1;
 				int up = y + 1;
 				int left = x - 1;
 				int right = x + 1;
-				boolean isThereBoardUp = (up < sizeY);
+				boolean isThereBoardUp = (up < options.getSizeY());
 				boolean isThereBoardDown = (down > -1);
 				boolean isThereBoardLeft = (left > -1);
-				boolean isThereBoardRight = (right < sizeX);
+				boolean isThereBoardRight = (right < options.getSizeX());
 
 				if (isFieldMine(centerHorizontal, centerVertical)) {
 					if (isThereBoardLeft == true) {

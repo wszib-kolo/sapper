@@ -23,30 +23,28 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 import sapper.MineNumberWinLose;
+import sapper.Options;
 import controller.Bridge;
 
 public class SapperGui extends JFrame {
 	private static transient Logger logger = Logger.getLogger(SapperGui.class
 			.getName());
 	private static final long serialVersionUID = 1L;
-	private int sizeX = 10;
-	private int sizeY = 10;
-	private int mines = 10;
+	private Options options;
 
 	private JPanel panel, gamePanel;
 	private JMenuBar menuBar;
 	private JButton[][] buttons;
 	private MineNumberWinLose status;
-	private static Bridge bridge;
+	private Bridge bridge;
 	private JLabel minesCounter;
 	private static JLabel timeCounter;
 	private int flags;
 	private static CounterGUI counter;
 
-	public static Bridge getBridge() {
+	public Bridge getBridge() {
 		return bridge;
 	}
-
 	private class ButtonListener extends MouseAdapter {
 		int x, y;
 
@@ -67,37 +65,31 @@ public class SapperGui extends JFrame {
 		}
 	}
 
-	public int getMines() {
-		return mines;
-	}
-
-	public SapperGui(int xSize, int ySize, int mines) {
-		this.sizeX = xSize;
-		this.sizeY = ySize;
-		this.mines = mines;
-		bridge = new Bridge(sizeX, sizeY, this.mines);
+	public SapperGui(Options options) {
+		this.options = options;
+		bridge = new Bridge(options);
 		initUI();
 		counterStart();
 	}
 
 	public SapperGui() {
-		bridge = new Bridge(sizeX, sizeY, mines);
+		options = new Options(10,10,10);
+		
+		bridge = new Bridge(options);
 		initUI();
 		counterStart();
 	}
 
 	public SapperGui(Bridge loadedBridge) {
 		bridge = loadedBridge;
-		this.sizeX = bridge.getSizeX();
-		this.sizeY = bridge.getSizeY();
-		this.mines = bridge.getMines();
+		this.options=bridge.getOptions();
 		initUI();
 		refreshBoard();
 		counterStart();
 	}
 
 	private void startGame() {
-		SapperGui sapper = new SapperGui(sizeX, sizeY, mines);
+		SapperGui sapper = new SapperGui(options);
 		sapper.setLocation(this.getLocationOnScreen());
 		sapper.setVisible(true);
 		this.setVisible(false);
@@ -119,18 +111,6 @@ public class SapperGui extends JFrame {
 
 	private void closeWindow() {
 		this.setVisible(false);
-	}
-
-	public int getSizeX() {
-		return sizeX;
-	}
-
-	public int getSizeY() {
-		return sizeY;
-	}
-
-	public void setMines(int mines) {
-		this.mines = mines;
 	}
 
 	private void initUI() {
@@ -204,13 +184,13 @@ public class SapperGui extends JFrame {
 		helpMenu.add(authorsItem);
 
 		gamePanel = new JPanel();
-		gamePanel.setLayout(new GridLayout(sizeX, sizeY, 1, 1));
+		gamePanel.setLayout(new GridLayout(options.getSizeX(), options.getSizeY(), 1, 1));
 		panel.add(gamePanel);
 
-		buttons = new JButton[sizeX][sizeY];
+		buttons = new JButton[options.getSizeX()][options.getSizeY()];
 
-		for (int posX = 0; posX < sizeX; posX++) {
-			for (int posY = 0; posY < sizeY; posY++) {
+		for (int posX = 0; posX < options.getSizeX(); posX++) {
+			for (int posY = 0; posY < options.getSizeY(); posY++) {
 				buttons[posX][posY] = new JButton();
 				buttons[posX][posY].addMouseListener(new ButtonListener(posX, posY));
 				buttons[posX][posY].setPreferredSize(new Dimension(40, 40));
@@ -225,7 +205,7 @@ public class SapperGui extends JFrame {
 		countersInBottomPanel.setLayout(new GridLayout(0, 2));
 		bottom.add(countersInBottomPanel);
 
-		minesCounter = new JLabel("Pozostało min: " + String.valueOf(mines));
+		minesCounter = new JLabel("Pozostało min: " + String.valueOf(options.getMines()));
 		countersInBottomPanel.add(minesCounter);
 
 		timeCounter = new JLabel("Czas gry: 0 sekund");
@@ -242,7 +222,7 @@ public class SapperGui extends JFrame {
 
 	private void calculateMines() {
 		int numberOfMines = 0;
-		numberOfMines = mines - flags;
+		numberOfMines = options.getMines() - flags;
 		minesCounter.setText("Pozostało min: " + String.valueOf(numberOfMines));
 	}
 
@@ -251,7 +231,7 @@ public class SapperGui extends JFrame {
 		counter.start();
 	}
 
-	public static void saveGame() {
+	public void saveGame() {
 		bridge.save();
 	}
 
@@ -262,8 +242,8 @@ public class SapperGui extends JFrame {
 	}
 
 	private void refreshBoard() {
-		for (int x = 0; x < sizeX; x++) {
-			for (int y = 0; y < sizeY; y++) {
+		for (int x = 0; x < options.getSizeX(); x++) {
+			for (int y = 0; y < options.getSizeY(); y++) {
 				MineNumberWinLose status = bridge.checkMineWithoutUncover(x, y);
 				System.out.println(status);
 				if (status == MineNumberWinLose.FLAG
@@ -277,10 +257,10 @@ public class SapperGui extends JFrame {
 	}
 
 	private void setFieldLabelImage(Icon fieldIcon, int posX, int posY) {
-		gamePanel.remove((sizeY) * posX + posY);
+		gamePanel.remove((options.getSizeY()) * posX + posY);
 
 		JLabel fieldImageLabel = new JLabel(fieldIcon);
-		gamePanel.add(fieldImageLabel, (sizeY) * posX + posY);
+		gamePanel.add(fieldImageLabel, (options.getSizeY()) * posX + posY);
 
 		fieldImageLabel.setBorder(BorderFactory.createDashedBorder(Color.black));
 		gamePanel.updateUI();
@@ -291,8 +271,8 @@ public class SapperGui extends JFrame {
 	}
 
 	private void lockButtonsClick() {
-		for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
-			for (int yFieldPos = 0; yFieldPos < sizeY; yFieldPos++) {
+		for (int xFieldPos = 0; xFieldPos < options.getSizeX(); xFieldPos++) {
+			for (int yFieldPos = 0; yFieldPos < options.getSizeY(); yFieldPos++) {
 				buttons[xFieldPos][yFieldPos].setEnabled(false);
 			}
 		}
@@ -306,8 +286,8 @@ public class SapperGui extends JFrame {
 
 	private void loseEvent(int x, int y) {
 		counter.stop();
-		for (int xFieldPos = 0; xFieldPos < sizeX; xFieldPos++) {
-			for (int yFieldPos = 0; yFieldPos < sizeY; yFieldPos++) {
+		for (int xFieldPos = 0; xFieldPos < options.getSizeX(); xFieldPos++) {
+			for (int yFieldPos = 0; yFieldPos < options.getSizeY(); yFieldPos++) {
 				switch (bridge.checkMine(xFieldPos, yFieldPos)) {
 				case FLAGGEDMINE:
 					setFieldLabelImage(flaggedBomb, xFieldPos, yFieldPos);
@@ -399,11 +379,11 @@ public class SapperGui extends JFrame {
 			contentOfField(up, y, field_up);
 		}
 
-		if (down < sizeX) {
+		if (down < options.getSizeX()) {
 			MineNumberWinLose field_down = bridge.checkMine(x + 1, y);
 			contentOfField(down, y, field_down);
 		}
-		if (right < sizeY) {
+		if (right < options.getSizeY()) {
 			MineNumberWinLose field_right = bridge.checkMine(x, y + 1);
 			contentOfField(x, right, field_right);
 		}
@@ -413,7 +393,7 @@ public class SapperGui extends JFrame {
 			contentOfField(x, left, field_left);
 		}
 
-		if (right < sizeY && down < sizeX) {
+		if (right < options.getSizeY() && down < options.getSizeX()) {
 			MineNumberWinLose field_down_right = bridge.checkMine(x + 1, y + 1);
 			contentOfField(down, right, field_down_right);
 		}
@@ -423,12 +403,12 @@ public class SapperGui extends JFrame {
 			contentOfField(up, left, field_up_left);
 		}
 
-		if (left >= 0 && down < sizeX) {
+		if (left >= 0 && down < options.getSizeX()) {
 			MineNumberWinLose field_down_left = bridge.checkMine(x + 1, y - 1);
 			contentOfField(down, left, field_down_left);
 		}
 
-		if (up >= 0 && right < sizeY) {
+		if (up >= 0 && right < options.getSizeY()) {
 			MineNumberWinLose field_up_right = bridge.checkMine(x - 1, y + 1);
 			contentOfField(up, right, field_up_right);
 		}

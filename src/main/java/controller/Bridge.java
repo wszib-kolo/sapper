@@ -26,12 +26,9 @@ public class Bridge {
 		return gameBoard.chekUncoverField(x, y);
 	}
 
-	public Bridge(int x, int y, int minesNumber) {
-		options = new Options();
-		options.setMines(minesNumber);
-		options.setSizeX(x);
-		options.setSizeY(y);
-		BoardGenerator boardGen = new BoardGenerator(x, y, minesNumber);
+	public Bridge(Options options) {
+		this.options = options;
+		BoardGenerator boardGen = new BoardGenerator(options);
 		gameBoard = new Board(boardGen.randomizeMines());
 		counter = new Counter();
 	}
@@ -78,7 +75,9 @@ public class Bridge {
 	public int getMines() {
 		return options.getMines();
 	}
-
+	public Options getOptions(){
+		return options;
+	}
 	public int getGameTime() {
 		return counter.getGameTime();
 	}
