@@ -42,9 +42,9 @@ public class GuiOptions extends JFrame {
 		this.xSize = oldSapperGui.getSizeX();
 		this.ySize = oldSapperGui.getSizeY();
 		this.mines = oldSapperGui.getMines();
-		spinnerMines.setValue(mines);
 		spinnerXSize.setValue(xSize);
 		spinnerYSize.setValue(ySize);
+		spinnerMines.setValue(mines);
 	}
 
 	private void initComponents() {
