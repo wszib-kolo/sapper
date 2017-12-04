@@ -8,6 +8,12 @@ public class Options implements Serializable {
 	private int sizeY;
 	private int mines;
 
+	public Options(int sizeX, int sizeY, int mines) {
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		this.mines = mines;
+	}
+
 	public int getSizeX() {
 		return sizeX;
 	}
